@@ -1,0 +1,38 @@
+----------------------------------------------------
+-- The standary library. Will be included by default in all programs.
+-- Author: Reed Oei
+-- Version: 0.1
+-- Date: 2018-10-01
+----------------------------------------------------
+
+-- This will be defined in a standard library
+a List (of A) may be:
+    Empty.
+    Cons has: Head : A, and Tail : List (of A).
+
+Optional A may be:
+    NoValue.
+    Value has: A.
+
+-- Unify X with the constructor Value, and can ignore and not bind the value inside to anything,
+-- because we only care that it has a value at all.
+X must exist as V is: X = Value has: V.
+
+the first of the _ : Cons A (List (of A)) -> A
+the first of the List is:
+    H = Head of List, and
+    H must exist as HeadValue, and
+    the first of the List = HeadValue.
+
+the rest of the List is:
+    T = Tail of List, and
+    T must exist as TailValue, and
+    the rest of the List = TailValue.
+
+-- Written this way so that will work for any type that has the two fields Head and Tail
+-- (though other fields will be not be unified with anything).
+singleton X is:
+    Head of List = X, and
+    Tail of List = Empty, and
+    singleton X = List.
+
