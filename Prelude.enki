@@ -5,36 +5,17 @@
 -- Date: 2018-10-02
 ----------------------------------------------------
 
--- This will be defined in a standard library
-a List (of A) may be:
-    Empty.
-    Cons has: Head : A, and Tail : List (of A).
-
 Optional A may be:
     NoValue.
     Value has: A.
 
+a List (of A) may be:
+    Empty.
+    Cons has: (Head : A, and Tail : List (of A)).
+
 -- Unify X with the constructor Value, and can ignore and not bind the value inside to anything,
 -- because we only care that it has a value at all.
 X must exist as V is: X = Value has: V.
-
-the first of the _ : Cons A (List (of A)) -> A
-the first of the List is:
-    H = Head of List, and
-    H must exist as HeadValue, and
-    the first of the List = HeadValue.
-
-the rest of the List is:
-    T = Tail of List, and
-    T must exist as TailValue, and
-    the rest of the List = TailValue.
-
--- Written this way so that will work for any type that has the two fields Head and Tail
--- (though other fields will be not be unified with anything).
-singleton X is:
-    Head of List = X, and
-    Tail of List = Empty, and
-    singleton X = List.
 
 -- Define a keyboard friendly version of some built ins
 X -> Y if: X → Y.
@@ -60,9 +41,40 @@ N divides M if: M is a multiple of N.
 N is even if: N is a multiple of 2.
 
 sum List is:
-    when List = Cons has: Head, and Tail then:
+    when List = Cons has: (Head, and Tail) then:
+        sum List = Head + (sum Tail).
+    when List = Empty then: sum List = 0.
 
 ∑N is:
     X is the sum of all such N, and
     ∑N = X.
+
+the digits of N is:
+    when N < 10 then: the digits of N = singleton N.
+    otherwise then: the digits of N = Cons has: ((N mod 10), and (the digits of (N / 10))).
+
+-- List stuff:
+the first of _ : Cons A (List (of A)) -> A
+the first of List is:
+    H = Head of List, and
+    H must exist as HeadValue, and
+    the first of List = HeadValue.
+
+the rest of _ : Cons A (List (of A)) -> List (of A)
+the rest of List is:
+    T = Tail of List, and
+    T must exist as TailValue, and
+    the rest of List = TailValue.
+
+-- Written this way so that will work for any type that has the two fields Head and Tail
+-- (though other fields will be not be unified with anything).
+singleton X is: Cons has: (X, and Empty).
+
+reversing L gives R if:
+    when L = Empty then: R = Empty.
+    when L = Cons has: (Head, and Tail) then: R = append Tail (singleton Head).
+
+the length of List is:
+    when List = Empty then: 0.
+    when List = Cons has: (Head, and Tail) then: 1 + (the length of Tail).
 
