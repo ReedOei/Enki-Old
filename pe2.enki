@@ -13,9 +13,17 @@ fibonacci N is: fibonacci (N - 1) + fibonacci (N - 2).
 -- Assert this without proof. We may wish to infer things like this when possible.
 postulate: ((fibonacci _X) is increasing).
 
+N is a multiple of M if: ∃ℤ with (N = _X * M).
+N is even if: N is a multiple of 2.
+
+∑N is:
+    X is the sum of all such N, and
+    ∑N = X.
+
 the answer to project euler #2 is X, where:
-    fibonacci N, and
-    N is even, and
-    N ≤ 4000000, and
-    X = ∑N.
+    N ∈ ℕ, and
+    F = fibonacci N, and
+    F is even, and
+    F ≤ 4000000, and
+    X = ∑F.
 

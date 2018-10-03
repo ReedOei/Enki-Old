@@ -38,6 +38,7 @@ N is a multiple of M if: ∃ℤ with (N = _ * M).
 N divides M if: M is a multiple of N.
 
 N is even if: N is a multiple of 2.
+N is odd if: not (N is even).
 
 sum List is:
     when List = Cons has: (Head, and Tail) then:

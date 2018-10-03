@@ -5,6 +5,9 @@
 -- Date: 2018-10-02
 ----------------------------------------------------
 
+N is a multiple of M if: ∃ℤ with (N = _ * M).
+N divides M if: M is a multiple of N.
+
 N is prime if: not (∃ℕ with (_ divides N)).
 
 the prime factors of N are Factors, where:

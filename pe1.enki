@@ -5,6 +5,8 @@
 -- Date: 2018-10-02
 ----------------------------------------------------
 
+N is a multiple of M if: ∃ℤ with (N = _X * M).
+
 the answer to project euler #1 is X, where:
     N ∈ ℕ, and
     (N is a multiple of 3) or (N is a multiple of 5), and
