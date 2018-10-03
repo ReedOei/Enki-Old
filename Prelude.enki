@@ -13,8 +13,7 @@ a List (of A) may be:
     Empty.
     Cons has: (Head : A, and Tail : List (of A)).
 
--- Unify X with the constructor Value, and can ignore and not bind the value inside to anything,
--- because we only care that it has a value at all.
+-- Unify X with the constructor Value and pattern match the value.
 X must exist as V is: X = Value has: V.
 
 -- Define a keyboard friendly version of some built ins
