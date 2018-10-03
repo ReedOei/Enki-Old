@@ -11,7 +11,7 @@ fibonacci 1 is: 1.
 fibonacci N is: fibonacci (N - 1) + fibonacci (N - 2).
 
 -- Assert this without proof. We may wish to infer things like this when possible.
-postulate: (fibonacci is increasing).
+postulate: ((fibonacci _X) is increasing).
 
 the answer to project euler #2 is X, where:
     fibonacci N, and
