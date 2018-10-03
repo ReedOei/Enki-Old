@@ -20,16 +20,13 @@ X factorial is: X * (X - 1) * ... * 1.
 display X is: output (convert X to Text).
 
 -- Optional type declarations, like so:
-
--- This is also a rule, where the : operator is a rule that specifies in X : T that X has type T.
--- Can be used for runtime reflection (an unnecessary detail for new programmers), may be useful.
-F takes A and returns B is: F : A -> B.
+F : A -> B.
 
 fibonacci takes Int and returns Int.
 -- or: fibonacci : Int -> Int, using the primitive operator :
 fibonacci N is:
-    when N = 0, then 0.
-    when N = 1, then 1.
+    when N = 0 then 0.
+    when N = 1 then 1.
     otherwise, fibonacci (N - 1) + fibonacci (N - 2).
 
 -- We may use if instead of is or where only when defining rules, not functions
@@ -68,16 +65,16 @@ the answer to project euler #5 is X, where:
      X is evenly divisible by 20),
     X is the smallest such number. -- This way may calculate by "going in order", rather than iterating all such values
 
-N is even if N is evenly divisible by 2.
+N is even if: N is evenly divisible by 2.
 -- For mod, we should implement this as (N = 1 mod 2) or
 -- more generally (N /= X mod M) and then iterate all such possibilities,
 -- so that we get the intuitive behavior of still being able to search.
-N is odd if N is not even.
+N is odd if: N is not even.
 
-the collatz sequence of N is Seq: -- non-required colon (probably?)
-    when N is 1, then the Seq contains is N.
-    when N is even, then Seq begins with N and continues with (the collatz sequence of (N / 2)).
-    when N is odd, then Seq begins with N and continues with (the collatz sequence of (3*N + 1)).
+the collatz sequence of N is Seq, where: -- non-required colon (probably?)
+    when N = 1 then: the Seq contains is N.
+    when N is even then: Seq begins with N and continues with (the collatz sequence of (N / 2)).
+    when N is odd then: Seq begins with N and continues with (the collatz sequence of (3*N + 1)).
 
 the answer to project euler #14 is (the length of Seq), where:
     Seq is the collatz sequence of N, and

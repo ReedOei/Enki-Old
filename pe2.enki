@@ -1,0 +1,21 @@
+----------------------------------------------------
+-- Solution to Project Euler #2 (https://projecteuler.net/problem=2)
+-- Author: Reed Oei
+-- Version: 1.0
+-- Date: 2018-10-02
+----------------------------------------------------
+
+-- Automatic memoization? May wish to limit it if we add it.
+fibonacci 0 is: 1.
+fibonacci 1 is: 1.
+fibonacci N is: fibonacci (N - 1) + fibonacci (N - 2).
+
+-- Assert this without proof. We may wish to infer things like this when possible.
+postulate: (fibonacci is increasing).
+
+the answer to project euler #2 is X, where:
+    fibonacci N, and
+    N is even, and
+    N ≤ 4000000, and
+    X = ∑N.
+

@@ -1,0 +1,18 @@
+----------------------------------------------------
+-- Solution to Project Euler #3 (https://projecteuler.net/problem=3)
+-- Author: Reed Oei
+-- Version: 1.0
+-- Date: 2018-10-02
+----------------------------------------------------
+
+N is prime if: not (∃X ∈ ℕ with (X divides N)).
+
+the prime factors of N are Factors, where:
+    N = Π Factors, and
+    ∀Factors have (_P is prime).
+
+the answer to project euler #3 is X, where:
+    the prime factors of 600851475143 is Factors, and
+    P ∈ Factors, and
+    X is the maximum of all such P.
+

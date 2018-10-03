@@ -54,11 +54,11 @@ a Player is a type of: GameObject for PacMan
         get keypress Key, and
         (X, and Y) of (Position of Player), and -- Note: Can chain this together
 
-        when Key = 'up', then: NewX = X, and NewY = Y - 4.
-        when Key = 'down', then: NewX = X, and NewY = Y + 4.
-        when Key = 'left', then: NewX = X - 4, and NewY = Y.
-        when Key = 'right', then: NewX = X + 4, and NewY = Y.
-        otherwise, then: NewX = X, and NewY = Y.
+        when Key = 'up' then: NewX = X, and NewY = Y - 4.
+        when Key = 'down' then: NewX = X, and NewY = Y + 4.
+        when Key = 'left' then: NewX = X - 4, and NewY = Y.
+        when Key = 'right' then: NewX = X + 4, and NewY = Y.
+        otherwise then: NewX = X, and NewY = Y.
 
         check all (Wall in (Walls of PacMan)) (may not have (Player inside Wall)), and
 

@@ -2,7 +2,7 @@
 -- The standary library. Will be included by default in all programs.
 -- Author: Reed Oei
 -- Version: 0.1
--- Date: 2018-10-01
+-- Date: 2018-10-02
 ----------------------------------------------------
 
 -- This will be defined in a standard library
@@ -35,4 +35,34 @@ singleton X is:
     Head of List = X, and
     Tail of List = Empty, and
     singleton X = List.
+
+-- Define a keyboard friendly version of some built ins
+X -> Y if: X → Y.
+
+for all Set have Property if: ∀Set have Property.
+exists Set with Property if: ∃Set with Property.
+there exists Set with Property if: ∃Set with Property.
+
+-- Wherever the left hand unifies (that is, at all points we will attempt to apply it, and see if it unifies),
+-- we will deduce the right hand side as fact as well.
+-- Postulates are only present at compile-time (is this true?).
+postulate:
+    (_Set is increasing) → ((∃_Set with Property) is increasing).
+
+X is the Function of all such V if:
+    find all V as Vs, and
+    X = Function Vs.
+
+-- Some math related stuff:
+N is a multiple of M if: ∃ℤ with (N = _ * M).
+N divides M if: M is a multiple of N.
+
+N is even if: N is a multiple of 2.
+
+sum List is:
+    when List = Cons has: Head, and Tail then:
+
+∑N is:
+    X is the sum of all such N, and
+    ∑N = X.
 

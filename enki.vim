@@ -15,8 +15,9 @@ endif
 
 let b:current_syntax = "enki"
 
+syntax match posulateKeyword 'postulate:'
 syntax match thenKeyword 'then:'
-syntax match thenKeyword 'has:'
+syntax match hasKeyword 'has:'
 syntax match isKeyword 'is:'
 syntax match whereKeyword 'where:'
 syntax match typeclassDef 'a type of:'
@@ -25,7 +26,7 @@ syntax match sumTypeDef 'may be:'
 syntax keyword whenKeyword when otherwise
 syntax match ifKeyword 'if:'
 
-syntax match hole '_'
+syntax match hole '_[A-Z]*[a-z]*\>'
 
 syntax match unification '='
 syntax match notUnification '/='
@@ -40,6 +41,7 @@ syntax region string start='"' end='"' skip='\\"'
 syntax region string start='\'' end='\'' skip='\\\''
 
 hi def link whereKeyword Statement
+hi def link posulateKeyword Statement
 hi def link mustHave Statement
 hi def link hasKeyword Statement
 hi def link isKeyword Statement
