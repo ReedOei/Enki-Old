@@ -12,7 +12,7 @@ the prime factors of N are Factors, where:
     ∀Factors have (_P is prime).
 
 the answer to project euler #3 is X, where:
-    the prime factors of 600851475143 is Factors, and
+    the prime factors of 600851475143 are Factors, and
     P ∈ Factors, and
     X is the maximum of all such P.
 
