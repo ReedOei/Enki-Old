@@ -1,0 +1,61 @@
+----------------------------------------------------
+-- A simple GUI calculator.
+-- Version: 0.1
+-- Date: 2018-10-04
+----------------------------------------------------
+
+use library Graphics.
+
+show window (main window).
+
+main window is:
+    main window = Window,
+    Window has:
+    (
+        With = 1024, and
+        Height = 800, and
+        Components =
+        [
+            a text box for Output,
+            a button Zero that says "0",
+            a button One that says "1",
+            a button Two that says "2",
+            a button Three that says "3",
+            a button Four that says "4",
+            a button Five that says "5",
+            a button Six that says "6",
+            a button Seven that says "7",
+            a button Eight that says "8",
+            a button Nine that says "9",
+            a button Add that says "+",
+            a button Multiply that says "-",
+            a button Equals that says "="
+        ], and
+        Behavior =
+        [
+            when Zero is clicked then: update calculator values A and B with 0.
+            when One is clicked then: update calculator values A and B with 1.
+            when Two is clicked then: update calculator values A and B with 2.
+            when Three is clicked then: update calculator values A and B with 3.
+            when Four is clicked then: update calculator values A and B with 4.
+            when Five is clicked then: update calculator values A and B with 5.
+            when Six is clicked then: update calculator values A and B with 6.
+            when Seven is clicked then: update calculator values A and B with 7.
+            when Eight is clicked then: update calculator values A and B with 8.
+            when Nine is clicked then: update calculator values A and B with 9.
+            when Add is clicked then: update calculator operation Operation with +.
+            when Multiply is clicked then: update calculator operation Operation with *.
+            when Equals is clicked then: update Output to say (A Operation B), and reset A, and reset B.
+        ]
+    ).
+
+update calculator values A and B with N is:
+    when A is set then: make (B = N).
+    otherwise then: make (A = N).
+
+update calculator operation Operation with Op is: make (Operation = OP).
+
+update Output to say (A Operation B) is:
+    V = convert (A Operation B) to Text, and
+    make (Output say V).
+

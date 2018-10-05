@@ -15,13 +15,14 @@ endif
 
 let b:current_syntax = "enki"
 
+syntax match ifItHas 'if it has:'
+syntax match becauseItHas 'because it has:'
 syntax match posulateKeyword 'postulate:'
 syntax match thenKeyword 'then:'
 syntax match hasKeyword 'has:'
 syntax match isKeyword 'is:'
 syntax match whereKeyword 'where:'
-syntax match typeclassDef 'a type of:'
-syntax match mustHave 'must have:'
+syntax match typeclassDef 'is a type of:'
 syntax match sumTypeDef 'may be:'
 syntax keyword whenKeyword when otherwise
 syntax match ifKeyword 'if:'
@@ -31,7 +32,7 @@ syntax match hole '_[A-Z]*[a-z]*\>'
 syntax match unification '='
 syntax match notUnification '/='
 
-syntax match variable '\<[A-Z][A-Za-z]*'
+syntax match variable '\<[A-Z][A-Za-z0-9]*'
 
 syntax match comment "--.*$"
 
@@ -40,9 +41,10 @@ syntax match num '#\?[-+]\?\d\+'
 syntax region string start='"' end='"' skip='\\"'
 syntax region string start='\'' end='\'' skip='\\\''
 
+hi def link ifItHas Statement
 hi def link whereKeyword Statement
 hi def link posulateKeyword Statement
-hi def link mustHave Statement
+hi def link becauseItHas Statement
 hi def link hasKeyword Statement
 hi def link isKeyword Statement
 hi def link typeclassDef Statement

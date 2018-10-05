@@ -1,0 +1,107 @@
+----------------------------------------------------
+-- A program demonstrating a bunch of basic stuff.
+-- Version: 0.1
+-- Date: 2018-10-04
+----------------------------------------------------
+
+-- We have comments, prefixed by two dashes
+
+-- We can print stuff
+display 4. -- 4
+
+-- We have functions (a constant function, in this case).
+the value of x is: -10.
+
+display (the value of x). -- 10
+
+-- We can have parameters in our functions:
+the value of X + Y is: X + Y.
+
+display (the value of 10 + 15). -- 25
+
+-- We also have lists:
+display ([1,2,3,4,5]). -- [1,2,3,4,5]
+
+-- We can write functions that operate on lists:
+the length of L is:
+    when L = [] then: 0.
+    when L = [X...Rest] then: 1 + the length of Rest.
+
+display (the length of [1,2,3,4]). -- 4
+
+-- We can also define rules:
+A is the same length as B if:
+    the length of A = the length of B.
+
+-- There is only one list with length 0, so A must be the empty list.
+-- We can deduce this fact.
+A is the same length as [], and
+display A. -- []
+
+-- There are several built-in list operations we may use to define rules:
+a List is a palindrome if:
+    the reverse of List is List.
+
+A = [1,2,Y,Z], and
+A is a palindrome, and
+display Y, and -- 2
+display Z. -- 1
+
+-- We may define rules in terms of constraints and other rules:
+N is even if: there exists some integer with (N = 2 * _X).
+N is odd if: not (N is even).
+
+N is even, and
+0 < N < 3, and
+display N. -- 2
+
+-- We may use mathematical symbols instead of words for brevity
+N divides M if: ∃ℤ with (M = N * _X).
+N is a multiple of M if: M divides N.
+
+-- Here we define another rule, using our previous rules and quantifying over all values that satisfy the given constraints.
+the answer to project euler #1 is X, where:
+    (N is a multiple of 3) or (N is a multiple of 5), and
+    0 < N < 1000, and
+    X is the sum of all such N.
+
+the answer to project euler #1 is X, and
+display X. -- 233168
+
+-- We may define data types (and optionally specify types).
+a Point has: (X : Int, and Y : Int).
+
+-- We may define functions over our custom types
+the distance from the origin to Point is:
+    (X of Point)^2 + (Y of Point)^2.
+
+-- We may similarly define sum types:
+a Tree (containing A) may be:
+    Leaf has: V : A.
+    Tree has: (V : A, and LeftChild : Tree (containing A), and RightChild : Tree (containing A)).
+
+-- Then we may define rules for our types:
+the height of Tree is:
+    when Tree = Leaf has: V then: 0.
+    when Tree = Tree has: (V, LeftChild, RightChild) then:
+        the height of Tree = 1 + the greater of (the height of LeftChild) (the height of RightChild).
+
+the sum of the nodes in Tree is:
+    when Tree = Leaf has: V then: V.
+    when Tree = Tree has: (V, LeftChild, RightChild) then:
+        V + the sum of the nodes in LeftChild + the sum of the nodes in RightChild.
+
+-- We may create type classes (interfaces) and add our types to them:
+A is a type of: Monoid if it has:
+    an identity : -> A.
+    A + B : A -> A -> A.
+
+a Point is a type of: Monoid because it has:
+    an identity is: Point has: (X = 0, and Y = 0).
+
+    A + B is:
+        when (A = Point has: (X1, Y1), and
+              B = Point has: (X2, Y2)) then:
+
+              A + B = Point has: (X1 + X2, Y1 + Y2).
+

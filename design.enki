@@ -22,35 +22,7 @@ display X is: output (convert X to Text).
 -- Optional type declarations, like so:
 F : A -> B.
 
-fibonacci takes Int and returns Int.
--- or: fibonacci : Int -> Int, using the primitive operator :
-fibonacci N is:
-    when N = 0 then 0.
-    when N = 1 then 1.
-    otherwise, fibonacci (N - 1) + fibonacci (N - 2).
-
--- We may use if instead of is or where only when defining rules, not functions
-X is a palindrome if:
-    the reverse of (digits of X) = (digits of X).
-
-the answer to project euler #4 is X * Y, where:
-    the length of X = 3, and
-    the length of Y = 3, and
-    X is a palindrome, and
-    Y is a palindrome, and
-    -- This means that, for all values satisfies the previous rules, find the maximum.
-    -- Essentially, findall((X, Y), (between(100, 999, X), ...), Values), max_list(V, Values).
-    X * Y is the greatest such value.
-
--- Then we may write:
-the answer to projecteuler #4 is X, where:
-    length X = 3, and length Y = 3, and
-    X is a palindrome, and
-    Y is a palindrome, and
-    X * Y is the greatest such number.
-
 X is evenly divisible by Y if: X mod Y = 0.
-
 X is evenly divisible by each of Numbers if:
     the first of the Numbers is N, and
     X is evenly divisible by N, and
