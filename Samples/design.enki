@@ -1,0 +1,115 @@
+-- Logic language syntax:
+
+-- Two different types of delcarations:
+-- Functions and rules.
+-- Functions has a result (return value), rules specify relationships between variables.
+-- Functions may contain rules and should have a single value at the end.
+-- Rules will ONLY contain other rules.
+
+-- We may still unify using functions via the unification operator.
+
+-- Type are allowed on any variable use/declaration
+
+-- Define the special case.
+0 factorial is: 1.
+-- Optional comma before where
+X factorial is: X * (X - 1) * ... * 1.
+
+-- Is and where do exactly the same thing, just chosen to sound better
+-- May wish to select just one
+display X is: output (convert X to Text).
+
+-- Optional type declarations, like so:
+F : A -> B.
+
+X is evenly divisible by Y if: X mod Y = 0.
+X is evenly divisible by each of Numbers if:
+    the first of the Numbers is N, and
+    X is evenly divisible by N, and
+    the rest of the Numbers is Rest, and
+    X is evenly divisible by each of Rest.
+
+the answer to project euler #5 is X, where:
+    -- Parenthesis here may be confusing
+    (X is evenly divisible by 1, and
+     X is evenly divisible by 2, and
+     ..., and
+     X is evenly divisible by 20),
+    X is the smallest such number. -- This way may calculate by "going in order", rather than iterating all such values
+
+N is even if: N is evenly divisible by 2.
+-- For mod, we should implement this as (N = 1 mod 2) or
+-- more generally (N /= X mod M) and then iterate all such possibilities,
+-- so that we get the intuitive behavior of still being able to search.
+N is odd if: N is not even.
+
+the collatz sequence of N is Seq, where: -- non-required colon (probably?)
+    when N = 1 then: the Seq contains is N.
+    when N is even then: Seq begins with N and continues with (the collatz sequence of (N / 2)).
+    when N is odd then: Seq begins with N and continues with (the collatz sequence of (3*N + 1)).
+
+the answer to project euler #14 is (the length of Seq), where:
+    Seq is the collatz sequence of N, and
+    N is less than 1000000, and
+    N is greater than 1.
+
+X is between Low and High if X >= Low, and X <= High.
+
+-- How might we design Pac Man:
+
+-- Typeclass GameObject
+-- data Player a = Player { position :: (Int, Int) }
+-- optional "a"
+
+-- by default all types will be records with the keys being the same as the type (unless specified manually, like for position)
+
+-- This will be defined in a standard library
+a List (of A) may be:
+    Empty. -- alternatively, just Empty.
+    Cons has Head : A, and
+             Tail : List (of A).
+
+-- Relations are automatically generated for each value contained inside the type, and will all be "Property of Value".
+-- If we have defined a sum type, then the relations generated will either return an Optional value (if all constructors do not contain the same types)
+
+-- We may use the cons cell as a type to require a non-empty list, so that first may return an A rather than an Optional A.
+the first of the _ : Cons A (List (of A)) -> A
+the first of the List is:
+    Head of List, and
+    Head must exist, and
+
+    -- Here we see syntax for defining what the result of a function is.
+    -- We may instead of simply write "Head." as the final statement of the function.
+    the first of the List = Head.
+
+the rest of the List is:
+    Tail of List, and
+    the rest of the List = Tail.
+
+-- Note we have Cons A (List (of A)) <: List (of A)
+-- We may directly express this as a fact:
+-- Technically, Cons will have three type arguments: A, List, A.
+-- For it to be a subtype of List, all three must be as specified in the type declaration for List.
+-- This means that we may define weird things like Cons cells where the first element is different from the rest of it.
+-- In practice this is useless, and we may simply wish to disallow such behavior.
+-- All this detail should be (and will be) hidden from beginners, of course.
+-- However, it will be important to providing type safety.
+Cons A (List (of A)) <: List (of A).
+
+-- However, it is the case that the system knows this because we specified it as a fact.
+-- Much more interestingly we can define a new type:
+
+a Stream (of A) has: Head : A, and Tail : Stream (of A).
+
+-- The we may also have:
+-- Stream (of A) <: Cons A (List (of A)) <: List (of A).
+-- So:
+
+Stream (of A) <: List (of A).
+
+-- This works because of structural subtyping/the covariance of the type constructors Stream and List in their first argument
+
+-- We may define various forms of rules, so:
+length of X is: the length of X.
+length X is: the length of X.
+

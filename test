@@ -1,0 +1,40 @@
+Comments:
+Lots of keywords
+Math notation is probably not useful
+Lists must contain only 1 type (or should they?)
+the length of/length/length of or just one, in general?
+string type or list of characters
+when keyword: indention or full stops or? blocks? Don't allow, must define a new function
+should we allow functions to return multiple types via sum types or something
+what is the right concatenation operator
+target?
+    - LLVM
+    - Prolog
+    - JVM
+    - C, Javascript, etc.
+    - other
+
+"it looks silly"
+
+join operator
+A join B join C
+
+gaurav - type checking
+
+load flaky info from flaky run files
+
+Conclusions from survey:
+
+Section 1:
+- Unification intuitive
+- Recursion is not unintuitive
+- People can instinctively use both functions and rules
+
+Section 2:
+- People are split on heterogenous lists
+- Addition as list concatenation does NOT make sense to people, and neither does ..
+- No intuition that strings can be thought of as lists
+- Don't expect that parentheses will be required
+- Calls to functions that won't terminate should be considered invalid -- maybe we should add a totality checker?
+- Multiplication of strings makes no sense
+

@@ -1,0 +1,14 @@
+----------------------------------------------------
+-- Solution to Project Euler #1 (https://projecteuler.net/problem=1)
+-- Version: 1.0
+-- Date: 2018-10-02
+----------------------------------------------------
+
+N is a multiple of M if: ∃ℤ with (N = _X * M).
+
+the answer to project euler #1 is X, where:
+    N ∈ ℕ, and
+    (N is a multiple of 3) or (N is a multiple of 5), and
+    N ≤ 1000, and
+    X = ∑N.
+

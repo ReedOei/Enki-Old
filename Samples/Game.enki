@@ -1,0 +1,49 @@
+----------------------------------------------------
+-- The library defining how game stuff works.
+-- Version: 0.1
+-- Date: 2018-10-01
+----------------------------------------------------
+
+-- Basic types for the position/dimensions of an object.
+a Position has: X : Int, and Y : Int.
+Dimensions has: Width : Int, Height : Int.
+
+-- Use "must have:" to declare a type class.
+-- probably should be a different word
+a GameObject for Game must have:
+    the sprite for GameObject.
+    at every step GameObject in Game becomes a NewGameObject.
+
+-- This is pretty impeartive, can probably improve in some way
+a Game must have:
+    the start of the Game.
+
+    at every step Game becomes NewGame.
+
+    -- These types are probably, unnecessary (TODO: Check)
+    Game has (GameObjects : List (of (GameObject for Game))).
+
+    update objects in Game to be (NewGameObjects : List (of (GameObject for Game))).
+
+    Game ends.
+
+    the end of the Game.
+
+    -- We can have default functions inside a type class
+    run Game is:
+        the start, and
+        when game ends then: the end.
+        otherwise then:
+            Game has GameObjects, and
+
+            -- Not sure about this syntax
+            modify Object from GameObjects to be
+                   NewObject from NewGameObjects
+                   via (at every step Object becomes NewObject), and
+
+            TempGame = update objects in Game to be NewGameObjects,
+
+            at every step TempGame becomes NewGame, and
+
+            run NewGame. -- tail recursive, we will want to detect this
+

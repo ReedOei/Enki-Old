@@ -1,0 +1,67 @@
+----------------------------------------------------
+-- The game of PacMan
+-- Version: 0.1
+-- Date: 2018-10-01
+----------------------------------------------------
+
+use library Game. -- Located in ./Game.enki
+
+-- Begin by defining types:
+
+-- All three of these types have the same fields (Position and Dimensions).
+-- These will be the objects inside our game.
+a Player has: Score : Int, and Position, and Dimensions.
+a Ghost has: Position, and Dimensions.
+a Wall has: Position, and Dimensions.
+
+-- The game itself.
+PacMan has: Screen : Dimensions,
+            Player : Player, and
+            Walls : List (of Wall),
+            Ghosts : List (of Ghost).
+
+-- TODO: This is very imperative...how to convert to a more constraint style?
+PacMan is a type of: Game
+    the start of PacMan is:
+        create a Player (a PacMan), and
+
+    at every step PacMan becomes NewGame is:
+        at every step in PacMan (Player of PacMan) becomes NewPlayer, and
+
+        -- Not sure about this syntax
+        modify Ghost from Ghosts to be
+               NewGhost from NewGhosts
+               via (at every step Ghost becomes NewGhost), and
+
+        NewGame = PacMan has: Score, NewPlayer, Walls, NewGhosts.
+
+    the end of PacMan is:
+        display Score.
+
+a Ghost is a type of: GameObject for PacMan
+    the sprite for Ghost is: 'ghost.png'.
+
+a Player is a type of: GameObject for PacMan
+    the sprite for Player is: 'pac-main.png'.
+
+    -- TODO: We should offer when we cannot match a rule or a function, try to offer spelling suggestions to users.
+    at every step in PacMan Player becomes NewPlayer is:
+        Player in PacMan may move to NewPosition, and
+        NewPlayer = Player with (Position = NewPosition). -- Modify just part of a record
+
+    Player in PacMan may move to NewPosition is:
+        get keypress Key, and
+        (X, and Y) of (Position of Player), and -- Note: Can chain this together
+
+        when Key = 'up' then: NewX = X, and NewY = Y - 4.
+        when Key = 'down' then: NewX = X, and NewY = Y + 4.
+        when Key = 'left' then: NewX = X - 4, and NewY = Y.
+        when Key = 'right' then: NewX = X + 4, and NewY = Y.
+        otherwise then: NewX = X, and NewY = Y.
+
+        check all (Wall in (Walls of PacMan)) (may not have (Player inside Wall)), and
+
+        NewPosition = Position with (X = NewX, and Y = NewY), and
+
+        may not have (NewPosition outside (Screen of PacMan)).
+
