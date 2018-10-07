@@ -22,6 +22,15 @@ display (the value of 10 + 15). -- 25
 -- We also have lists:
 display ([1,2,3,4,5]). -- [1,2,3,4,5]
 
+-- We can get user input using "read" TODO: Decide if that's the right keyword to use
+-- For example, the below will ask the user to add two numbers, which they are then prompted for
+display "Please enter two numbers to sum: ", and
+read A as Int, and
+display "+", and
+read B as Int, and
+-- <> is the Haskell notation for the operation on a semigroup (strings with concatenation in this case). Perhaps + would be more intuitive to a non-programmer, but it's unclear
+display ("= " <> (A + B)).
+
 -- We can write functions that operate on lists:
 the length of L is:
     when L = [] then: 0.
@@ -68,12 +77,27 @@ the answer to project euler #1 is X, where:
 the answer to project euler #1 is X, and
 display X. -- 233168
 
+-- We can also do non-math things, such as interact with the filesystem.
+-- For example, we can search for files containing certain text:
+files containing Text is:
+    Files in the current directory, and
+    File ∈ Files, and
+    -- Equivalent to above line: File in Files, and
+    the contents of File is Content, and
+    Content contains Text, and
+    MatchingFiles is all such File, and
+    files containing Text = MatchingFiles.
+
+-- Suppose we have two files in the current directory, 'hello_world.txt' and 'essay_about_peanuts.txt'
+-- Then we might expect the following result:
+display (files containing "hello world!"). -- ['hello_world.txt']
+
 -- We may define data types (and optionally specify types).
 a Point has: (X : Int, and Y : Int).
 
 -- We may define functions over our custom types
 the distance from the origin to Point is:
-    (X of Point)^2 + (Y of Point)^2.
+    the square root of ((X of Point)^2 + (Y of Point)^2).
 
 -- We may similarly define sum types:
 a Tree (containing A) may be:
