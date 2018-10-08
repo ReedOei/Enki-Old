@@ -12,7 +12,7 @@ main window is:
     main window = Window,
     Window has:
     (
-        With = 1024, and
+        Width = 1024, and
         Height = 800, and
         Components =
         [
