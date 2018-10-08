@@ -7,5 +7,5 @@ enable_testing()
 
 add_executable(Base src/main.cpp)
 
-add_subdirectory(rapidcheck)
+add_subdirectory(lib/rapidcheck)
 add_subdirectory(test)
