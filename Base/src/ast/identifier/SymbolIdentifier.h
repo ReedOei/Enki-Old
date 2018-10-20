@@ -8,7 +8,7 @@
 #include "AbstractIdentifier.h"
 
 namespace enki {
-    class SymbolIdentifier : AbstractIdentifier {
+    class SymbolIdentifier : public AbstractIdentifier {
     public:
         explicit SymbolIdentifier(const std::string &symbol);
 

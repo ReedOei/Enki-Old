@@ -8,11 +8,15 @@
 #include "AbstractLiteralIdentifier.h"
 
 namespace enki {
-    class IntegerLiteral : AbstractLiteralIdentifier {
+    class IntegerLiteral : public AbstractLiteralIdentifier {
     public:
         explicit IntegerLiteral(int val);
+        IntegerLiteral(const IntegerLiteral& literal);
+        ~IntegerLiteral();
 
         const std::string nodeName() const override;
+
+        const int getVal() const;
 
     private:
         const int val;

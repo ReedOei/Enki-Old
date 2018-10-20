@@ -10,7 +10,7 @@
 #include "../constraints/AbstractConstraint.h"
 
 namespace enki {
-    class RuleDefinition : AbstractDefinition {
+    class RuleDefinition : public AbstractDefinition {
     public:
         RuleDefinition(const AbstractIdentifier* ruleId, const AbstractConstraint* constraint);
 

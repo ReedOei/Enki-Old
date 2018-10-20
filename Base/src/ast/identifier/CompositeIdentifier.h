@@ -9,7 +9,7 @@
 #include "AbstractIdentifier.h"
 
 namespace enki {
-    class CompositeIdentifier : AbstractIdentifier {
+    class CompositeIdentifier : public AbstractIdentifier {
     public:
         explicit CompositeIdentifier(const std::vector<AbstractIdentifier*> &identifiers);
 

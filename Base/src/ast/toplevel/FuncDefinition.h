@@ -10,7 +10,7 @@
 #include "../constraints/AbstractConstraint.h"
 
 namespace enki {
-    class FuncDefinition : AbstractDefinition {
+    class FuncDefinition : public AbstractDefinition {
     public:
         FuncDefinition(const AbstractIdentifier* funcId, const AbstractConstraint* constraint);
 

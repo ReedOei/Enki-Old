@@ -5,15 +5,10 @@
 #include <iostream>
 #include <rapidcheck.h>
 
-void test_func(const std::vector<int> &vec) {
-    auto t = vec;
-    std::reverse(t.begin(), t.end());
-    std::reverse(t.begin(), t.end());
-    RC_ASSERT(t == vec);
-}
+#include "typechecking/TypeInfererTest.h"
 
 int main() {
-    rc::check("simple test", test_func);
+    type_inference_tests();
 
     return 0;
 }

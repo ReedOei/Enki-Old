@@ -9,7 +9,7 @@
 #include "AbstractTypeConstructorDef.h"
 
 namespace enki {
-    class SumTypeConstructorDef : AbstractTypeConstructorDef {
+    class SumTypeConstructorDef : public AbstractTypeConstructorDef {
     public:
         explicit SumTypeConstructorDef(const std::vector<AbstractTypeConstructorDef*> &variants);
 

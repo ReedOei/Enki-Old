@@ -8,7 +8,7 @@
 #include "AbstractIdentifier.h"
 
 namespace enki {
-    class WordIdentifier : AbstractIdentifier {
+    class WordIdentifier : public AbstractIdentifier {
     public:
         explicit WordIdentifier(const std::string &word);
 

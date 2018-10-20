@@ -10,7 +10,7 @@
 #include "AbstractType.h"
 
 namespace enki {
-    class RuleType : AbstractType {
+    class RuleType : public AbstractType {
     public:
         explicit RuleType(const std::vector<std::pair<Mode, AbstractType*>> &modes);
 

@@ -11,7 +11,7 @@
 #include "../Property.h"
 
 namespace enki {
-    class TypeclassDef : AbstractTopLevel {
+    class TypeclassDef : public AbstractTopLevel {
     public:
         TypeclassDef(const AbstractIdentifier* templateId, const AbstractIdentifier* typeclassId,
                      const std::vector<Property*> &properties);

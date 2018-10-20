@@ -5,18 +5,19 @@
 #ifndef BASE_SINGLETONCONSTRAINT_H
 #define BASE_SINGLETONCONSTRAINT_H
 
+#include <memory>
 #include "AbstractConstraint.h"
 #include "../identifier/AbstractIdentifier.h"
 
 namespace enki {
-    class SingletonConstraint : AbstractConstraint {
+    class SingletonConstraint : public AbstractConstraint {
     public:
-        explicit SingletonConstraint(const AbstractIdentifier* identifier);
+        explicit SingletonConstraint(const std::shared_ptr<AbstractIdentifier> &identifier);
 
         const std::string nodeName() const override;
 
     private:
-        const AbstractIdentifier* identifier;
+        const std::shared_ptr<AbstractIdentifier> identifier;
     };
 }
 

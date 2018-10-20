@@ -8,7 +8,7 @@
 #include "../AbstractNode.h"
 
 namespace enki {
-    class AbstractIdentifier : AbstractNode {
+    class AbstractIdentifier : public AbstractNode {
     public:
         AbstractIdentifier();
     };

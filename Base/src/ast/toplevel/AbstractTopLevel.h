@@ -8,7 +8,7 @@
 #include "../AbstractNode.h"
 
 namespace enki {
-    class AbstractTopLevel : AbstractNode {
+    class AbstractTopLevel : public AbstractNode {
     };
 }
 

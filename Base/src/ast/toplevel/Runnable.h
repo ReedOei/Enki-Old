@@ -9,7 +9,7 @@
 #include "../constraints/AbstractConstraint.h"
 
 namespace enki {
-    class Runnable : AbstractTopLevel {
+    class Runnable : public AbstractTopLevel {
     public:
         explicit Runnable(const AbstractConstraint* constraint);
 

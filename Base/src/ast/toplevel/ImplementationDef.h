@@ -11,7 +11,7 @@
 #include "AbstractDefinition.h"
 
 namespace enki {
-    class ImplementationDef : AbstractTopLevel {
+    class ImplementationDef : public AbstractTopLevel {
     public:
         ImplementationDef(const AbstractIdentifier* implementationId, const AbstractIdentifier* typeclassId,
                           const std::vector<AbstractDefinition*> &definitions);

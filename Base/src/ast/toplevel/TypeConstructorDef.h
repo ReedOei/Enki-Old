@@ -11,7 +11,7 @@
 #include "../type/AbstractType.h"
 
 namespace enki {
-    class TypeConstructorDef : AbstractTypeConstructorDef {
+    class TypeConstructorDef : public AbstractTypeConstructorDef {
     public:
         TypeConstructorDef(const AbstractIdentifier* identifier,
                            const std::vector<std::pair<AbstractIdentifier*, AbstractType*>> &members);

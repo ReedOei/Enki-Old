@@ -4,10 +4,11 @@
 
 #include "WhenBranches.h"
 
-enki::WhenBranches::WhenBranches(const std::vector<enki::WhenBranch*> &branches,
-                                 const std::optional<enki::AbstractConstraint*> &otherwise) : branches(branches),
-                                                                                             otherwise(otherwise) {}
+enki::WhenBranches::WhenBranches(const std::vector<std::shared_ptr<enki::WhenBranch>> &branches,
+                                 const std::optional<std::shared_ptr<enki::AbstractConstraint>> &otherwise) : branches(
+        branches), otherwise(otherwise) {}
 
 const std::string enki::WhenBranches::nodeName() const {
     return "WhenBranches";
 }
+

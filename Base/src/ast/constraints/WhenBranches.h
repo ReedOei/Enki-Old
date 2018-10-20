@@ -11,15 +11,16 @@
 #include "WhenBranch.h"
 
 namespace enki {
-    class WhenBranches : AbstractConstraint {
+    class WhenBranches : public AbstractConstraint {
     public:
-        WhenBranches(const std::vector<WhenBranch*> &branches, const std::optional<AbstractConstraint*> &otherwise);
+        WhenBranches(const std::vector<std::shared_ptr<WhenBranch>> &branches,
+                     const std::optional<std::shared_ptr<AbstractConstraint>> &otherwise);
 
         const std::string nodeName() const override;
 
     private:
-        const std::vector<WhenBranch*> branches;
-        const std::optional<AbstractConstraint*> otherwise;
+        const std::vector<std::shared_ptr<WhenBranch>> branches;
+        const std::optional<std::shared_ptr<AbstractConstraint>> otherwise;
     };
 }
 

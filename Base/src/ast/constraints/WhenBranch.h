@@ -5,21 +5,23 @@
 #ifndef BASE_WHENBRANCH_H
 #define BASE_WHENBRANCH_H
 
+#include <boost/shared_ptr.hpp>
 #include "../AbstractNode.h"
 #include "../identifier/AbstractIdentifier.h"
 #include "AbstractConstraint.h"
 
 namespace enki {
-    class WhenBranch : AbstractNode {
+    class WhenBranch : public AbstractNode {
     public:
-        WhenBranch(const AbstractIdentifier* matcher, const AbstractConstraint* constraint);
+        WhenBranch(const std::shared_ptr<AbstractIdentifier> &matcher,
+                   const std::shared_ptr<AbstractConstraint> &constraint);
 
     private:
         const std::string nodeName() const override;
 
     private:
-        const AbstractIdentifier* matcher;
-        const AbstractConstraint* constraint;
+        const std::shared_ptr<AbstractIdentifier> matcher;
+        const std::shared_ptr<AbstractConstraint> constraint;
     };
 }
 

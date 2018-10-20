@@ -8,7 +8,7 @@
 #include "AbstractType.h"
 
 namespace enki {
-    class FuncType : AbstractType {
+    class FuncType : public AbstractType {
     public:
         FuncType(const AbstractType &inType, const AbstractType &utType);
 

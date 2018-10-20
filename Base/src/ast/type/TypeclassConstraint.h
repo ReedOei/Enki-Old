@@ -10,7 +10,7 @@
 #include "../identifier/AbstractIdentifier.h"
 
 namespace enki {
-    class TypeclassConstraint : AbstractType {
+    class TypeclassConstraint : public AbstractType {
     public:
         TypeclassConstraint(const AbstractIdentifier* identifier, const AbstractType* type);
 

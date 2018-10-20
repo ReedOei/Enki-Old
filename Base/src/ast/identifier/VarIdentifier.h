@@ -8,7 +8,7 @@
 #include "AbstractIdentifier.h"
 
 namespace enki {
-    class VarIdentifier : AbstractIdentifier {
+    class VarIdentifier : public AbstractIdentifier {
     public:
         explicit VarIdentifier(const std::string &varName);
 

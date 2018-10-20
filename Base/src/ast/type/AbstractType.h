@@ -15,7 +15,7 @@ namespace enki {
         PARTIAL
     };
 
-    class AbstractType : AbstractNode {
+    class AbstractType : public AbstractNode {
     public:
         AbstractType();
     };

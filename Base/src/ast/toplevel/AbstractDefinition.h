@@ -8,7 +8,7 @@
 #include "AbstractTopLevel.h"
 
 namespace enki {
-    class AbstractDefinition : AbstractTopLevel {
+    class AbstractDefinition : public AbstractTopLevel {
 
     };
 }

@@ -9,7 +9,7 @@
 #include "../identifier/AbstractIdentifier.h"
 
 namespace enki {
-    class ConcreteType : AbstractType {
+    class ConcreteType : public AbstractType {
     public:
         explicit ConcreteType(const AbstractIdentifier *typeName);
 

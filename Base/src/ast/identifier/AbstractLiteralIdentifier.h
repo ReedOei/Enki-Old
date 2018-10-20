@@ -8,7 +8,7 @@
 #include "AbstractIdentifier.h"
 
 namespace enki {
-    class AbstractLiteralIdentifier : AbstractIdentifier {
+    class AbstractLiteralIdentifier : public AbstractIdentifier {
 
     };
 }

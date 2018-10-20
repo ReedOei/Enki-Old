@@ -6,17 +6,18 @@
 #define BASE_CONJCONSTRAINT_H
 
 #include <vector>
+#include <memory>
 #include "AbstractConstraint.h"
 
 namespace enki {
-    class ConjConstraint : AbstractConstraint {
+    class ConjConstraint : public AbstractConstraint {
     public:
-        explicit ConjConstraint(const std::vector<AbstractConstraint*> &constraints);
+        explicit ConjConstraint(const std::vector<std::shared_ptr<AbstractConstraint>> &constraints);
 
         const std::string nodeName() const override;
 
     private:
-        const std::vector<AbstractConstraint*> constraints;
+        const std::vector<std::shared_ptr<AbstractConstraint>> constraints;
     };
 }
 
