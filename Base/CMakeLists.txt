@@ -7,6 +7,22 @@ enable_testing()
 
 find_package(Boost 1.65 COMPONENTS program_options REQUIRED)
 
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+
+ExternalProject_Add(
+        Catch
+        PREFIX ${CMAKE_BINARY_DIR}/catch
+        URL https://github.com/catchorg/Catch2/releases/download/v2.4.1/catch.hpp
+        DOWNLOAD_NO_EXTRACT 1
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND ""
+        INSTALL_COMMAND ""
+)
+
+set(CTEST_MEMORYCHECK_COMMAND "/usr/bin/valgrind")
+set(MEMORYCHECK_COMMAND_OPTIONS "--xml=yes --xml-file=test.xml --leak-check=full")
+include(CTest)
+
 add_executable(Base
         src/main.cpp)
 

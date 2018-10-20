@@ -3,7 +3,10 @@
 //
 
 #include <memory>
+#include <catch.hpp>
+
 #include <rapidcheck.h>
+#include <rapidcheck/catch.h>
 
 #include <ast/identifier/IntegerLiteral.h>
 #include <typechecking/TypeInferer.h>
@@ -19,12 +22,15 @@ void test_basic_infer_int(int i) {
 
     auto typed = inferer.infer(node);
 
+    RC_ASSERT(typed.has_value());
+
     RC_ASSERT(typed->getType().has_value());
     RC_ASSERT(typed->getOutType().has_value());
-    RC_ASSERT(typed->getType().value()->typeName() == "Int");
     RC_ASSERT_FALSE(typed->getInType().has_value());
+
+    RC_ASSERT(typed->getType().value()->typeName() == "Int");
 }
 
-void type_inference_tests() {
-    rc::check("test basic type inferrence for integers", test_basic_infer_int);
+TEST_CASE("test_basic_infer_int") {
+    rc::prop("test basic type inferrence for integers", test_basic_infer_int);
 }

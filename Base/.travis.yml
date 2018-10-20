@@ -1,0 +1,13 @@
+language: cpp
+compiler: clang
+
+addons:
+  apt:
+    packages:
+      - libboost-dev-all
+
+script:
+    - cmake .
+    - make
+    - make check
+
