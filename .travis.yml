@@ -7,7 +7,7 @@ addons:
       - libboost-dev-all
 
 script:
-    - cmake .
+    - cmake Base
     - make
     - make check
 
