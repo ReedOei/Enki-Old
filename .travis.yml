@@ -1,13 +1,38 @@
 language: cpp
 compiler: clang
+sudo: required
 
-addons:
-  apt:
-    packages:
-      - libboost-dev-all
+cache:
+  directories:
+  - $HOME/.stack
+
+before_install:
+    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    - sudo add-apt-repository universe
+    - sudo apt-get update
+    - sudo apt-get install -y libboost-all-dev libgmp-dev g++-7
+    # Download and unpack the stack executable
+    - mkdir -p ~/.local/bin
+    - export PATH=$HOME/.local/bin:$PATH
+    - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+    - CMAKE_URL="https://cmake.org/files/v3.10/cmake-3.10.0-Linux-x86_64.tar.gz"
+    - mkdir -p cmake
+    - travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+    - export PATH=$(pwd)/cmake/bin:${PATH}
+
+install:
+    - cd Parser
+    - stack --no-terminal --install-ghc test --only-dependencies
+    - cd ..
 
 script:
-    - cmake Base
+    # - export CC=gcc-7
+    # - export CXX=g++-7
+    - cd Base
+    - cmake .
     - make
     - make check
+    - cd ..
+    - cd Parser
+    - stack --no-terminal test --haddock --no-haddock-deps
 
