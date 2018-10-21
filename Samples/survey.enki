@@ -23,7 +23,7 @@ display "Please enter two numbers to sum: ", and
 read A as Int, and
 display "+", and
 read B as Int, and
-display ("= " .. (A + B)).
+display (join "= " and (A + B)).
 
 -- Example 3:
 display (the length of [1,2,3,4]).
@@ -57,14 +57,6 @@ the xfactor of W and Z is: the square root of (W^2 + Z^2).
 display (the xfactor of 3 and 4).
 
 -- Example 8:
-the N th foo number is:
-    when N = 0 then: 2.
-    when N = 1 then: 1.
-    otherwise then: (the (N - 1) th foo number) + (the (N - 2) th foo number).
-
-display (the 4 th foo number).
-
--- Example 9:
 evaluating List gives Value where:
     when List = Empty then: Value = 0.
     when List = [X...Rest] then:
@@ -101,10 +93,12 @@ A = 3, and
 display A.
 
 -- Example 4:
-display ([1] + [1,2,3]).
+X = 4, and
+X = 9, and
+display X.
 
 -- Example 5:
-display ([1] .. [1,2,3]).
+display (join [1] and [1,2,3]).
 
 -- Example 6:
 A = [1,2,3], and
@@ -115,19 +109,54 @@ Sentence = "I like apples", and
 display (the first of Sentence).
 
 -- Example 8:
-display the length of [1,2,3].
+display the length of [[-10, 5], 1,2,3].
 
--- Example 9:
-display the length of [[-10], 1,2,3].
+-- Example 9 (supposing we had defined "the factorial of"):
+display (the factorial of -1).
 
--- Example 10 (recalling foo numbers from above):
-display (the -1 th foo number).
-
--- Example 11 (recalling evaluating lists from the previous section):
+-- Example 10 (recalling evaluating lists from the previous section):
 evaluating ["f","a","l","l"] gives Value, and
 display Value.
 
--- Example 12:
+-- Example 11:
 A = 4 * "E", and
 display A.
+
+-------------------------------------------------------------------------------------
+-- Section 3:
+-- Based on the samples from Sections 1 and 3 (but NOT Section 2),
+-- please write a program that accomplishes the task set out by the prompt.
+
+-- Example 0:
+-- Prompt: Ask the user for their name, and say "Hi <their name>"
+
+-- You might answer as below. ANSWER STARTS and ANSWER ENDS are just for clarity, and not necessary.
+-- ANSWER STARTS
+display "What is your name?", and
+read Name as Text,
+display (join "Hi " and Name).
+-- ANSWER ENDS
+
+-- Example 1:
+-- Prompt: Ask the user for their name. If their name is "Alice", then display "Welcome!", otherwise, display "Access denied".
+
+-- Example 2:
+-- Prompt: Define foo numbers ("X is a foo number") so that the program below
+-- displays the indicated values ("Yes!" or "No!")
+
+test X is:
+    when X is a foo number then: "Yes!".
+    otherwise then: "No!".
+
+display (test 2). -- Yes!
+display (test 9). -- No!
+display (test 24). -- Yes!
+display (test 29). -- No!
+
+X is a blah number, and
+display (test X). -- No!
+
+-- Example 3:
+-- Prompt: Ask the user for a number, and display the the sum of the numbers from 1 to that number.
+-- For example, if they enter 5, you would display "15" because 1 + 2 + 3 + 4 + 5 = 15.
 
