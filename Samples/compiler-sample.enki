@@ -1,0 +1,52 @@
+-- Prolog backend examples:
+
+-- Sample code:
+square X is: X^2.
+display (square 42).
+
+-- AST:
+FuncDef
+    (CompositeIdentifier (Word "square") (Var "X"))
+    (SingletonConstraint
+        (CompositeIdentifier (Var "X") (Symbol "^") (Int 2)))
+
+Runnable
+    (SingletonConstraint
+        (CompositeIdentifier (Word "display") (CompositeIdentifier (Word "square") (Int 42))))
+
+-- Resolved:
+ResolvedFuncDef
+    (Params [(Free, X)])
+    (ResolvedDefId Self (Params [(Free, X)]))
+    (ResolvedSingletonConstraint
+        (ResolvedDefId (BuiltIn "pow") (Params [(BoundBy Self, X), (Literal, 2)])))
+
+ResolvedRunnable
+    (ResolvedSingletonConstraint
+        (ResolvedDefId
+            (BuiltIn "display")
+            (Params [(FuncVal, ResolvedDefId (User "square") (Params [(Literal, 42)]))])))
+
+-- Typed:
+TypedNode
+    (Int -> Int)
+    (TypedFuncDef
+        (Params [TypedVar Free Int X])
+        (TypedDefId Self (Int -> Int) (Params [TypedVar Free Int X]))
+        (TypedSingletonConstraint
+            (TypedDefId (BuiltIn "pow") (Int -> Int -> Int) (Params [(TypedVar (BoundBy Self) Int X), Literal Int 2]))))
+
+TypedRunnable
+    (TypedSingletonConstraint
+        (TypedDefId (BuiltIn "display") [(+, Int)]
+            (Params [(TypedFuncVal Int (TypedDefId (User "square") (Int -> Int) (Params [(Literal Int 42)])))])))
+
+-- Code generation
+
+:- use_module(library(clpfd)).
+
+square(X, Result) :-
+    Result #= X^2.
+
+:- (square(42, Temp), writeln(Temp)).
+
