@@ -16,25 +16,28 @@ Runnable
 
 -- Resolved:
 ResolvedFuncDef
-    (Params [(Free, X)])
-    (ResolvedDefId Self (Params [(Free, X)]))
+    (Param Argument X)
+    (ResolvedDefId Self (Param Free X))
     (ResolvedSingletonConstraint
-        (ResolvedDefId (BuiltIn "pow") (Params [(BoundBy Self, X), (Literal, 2)])))
+        (ResolvedDefId (ResolvedDefId (BuiltIn "pow") (Param (BoundBy Self) X) (Param Literal 2))))
 
 ResolvedRunnable
     (ResolvedSingletonConstraint
         (ResolvedDefId
             (BuiltIn "display")
-            (Params [(FuncVal, ResolvedDefId (User "square") (Params [(Literal, 42)]))])))
+            (Param Val (ResolvedDefId (User "square") (Param Literal 4)))))
 
 -- Typed:
 TypedNode
     (Int -> Int)
     (TypedFuncDef
-        (Params [TypedVar Free Int X])
-        (TypedDefId Self (Int -> Int) (Params [TypedVar Free Int X]))
+        (TypedParam Argument Int X)
+        (TypedDefId Self (Int -> Int) (TypedParam Var Free Int X))
         (TypedSingletonConstraint
-            (TypedDefId (BuiltIn "pow") (Int -> Int -> Int) (Params [(TypedVar (BoundBy Self) Int X), Literal Int 2]))))
+            (TypedDefId
+                (TypedDefId (BuiltIn "pow") (Int -> Int -> Int) (TypedParam (BoundBy Self) Int X))
+                (Int -> Int)
+                (TypedParam Literal Int 2))))
 
 TypedRunnable
     (TypedSingletonConstraint
