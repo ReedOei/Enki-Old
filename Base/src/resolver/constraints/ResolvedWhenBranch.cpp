@@ -3,3 +3,13 @@
 //
 
 #include "ResolvedWhenBranch.h"
+
+namespace enki {
+    ResolvedWhenBranch::ResolvedWhenBranch(const std::shared_ptr<AbstractResolvedConstraint> &matcher,
+                                           const std::shared_ptr<AbstractResolvedConstraint> &constraint)
+            : matcher(matcher), constraint(constraint) {}
+
+    const std::string ResolvedWhenBranch::nodeName() const {
+        return "ResolvedWhenBranch";
+    }
+}

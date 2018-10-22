@@ -5,10 +5,23 @@
 #ifndef BASE_RESOLVEDWHENBRANCH_H
 #define BASE_RESOLVEDWHENBRANCH_H
 
+#include <memory>
 
-class ResolvedWhenBranch {
+#include <resolver/identifier/AbstractResolvedIdentifier.h>
+#include "AbstractResolvedConstraint.h"
 
-};
+namespace enki {
+    class ResolvedWhenBranch : AbstractResolvedConstraint {
+    public:
+        ResolvedWhenBranch(const std::shared_ptr<AbstractResolvedConstraint> &matcher,
+                           const std::shared_ptr<AbstractResolvedConstraint> &constraint);
 
+        const std::string nodeName() const override;
+
+    private:
+        const std::shared_ptr<AbstractResolvedConstraint> matcher;
+        const std::shared_ptr<AbstractResolvedConstraint> constraint;
+    };
+}
 
 #endif //BASE_RESOLVEDWHENBRANCH_H

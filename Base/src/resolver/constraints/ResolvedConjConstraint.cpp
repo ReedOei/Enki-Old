@@ -3,3 +3,12 @@
 //
 
 #include "ResolvedConjConstraint.h"
+
+namespace enki {
+    ResolvedConjConstraint::ResolvedConjConstraint(
+            const std::vector<std::shared_ptr<AbstractResolvedConstraint>> &constraints) : constraints(constraints) {}
+
+    const std::string ResolvedConjConstraint::nodeName() const {
+        return "ResolvedConjConstraint";
+    }
+}
