@@ -8,7 +8,11 @@
 #include "../ast/AbstractNode.h"
 
 namespace enki {
+    class AbstractResolvedNodeVisitor;
+
     class AbstractResolvedNode : public AbstractNode {
+    public:
+        virtual void accept(AbstractResolvedNodeVisitor &visitor) const = 0;
     };
 }
 

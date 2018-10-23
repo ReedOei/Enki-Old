@@ -5,10 +5,12 @@
 #ifndef BASE_ABSTRACTRESOLVEDCONSTRAINT_H
 #define BASE_ABSTRACTRESOLVEDCONSTRAINT_H
 
+#include "../AbstractResolvedNode.h"
 
-class AbstractResolvedConstraint {
+namespace enki {
+    class AbstractResolvedConstraint : public AbstractResolvedNode {
 
-};
-
+    };
+}
 
 #endif //BASE_ABSTRACTRESOLVEDCONSTRAINT_H

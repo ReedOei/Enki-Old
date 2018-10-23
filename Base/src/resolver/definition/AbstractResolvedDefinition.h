@@ -5,10 +5,12 @@
 #ifndef BASE_ABSTRACTRESOLVEDDEFINITION_H
 #define BASE_ABSTRACTRESOLVEDDEFINITION_H
 
+#include "../AbstractResolvedNode.h"
 
-class AbstractResolvedDefinition {
+namespace enki {
+    class AbstractResolvedDefinition : public AbstractResolvedNode {
 
-};
-
+    };
+}
 
 #endif //BASE_ABSTRACTRESOLVEDDEFINITION_H
