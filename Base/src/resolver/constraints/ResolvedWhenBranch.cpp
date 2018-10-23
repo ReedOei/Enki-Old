@@ -12,4 +12,11 @@ namespace enki {
     const std::string ResolvedWhenBranch::nodeName() const {
         return "ResolvedWhenBranch";
     }
+
+    void ResolvedWhenBranch::accept(AbstractResolvedNodeVisitor &visitor) const {
+        visitor.visit(*this);
+
+        matcher->accept(visitor);
+        constraint->accept(visitor);
+    }
 }

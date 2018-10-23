@@ -6,19 +6,22 @@
 #define BASE_RESOLVEDSINGLETONCONSTRAINT_H
 
 #include <memory>
-
-#include <resolver/identifier/AbstractResolvedIdentifier.h>
+#include <vector>
 #include "AbstractResolvedConstraint.h"
+#include "../expression/ResolvedRuleExpr.h"
+#include "../AbstractResolvedNodeVisitor.h"
 
 namespace enki {
-    class ResolvedSingletonConstraint : AbstractResolvedConstraint {
+    class ResolvedSingletonConstraint : public AbstractResolvedConstraint {
     public:
-        explicit ResolvedSingletonConstraint(const std::shared_ptr<AbstractResolvedIdentifier> &identifier);
+        explicit ResolvedSingletonConstraint(const std::shared_ptr<ResolvedRuleExpr> &rule);
 
         const std::string nodeName() const override;
 
+        void accept(AbstractResolvedNodeVisitor &visitor) const override;
+
     private:
-        const std::shared_ptr<AbstractResolvedIdentifier> identifier;
+        const std::shared_ptr<ResolvedRuleExpr> rule;
     };
 }
 

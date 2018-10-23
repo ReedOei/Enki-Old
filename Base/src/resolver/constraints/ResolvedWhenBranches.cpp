@@ -12,4 +12,16 @@ namespace enki {
     const std::string ResolvedWhenBranches::nodeName() const {
         return "ResolvedWhenBranches";
     }
+
+    void ResolvedWhenBranches::accept(AbstractResolvedNodeVisitor &visitor) const {
+        visitor.visit(*this);
+
+        for (const auto &branch : branches) {
+            branch->accept(visitor);
+        }
+
+        if (otherwise.has_value()) {
+            otherwise.value()->accept(visitor);
+        }
+    }
 }

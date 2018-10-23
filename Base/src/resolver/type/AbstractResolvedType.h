@@ -5,10 +5,10 @@
 #ifndef BASE_ABSTRACTRESOLVEDTYPE_H
 #define BASE_ABSTRACTRESOLVEDTYPE_H
 
-#include <string>
+#include "../AbstractResolvedNode.h"
 
 namespace enki {
-    class AbstractResolvedType {
+    class AbstractResolvedType : public AbstractResolvedNode {
     public:
         virtual const std::string typeName() const = 0;
     };

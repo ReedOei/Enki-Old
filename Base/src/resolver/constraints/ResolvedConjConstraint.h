@@ -8,11 +8,14 @@
 #include <vector>
 #include <memory>
 #include "AbstractResolvedConstraint.h"
+#include "../AbstractResolvedNodeVisitor.h"
 
 namespace enki {
-    class ResolvedConjConstraint : AbstractResolvedConstraint {
+    class ResolvedConjConstraint : public AbstractResolvedConstraint {
     public:
         explicit ResolvedConjConstraint(const std::vector<std::shared_ptr<AbstractResolvedConstraint>> &constraints);
+
+        void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
         const std::string nodeName() const override;
 

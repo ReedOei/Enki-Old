@@ -7,14 +7,16 @@
 
 #include <memory>
 
-#include <resolver/identifier/AbstractResolvedIdentifier.h>
 #include "AbstractResolvedConstraint.h"
+#include "../AbstractResolvedNodeVisitor.h"
 
 namespace enki {
-    class ResolvedWhenBranch : AbstractResolvedConstraint {
+    class ResolvedWhenBranch : public AbstractResolvedConstraint {
     public:
         ResolvedWhenBranch(const std::shared_ptr<AbstractResolvedConstraint> &matcher,
                            const std::shared_ptr<AbstractResolvedConstraint> &constraint);
+
+        void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
         const std::string nodeName() const override;
 
