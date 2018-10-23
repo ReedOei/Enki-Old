@@ -3,9 +3,20 @@
 //
 
 #include "WordIdentifier.h"
+#include "../AbstractNodeVisitor.h"
 
-enki::WordIdentifier::WordIdentifier(const std::string &word) : word(word) {}
+namespace enki {
+    WordIdentifier::WordIdentifier(const std::string &word) : word(word) {}
 
-const std::string enki::WordIdentifier::nodeName() const {
-    return "WordIdentifier";
+    const std::string WordIdentifier::nodeName() const {
+        return "WordIdentifier";
+    }
+
+    const std::string WordIdentifier::to_string() const {
+        return word;
+    }
+
+    void WordIdentifier::accept(AbstractNodeVisitor &visitor) const {
+        visitor.visit(*this);
+    }
 }

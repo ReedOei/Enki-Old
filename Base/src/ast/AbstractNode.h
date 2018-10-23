@@ -8,12 +8,16 @@
 #include <string>
 
 namespace enki {
+    class AbstractNodeVisitor;
+
     class AbstractNode {
     public:
         AbstractNode();
         explicit AbstractNode(const std::string &id);
 
         virtual const std::string nodeName() const = 0;
+        virtual const std::string to_string() const = 0;
+        virtual void accept(AbstractNodeVisitor &visitor) const = 0;
 
         const std::string &identifier() const;
 

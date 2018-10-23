@@ -11,10 +11,11 @@ namespace enki {
     class IntegerLiteral : public AbstractLiteralIdentifier {
     public:
         explicit IntegerLiteral(int val);
-        IntegerLiteral(const IntegerLiteral& literal);
-        ~IntegerLiteral();
 
         const std::string nodeName() const override;
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
 
         const int getVal() const;
 

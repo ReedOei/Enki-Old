@@ -6,17 +6,25 @@
 #define BASE_SUMTYPECONSTRUCTORDEF_H
 
 #include <vector>
+#include <memory>
 #include "AbstractTypeConstructorDef.h"
+#include "../identifier/AbstractIdentifier.h"
 
 namespace enki {
     class SumTypeConstructorDef : public AbstractTypeConstructorDef {
     public:
-        explicit SumTypeConstructorDef(const std::vector<AbstractTypeConstructorDef*> &variants);
+        SumTypeConstructorDef(const std::shared_ptr<AbstractIdentifier> &identifier,
+                              const std::vector<std::shared_ptr<AbstractTypeConstructorDef>> &variants);
 
         const std::string nodeName() const override;
 
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
+
     private:
-        const std::vector<AbstractTypeConstructorDef*> variants;
+        const std::shared_ptr<AbstractIdentifier> identifier;
+        const std::vector<std::shared_ptr<AbstractTypeConstructorDef>> variants;
     };
 }
 

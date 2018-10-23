@@ -17,7 +17,7 @@ namespace enki {
     }
 
     const std::string ResolvedSumTypeConstructor::constructorTypeName() const {
-        return "PLACEHOLDER"; // identifier->to_string();
+        return identifier->to_string();
     }
 
     void ResolvedSumTypeConstructor::accept(AbstractResolvedNodeVisitor &visitor) const {

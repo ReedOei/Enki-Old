@@ -3,9 +3,21 @@
 //
 
 #include "Runnable.h"
+#include "../AbstractNodeVisitor.h"
 
-enki::Runnable::Runnable(const enki::AbstractConstraint* constraint) : constraint(constraint) {}
+namespace enki {
+    Runnable::Runnable(const std::shared_ptr<AbstractConstraint> &constraint) : constraint(constraint) {}
 
-const std::string enki::Runnable::nodeName() const {
-    return "Runnable";
+    const std::string Runnable::nodeName() const {
+        return "Runnable";
+    }
+
+    const std::string Runnable::to_string() const {
+        return constraint->to_string();
+    }
+
+    void Runnable::accept(AbstractNodeVisitor &visitor) const {
+        visitor.visit(*this);
+        constraint->accept(visitor);
+    }
 }

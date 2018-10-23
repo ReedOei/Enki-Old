@@ -3,9 +3,20 @@
 //
 
 #include "SymbolIdentifier.h"
+#include "../AbstractNodeVisitor.h"
 
-enki::SymbolIdentifier::SymbolIdentifier(const std::string &symbol) : symbol(symbol) {}
+namespace enki {
+    enki::SymbolIdentifier::SymbolIdentifier(const std::string &symbol) : symbol(symbol) {}
 
-const std::string enki::SymbolIdentifier::nodeName() const {
-    return "SymbolIdentifier";
+    const std::string enki::SymbolIdentifier::nodeName() const {
+        return "SymbolIdentifier";
+    }
+
+    const std::string enki::SymbolIdentifier::to_string() const {
+        return symbol;
+    }
+
+    void enki::SymbolIdentifier::accept(enki::AbstractNodeVisitor &visitor) const {
+        visitor.visit(*this);
+    }
 }

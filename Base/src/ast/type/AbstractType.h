@@ -15,6 +15,17 @@ namespace enki {
         PARTIAL
     };
 
+    const std::string to_string(Mode &mode) {
+        switch (mode) {
+            case IN:
+                return "+";
+            case OUT:
+                return "-";
+            case PARTIAL:
+                return "?";
+        }
+    }
+
     class AbstractType : public AbstractNode {
     public:
         AbstractType();

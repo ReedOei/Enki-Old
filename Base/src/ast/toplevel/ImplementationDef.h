@@ -6,6 +6,7 @@
 #define BASE_IMPLEMENTATIONDEF_H
 
 #include <vector>
+#include <memory>
 #include "AbstractTopLevel.h"
 #include "../identifier/AbstractIdentifier.h"
 #include "AbstractDefinition.h"
@@ -13,16 +14,21 @@
 namespace enki {
     class ImplementationDef : public AbstractTopLevel {
     public:
-        ImplementationDef(const AbstractIdentifier* implementationId, const AbstractIdentifier* typeclassId,
-                          const std::vector<AbstractDefinition*> &definitions);
+        ImplementationDef(const std::shared_ptr<AbstractIdentifier> &implementationId,
+                          const std::shared_ptr<AbstractIdentifier> &typeclassId,
+                          const std::vector<std::shared_ptr<AbstractDefinition>> &definitions);
 
         const std::string nodeName() const override;
 
-    private:
-        const AbstractIdentifier* implementationId;
-        const AbstractIdentifier* typeclassId;
+        const std::string to_string() const override;
 
-        const std::vector<AbstractDefinition*> definitions;
+        void accept(AbstractNodeVisitor &visitor) const override;
+
+    private:
+        const std::shared_ptr<AbstractIdentifier> implementationId;
+        const std::shared_ptr<AbstractIdentifier> typeclassId;
+
+        const std::vector<std::shared_ptr<AbstractDefinition>> definitions;
     };
 }
 

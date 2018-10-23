@@ -8,10 +8,12 @@
 #include <boost/uuid/uuid_generators.hpp> // generators
 #include <boost/uuid/uuid_io.hpp>         // streaming operators etc.
 
-const std::string &enki::AbstractNode::identifier() const {
-    return id;
+namespace enki {
+    AbstractNode::AbstractNode(const std::string &id) : id(id) {}
+
+    AbstractNode::AbstractNode() : id(boost::uuids::to_string(boost::uuids::random_generator()())) {}
+    
+    const std::string &AbstractNode::identifier() const {
+        return id;
+    }
 }
-
-enki::AbstractNode::AbstractNode(const std::string &id) : id(id) {}
-
-enki::AbstractNode::AbstractNode() : id(boost::uuids::to_string(boost::uuids::random_generator()())) {}

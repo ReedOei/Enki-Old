@@ -15,7 +15,7 @@ namespace enki {
     }
 
     const std::string ResolvedTypeConstructor::constructorTypeName() const {
-        return "PLACEHOLDER"; // identifier->to_string();
+        return identifier->to_string();
     }
 
     void ResolvedTypeConstructor::accept(AbstractResolvedNodeVisitor &visitor) const {

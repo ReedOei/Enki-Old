@@ -6,6 +6,7 @@
 #define BASE_TYPECLASSDEF_H
 
 #include <vector>
+#include <memory>
 #include "AbstractTopLevel.h"
 #include "../identifier/AbstractIdentifier.h"
 #include "../Property.h"
@@ -13,16 +14,21 @@
 namespace enki {
     class TypeclassDef : public AbstractTopLevel {
     public:
-        TypeclassDef(const AbstractIdentifier* templateId, const AbstractIdentifier* typeclassId,
-                     const std::vector<Property*> &properties);
+        TypeclassDef(const std::shared_ptr<AbstractIdentifier> &templateId,
+                     const std::shared_ptr<AbstractIdentifier> &typeclassId,
+                     const std::vector<std::shared_ptr<Property>> &properties);
 
         const std::string nodeName() const override;
 
-    private:
-        const AbstractIdentifier* templateId;
-        const AbstractIdentifier* typeclassId;
+        const std::string to_string() const override;
 
-        const std::vector<Property*> properties;
+        void accept(AbstractNodeVisitor &visitor) const override;
+
+    private:
+        const std::shared_ptr<AbstractIdentifier> templateId;
+        const std::shared_ptr<AbstractIdentifier> typeclassId;
+
+        const std::vector<std::shared_ptr<Property>> properties;
     };
 }
 

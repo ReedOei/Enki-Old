@@ -6,6 +6,7 @@
 #define BASE_TYPECONSTRUCTORDEF_H
 
 #include <vector>
+#include <memory>
 #include "AbstractTypeConstructorDef.h"
 #include "../identifier/AbstractIdentifier.h"
 #include "../type/AbstractType.h"
@@ -13,14 +14,18 @@
 namespace enki {
     class TypeConstructorDef : public AbstractTypeConstructorDef {
     public:
-        TypeConstructorDef(const AbstractIdentifier* identifier,
-                           const std::vector<std::pair<AbstractIdentifier*, AbstractType*>> &members);
+        TypeConstructorDef(const std::shared_ptr<AbstractIdentifier> &identifier,
+                           const std::vector<std::pair<std::shared_ptr<AbstractIdentifier>, std::shared_ptr<AbstractType>>> &members);
 
         const std::string nodeName() const override;
 
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
+
     private:
-        const AbstractIdentifier* identifier;
-        const std::vector<std::pair<AbstractIdentifier*, AbstractType*>> members;
+        const std::shared_ptr<AbstractIdentifier> identifier;
+        const std::vector<std::pair<std::shared_ptr<AbstractIdentifier>, std::shared_ptr<AbstractType>>> members;
     };
 }
 

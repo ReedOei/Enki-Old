@@ -5,18 +5,22 @@
 #ifndef BASE_RUNNABLE_H
 #define BASE_RUNNABLE_H
 
+#include <memory>
 #include "AbstractTopLevel.h"
 #include "../constraints/AbstractConstraint.h"
 
 namespace enki {
     class Runnable : public AbstractTopLevel {
     public:
-        explicit Runnable(const AbstractConstraint* constraint);
+        explicit Runnable(const std::shared_ptr<AbstractConstraint> &constraint);
 
         const std::string nodeName() const override;
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
 
     private:
-        const AbstractConstraint* constraint;
+        const std::shared_ptr<AbstractConstraint> constraint;
     };
 }
 

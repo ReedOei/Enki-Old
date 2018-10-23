@@ -18,6 +18,10 @@ namespace enki {
 
         const std::string nodeName() const override;
 
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
+
     private:
         const std::vector<std::shared_ptr<WhenBranch>> branches;
         const std::optional<std::shared_ptr<AbstractConstraint>> otherwise;
