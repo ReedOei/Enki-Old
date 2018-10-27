@@ -20,7 +20,7 @@ namespace enki {
         visitor.visit(*this);
     }
 
-    const int IntegerLiteral::getVal() const {
+    const int IntegerLiteral::value() const {
         return val;
     }
 }

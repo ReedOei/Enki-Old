@@ -17,6 +17,8 @@ namespace enki {
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const std::string &value() const;
+
     private:
         const std::string v;
     };

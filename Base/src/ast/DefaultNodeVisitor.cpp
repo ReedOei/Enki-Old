@@ -34,6 +34,11 @@ namespace enki {
     }
 
     template<typename T>
+    void DefaultNodeVisitor<T>::visit(const TextLiteral &literal) {
+
+    }
+
+    template<typename T>
     void DefaultNodeVisitor<T>::visit(const IntegerLiteral &literal) {
 
     }

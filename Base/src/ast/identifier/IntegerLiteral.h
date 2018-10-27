@@ -17,7 +17,7 @@ namespace enki {
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-        const int getVal() const;
+        const int value() const;
 
     private:
         const int val;

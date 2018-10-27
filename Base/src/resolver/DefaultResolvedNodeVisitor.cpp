@@ -109,4 +109,9 @@ namespace enki {
     void DefaultResolvedNodeVisitor<T>::visit(const ResolvedTypeclassConstraint &typeclassConstraint) {
 
     }
+
+    template<typename T>
+    const T &DefaultResolvedNodeVisitor<T>::visitorValue() const {
+        return t;
+    }
 }

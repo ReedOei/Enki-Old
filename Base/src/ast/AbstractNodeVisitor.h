@@ -12,6 +12,7 @@ namespace enki {
     class WhenBranches;
     class CompositeIdentifier;
     class IntegerLiteral;
+    class TextLiteral;
     class SymbolIdentifier;
     class VarIdentifier;
     class WordIdentifier;
@@ -40,6 +41,7 @@ namespace enki {
         // Identifiers
         virtual void visit(const CompositeIdentifier &identifier) = 0;
         virtual void visit(const IntegerLiteral &literal) = 0;
+        virtual void visit(const TextLiteral &literal) = 0;
         virtual void visit(const SymbolIdentifier &symbol) = 0;
         virtual void visit(const VarIdentifier &varName) = 0;
         virtual void visit(const WordIdentifier &word) = 0;

@@ -14,4 +14,8 @@ namespace enki {
     void ResolvedTextLiteral::accept(AbstractResolvedNodeVisitor &visitor) const {
         visitor.visit(*this);
     }
+
+    const std::string &ResolvedTextLiteral::value() const {
+        return v;
+    }
 }
