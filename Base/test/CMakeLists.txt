@@ -3,7 +3,7 @@ project(Test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Test main.cpp typechecking/TypeInfererTest.cpp typechecking/TypeInfererTest.h resolver/ResolverTest.cpp resolver/DefaultResolvedNodeVisitor.cpp resolver/DefaultResolvedNodeVisitor.h resolver/LiteralResolverTest.cpp)
+add_executable(Test main.cpp typechecking/TypeInfererTest.cpp typechecking/TypeInfererTest.h resolver/ResolverTest.cpp resolver/DefaultResolvedNodeVisitor.cpp resolver/DefaultResolvedNodeVisitor.h resolver/LiteralResolverTest.cpp resolver/IdentifierUnifierTest.cpp)
 include_directories(../src)
 include_directories(${CMAKE_BINARY_DIR}/catch/src)
 include_directories(../lib/rapidcheck/extras/catch/include/rapidcheck)
@@ -15,8 +15,9 @@ target_link_libraries(Test BaseLibrary)
 target_link_libraries(Test rapidcheck)
 
 add_test(NAME main_tests COMMAND Test)
-add_test(NAME memory_tests COMMAND valgrind --leak-check=full $<TARGET_FILE:Test>)
+# TODO: Put this back. Travis doesn't have valgrind though, so we'll need to install it ourselves
+#add_test(NAME memory_tests COMMAND valgrind --leak-check=full $<TARGET_FILE:Test>)
 
-add_custom_target(check ${CMAKE_COMMAND} -E env CTEST_OUTPUT_ON_FAILURE=1
+add_custom_target(check ${CMAKE_COMMAND} -E env CTEST_OUTPUT_ON_FAILURE=1 RC_PARAMS="verbose_progress=1"
         ${CMAKE_CTEST_COMMAND} -C $<CONFIG> --verbose
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
