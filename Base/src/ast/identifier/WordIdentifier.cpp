@@ -5,6 +5,13 @@
 #include "WordIdentifier.h"
 #include "../AbstractNodeVisitor.h"
 #include "CompositeIdentifier.h"
+#include "VarIdentifier.h"
+#include "CompositeIdentifier.h"
+#include "IntegerLiteral.h"
+#include "SymbolIdentifier.h"
+#include "TextLiteral.h"
+#include "WordIdentifier.h"
+#include "VarIdentifier.h"
 
 namespace enki {
     WordIdentifier::WordIdentifier(const std::string &word) : word(word) {}
@@ -25,27 +32,31 @@ namespace enki {
         return word;
     }
 
-    bool WordIdentifier::canUnify(const CompositeIdentifier* other) const {
+    const std::vector<VarIdentifier*> WordIdentifier::variables() const {
+        return std::vector<VarIdentifier*>();
+    }
+
+    UnificationResult WordIdentifier::unify(const CompositeIdentifier* other) const {
         return other->tryUnify(this);
     }
 
-    bool WordIdentifier::canUnify(const IntegerLiteral* other) const {
-        return false;
+    UnificationResult WordIdentifier::unify(const IntegerLiteral* other) const {
+        return UnificationResult();
     }
 
-    bool WordIdentifier::canUnify(const SymbolIdentifier* other) const {
-        return false;
+    UnificationResult WordIdentifier::unify(const SymbolIdentifier* other) const {
+        return UnificationResult();
     }
 
-    bool WordIdentifier::canUnify(const TextLiteral* other) const {
-        return false;
+    UnificationResult WordIdentifier::unify(const TextLiteral* other) const {
+        return UnificationResult();
     }
 
-    bool WordIdentifier::canUnify(const VarIdentifier* other) const {
-        return true;
+    UnificationResult WordIdentifier::unify(const VarIdentifier* other) const {
+        return UnificationResult(this, other);
     }
 
-    bool WordIdentifier::canUnify(const WordIdentifier* other) const {
-        return value() == other->value();
+    UnificationResult WordIdentifier::unify(const WordIdentifier* other) const {
+        return value() == other->value() ? UnificationResult(this, other) : UnificationResult();
     }
 }

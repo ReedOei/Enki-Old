@@ -2,6 +2,7 @@
 // Created by roei on 17/10/18.
 //
 
+#include <optional>
 #include "AbstractIdentifier.h"
 
 #include "VarIdentifier.h"
@@ -14,21 +15,21 @@
 namespace enki {
     AbstractIdentifier::AbstractIdentifier() = default;
 
-    bool AbstractIdentifier::tryUnify(const AbstractIdentifier* other) const {
+    UnificationResult AbstractIdentifier::tryUnify(const AbstractIdentifier* other) const {
         if (auto ci = dynamic_cast<const CompositeIdentifier*>(other)) {
-            return canUnify(ci);
+            return unify(ci);
         } else if (auto i = dynamic_cast<const IntegerLiteral*>(other)) {
-            return canUnify(i);
+            return unify(i);
         } else if (auto si = dynamic_cast<const SymbolIdentifier*>(other)) {
-            return canUnify(si);
+            return unify(si);
         } else if (auto t = dynamic_cast<const TextLiteral*>(other)) {
-            return canUnify(t);
+            return unify(t);
         } else if (auto vi = dynamic_cast<const VarIdentifier*>(other)) {
-            return canUnify(vi);
+            return unify(vi);
         } else if (auto wi = dynamic_cast<const WordIdentifier*>(other)) {
-            return canUnify(wi);
+            return unify(wi);
         }
 
-        return false;
+        return UnificationResult();
     }
 }

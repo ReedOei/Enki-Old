@@ -5,6 +5,13 @@
 #include "SymbolIdentifier.h"
 #include "../AbstractNodeVisitor.h"
 #include "CompositeIdentifier.h"
+#include "VarIdentifier.h"
+#include "CompositeIdentifier.h"
+#include "IntegerLiteral.h"
+#include "SymbolIdentifier.h"
+#include "TextLiteral.h"
+#include "WordIdentifier.h"
+#include "VarIdentifier.h"
 
 namespace enki {
     enki::SymbolIdentifier::SymbolIdentifier(const std::string &symbol) : symbol(symbol) {}
@@ -25,27 +32,31 @@ namespace enki {
         return symbol;
     }
 
-    bool SymbolIdentifier::canUnify(const CompositeIdentifier* other) const {
+    const std::vector<VarIdentifier*> SymbolIdentifier::variables() const {
+        return std::vector<VarIdentifier*>();
+    }
+
+    UnificationResult SymbolIdentifier::unify(const CompositeIdentifier* other) const {
         return other->tryUnify(this);
     }
 
-    bool SymbolIdentifier::canUnify(const IntegerLiteral* other) const {
-        return false;
+    UnificationResult SymbolIdentifier::unify(const IntegerLiteral* other) const {
+        return UnificationResult();
     }
 
-    bool SymbolIdentifier::canUnify(const SymbolIdentifier* other) const {
-        return other->value() == value();
+    UnificationResult SymbolIdentifier::unify(const SymbolIdentifier* other) const {
+        return value() == other->value() ? UnificationResult(this, other) : UnificationResult();
     }
 
-    bool SymbolIdentifier::canUnify(const TextLiteral* other) const {
-        return false;
+    UnificationResult SymbolIdentifier::unify(const TextLiteral* other) const {
+        return UnificationResult();
     }
 
-    bool SymbolIdentifier::canUnify(const VarIdentifier* other) const {
-        return true;
+    UnificationResult SymbolIdentifier::unify(const VarIdentifier* other) const {
+        return UnificationResult(this, other);
     }
 
-    bool SymbolIdentifier::canUnify(const WordIdentifier* other) const {
-        return false;
+    UnificationResult SymbolIdentifier::unify(const WordIdentifier* other) const {
+        return UnificationResult();
     }
 }

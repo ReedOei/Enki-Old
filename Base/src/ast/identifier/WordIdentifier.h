@@ -19,13 +19,20 @@ namespace enki {
 
         const std::string &value() const;
 
+        const std::vector<VarIdentifier*> variables() const override;
+
     protected:
-        bool canUnify(const CompositeIdentifier* other) const override;
-        bool canUnify(const IntegerLiteral* other) const override;
-        bool canUnify(const SymbolIdentifier* other) const override;
-        bool canUnify(const TextLiteral* other) const override;
-        bool canUnify(const VarIdentifier* other) const override;
-        bool canUnify(const WordIdentifier* other) const override;
+        UnificationResult unify(const CompositeIdentifier* other) const override;
+
+        UnificationResult unify(const IntegerLiteral* other) const override;
+
+        UnificationResult unify(const SymbolIdentifier* other) const override;
+
+        UnificationResult unify(const TextLiteral* other) const override;
+
+        UnificationResult unify(const VarIdentifier* other) const override;
+
+        UnificationResult unify(const WordIdentifier* other) const override;
 
     private:
         const std::string word;

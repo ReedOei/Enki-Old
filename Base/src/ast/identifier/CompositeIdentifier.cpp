@@ -32,7 +32,7 @@ namespace enki {
         std::vector<std::string> strings;
 
         std::transform(identifiers.begin(), identifiers.end(), std::back_inserter(strings),
-                [](auto id) { return "(" + id->to_string() + ")"; });
+                       [](auto id) { return "(" + id->to_string() + ")"; });
 
         return boost::algorithm::join(strings, " ");
     }
@@ -41,45 +41,58 @@ namespace enki {
         return identifiers;
     }
 
-    bool CompositeIdentifier::canUnify(const CompositeIdentifier* other) const {
+    UnificationResult CompositeIdentifier::unify(const CompositeIdentifier* other) const {
+        UnificationResult result;
+
         // TODO: Remove this restriction, and allow them to match as long as the last part is a variable
         if (ids().size() != other->ids().size()) {
-            return false;
+            return result;
         }
 
         for (auto i = 0; i < ids().size(); i++) {
             auto a = ids()[i];
             auto b = other->ids()[i];
 
-            if (!a->tryUnify(b.get())) {
-                return false;
+            auto r = a->tryUnify(b.get());
+
+            if (r.empty()) {
+                return UnificationResult();
+            } else {
+                result.appendAll(r);
             }
         }
 
-        return true;
+        return result;
     }
 
-    bool CompositeIdentifier::canUnify(const IntegerLiteral* other) const {
-        std::vector<std::shared_ptr<AbstractIdentifier>> ids {std::make_shared<IntegerLiteral>(other->value())};
-        return canUnify(std::make_shared<CompositeIdentifier>(ids).get());
+    UnificationResult CompositeIdentifier::unify(const IntegerLiteral* other) const {
+        return unify(std::make_shared<CompositeIdentifier>(std::vector<std::shared_ptr<AbstractIdentifier>> {std::make_shared<IntegerLiteral>(other->value())}).get());
     }
 
-    bool CompositeIdentifier::canUnify(const SymbolIdentifier* other) const {
-        std::vector<std::shared_ptr<AbstractIdentifier>> ids {std::make_shared<SymbolIdentifier>(other->value())};
-        return canUnify(std::make_shared<CompositeIdentifier>(ids).get());
+    UnificationResult CompositeIdentifier::unify(const SymbolIdentifier* other) const {
+        return unify(std::make_shared<CompositeIdentifier>(std::vector<std::shared_ptr<AbstractIdentifier>> {std::make_shared<SymbolIdentifier>(other->value())}).get());
     }
 
-    bool CompositeIdentifier::canUnify(const TextLiteral* other) const {
-        std::vector<std::shared_ptr<AbstractIdentifier>> ids {std::make_shared<TextLiteral>(other->value())};
-        return canUnify(std::make_shared<CompositeIdentifier>(ids).get());
+    UnificationResult CompositeIdentifier::unify(const TextLiteral* other) const {
+        return unify(std::make_shared<CompositeIdentifier>(std::vector<std::shared_ptr<AbstractIdentifier>> {std::make_shared<TextLiteral>(other->value())}).get());
     }
 
-    bool CompositeIdentifier::canUnify(const VarIdentifier* other) const {
-        return true;
+    UnificationResult CompositeIdentifier::unify(const VarIdentifier* other) const {
+        return UnificationResult(this, other);
     }
 
-    bool CompositeIdentifier::canUnify(const WordIdentifier* other) const {
-        std::vector<std::shared_ptr<AbstractIdentifier>> ids {std::make_shared<WordIdentifier>(other->value())};
-        return canUnify(std::make_shared<CompositeIdentifier>(ids).get());
+    UnificationResult CompositeIdentifier::unify(const WordIdentifier* other) const {
+        return unify(std::make_shared<CompositeIdentifier>(std::vector<std::shared_ptr<AbstractIdentifier>> {std::make_shared<WordIdentifier>(other->value())}).get());
+    }
+
+    const std::vector<VarIdentifier*> CompositeIdentifier::variables() const {
+        std::vector<VarIdentifier*> variables;
+
+        for (const auto &identifier : identifiers) {
+            variables.insert(variables.end(), identifier->variables().begin(), identifier->variables().end());
+        }
+
+        return variables;
     }
 }
+

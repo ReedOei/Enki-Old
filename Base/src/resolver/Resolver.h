@@ -21,10 +21,11 @@ namespace enki {
 
         const std::shared_ptr<ResolvedIntLiteral> resolve(const std::shared_ptr<IntegerLiteral> &literal);
         const std::shared_ptr<ResolvedTextLiteral> resolve(const std::shared_ptr<TextLiteral> &literal);
-
-        const std::shared_ptr<AbstractResolvedNode> resolve(const std::shared_ptr<AbstractIdentifier> &id);
-
         const std::shared_ptr<ResolvedFunction> resolve(const std::shared_ptr<FuncDefinition> &func);
+
+        const std::optional<std::shared_ptr<AbstractResolvedNode>> resolve(const std::shared_ptr<AbstractIdentifier> &id);
+
+        const std::optional<std::shared_ptr<AbstractResolvedVal>> resolveVal(const std::shared_ptr<AbstractIdentifier> &id);
 
     private:
         std::map<std::shared_ptr<CompositeIdentifier>, std::shared_ptr<AbstractResolvedDefinition>> knownIdentifiers;

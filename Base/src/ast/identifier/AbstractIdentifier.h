@@ -6,7 +6,11 @@
 #define BASE_ABSTRACTIDENTIFIER_H
 
 #include <memory>
+#include <vector>
+#include <optional>
+
 #include "../AbstractNode.h"
+#include "unification/UnificationResult.h"
 
 namespace enki {
     class CompositeIdentifier;
@@ -20,15 +24,17 @@ namespace enki {
     public:
         AbstractIdentifier();
 
-        bool tryUnify(const AbstractIdentifier* other) const;
+        UnificationResult tryUnify(const AbstractIdentifier* other) const;
+
+        virtual const std::vector<VarIdentifier*> variables() const = 0;
 
     protected:
-        virtual bool canUnify(const CompositeIdentifier* other) const = 0;
-        virtual bool canUnify(const IntegerLiteral* other) const = 0;
-        virtual bool canUnify(const SymbolIdentifier* other) const = 0;
-        virtual bool canUnify(const TextLiteral* other) const = 0;
-        virtual bool canUnify(const VarIdentifier* other) const = 0;
-        virtual bool canUnify(const WordIdentifier* other) const = 0;
+        virtual UnificationResult unify(const CompositeIdentifier* other) const = 0;
+        virtual UnificationResult unify(const IntegerLiteral* other) const = 0;
+        virtual UnificationResult unify(const SymbolIdentifier* other) const = 0;
+        virtual UnificationResult unify(const TextLiteral* other) const = 0;
+        virtual UnificationResult unify(const VarIdentifier* other) const = 0;
+        virtual UnificationResult unify(const WordIdentifier* other) const = 0;
     };
 }
 
