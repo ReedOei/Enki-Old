@@ -3,3 +3,5 @@
 //
 
 #include "AbstractConstraint.h"
+
+enki::AbstractConstraint::~AbstractConstraint() = default;

@@ -3,3 +3,7 @@
 //
 
 #include "AbstractDefinition.h"
+
+enki::AbstractDefinition::~AbstractDefinition() {
+
+}

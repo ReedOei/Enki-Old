@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedTypeConstructor.h"
+
+enki::AbstractResolvedTypeConstructor::~AbstractResolvedTypeConstructor() {
+
+}

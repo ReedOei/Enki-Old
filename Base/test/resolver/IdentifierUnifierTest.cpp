@@ -20,17 +20,17 @@
 void different_integers_dont_unify(int a, int b) {
     RC_PRE(a != b);
 
-    auto aNode = std::make_shared<enki::IntegerLiteral>(a);
-    auto bNode = std::make_shared<enki::IntegerLiteral>(b);
+    enki::IntegerLiteral aNode(a);
+    enki::IntegerLiteral bNode(b);
 
-    RC_ASSERT_FALSE(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT_FALSE(aNode.tryUnify(&bNode).succeeded());
 }
 
 void same_integers_unify(int x) {
-    auto aNode = std::make_shared<enki::IntegerLiteral>(x);
-    auto bNode = std::make_shared<enki::IntegerLiteral>(x);
+    enki::IntegerLiteral aNode(x);
+    enki::IntegerLiteral bNode(x);
 
-    RC_ASSERT(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT(aNode.tryUnify(&bNode).succeeded());
 }
 
 TEST_CASE("try unifying integers with integers") {
@@ -43,17 +43,17 @@ TEST_CASE("try unifying integers with integers") {
 void different_texts_dont_unify(const std::string a, const std::string b) {
     RC_PRE(a != b);
 
-    auto aNode = std::make_shared<enki::TextLiteral>(a);
-    auto bNode = std::make_shared<enki::TextLiteral>(b);
+    enki::TextLiteral aNode(a);
+    enki::TextLiteral bNode(b);
 
-    RC_ASSERT_FALSE(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT_FALSE(aNode.tryUnify(&bNode).succeeded());
 }
 
 void same_text_unify(const std::string x) {
-    auto aNode = std::make_shared<enki::TextLiteral>(x);
-    auto bNode = std::make_shared<enki::TextLiteral>(x);
+    enki::TextLiteral aNode(x);
+    enki::TextLiteral bNode(x);
 
-    RC_ASSERT(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT(aNode.tryUnify(&bNode).succeeded());
 }
 
 TEST_CASE("try unifying text with text") {
@@ -66,17 +66,17 @@ TEST_CASE("try unifying text with text") {
 void different_words_dont_unify(const std::string a, const std::string b) {
     RC_PRE(a != b);
 
-    auto aNode = std::make_shared<enki::WordIdentifier>(a);
-    auto bNode = std::make_shared<enki::WordIdentifier>(b);
+    enki::WordIdentifier aNode(a);
+    enki::WordIdentifier bNode(b);
 
-    RC_ASSERT_FALSE(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT_FALSE(aNode.tryUnify(&bNode).succeeded());
 }
 
 void same_word_unify(const std::string x) {
-    auto aNode = std::make_shared<enki::WordIdentifier>(x);
-    auto bNode = std::make_shared<enki::WordIdentifier>(x);
+    enki::WordIdentifier aNode(x);
+    enki::WordIdentifier bNode(x);
 
-    RC_ASSERT(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT(aNode.tryUnify(&bNode).succeeded());
 }
 
 TEST_CASE("try unifying words with words") {
@@ -89,17 +89,17 @@ TEST_CASE("try unifying words with words") {
 void different_symbols_dont_unify(const std::string a, const std::string b) {
     RC_PRE(a != b);
 
-    auto aNode = std::make_shared<enki::TextLiteral>(a);
-    auto bNode = std::make_shared<enki::TextLiteral>(b);
+    enki::SymbolIdentifier aNode(a);
+    enki::SymbolIdentifier bNode(b);
 
-    RC_ASSERT_FALSE(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT_FALSE(aNode.tryUnify(&bNode).succeeded());
 }
 
 void same_symbol_unify(const std::string x) {
-    auto aNode = std::make_shared<enki::TextLiteral>(x);
-    auto bNode = std::make_shared<enki::TextLiteral>(x);
+    enki::SymbolIdentifier aNode(x);
+    enki::SymbolIdentifier bNode(x);
 
-    RC_ASSERT(aNode->tryUnify(bNode.get()).succeeded());
+    RC_ASSERT(aNode.tryUnify(&bNode).succeeded());
 }
 
 TEST_CASE("try unifying symbols with symbols") {
@@ -115,19 +115,19 @@ void vars_always_unify(const std::string varName,
                        const std::string symbol,
                        const std::string text,
                        int i) {
-    auto varNode = std::make_shared<enki::VarIdentifier>(varName);
+    enki::VarIdentifier varNode(varName);
 
-    auto otherVarNode = std::make_shared<enki::VarIdentifier>(otherVarName);
-    auto wordNode = std::make_shared<enki::WordIdentifier>(word);
-    auto symbolNode = std::make_shared<enki::SymbolIdentifier>(symbol);
-    auto textNode = std::make_shared<enki::TextLiteral>(text);
-    auto intNode = std::make_shared<enki::IntegerLiteral>(i);
+    enki::VarIdentifier otherVarNode(otherVarName);
+    enki::WordIdentifier wordNode(word);
+    enki::SymbolIdentifier symbolNode(symbol);
+    enki::TextLiteral textNode(text);
+    enki::IntegerLiteral intNode(i);
 
-    RC_ASSERT(varNode->tryUnify(otherVarNode.get()).succeeded());
-    RC_ASSERT(varNode->tryUnify(wordNode.get()).succeeded());
-    RC_ASSERT(varNode->tryUnify(symbolNode.get()).succeeded());
-    RC_ASSERT(varNode->tryUnify(textNode.get()).succeeded());
-    RC_ASSERT(varNode->tryUnify(intNode.get()).succeeded());
+    RC_ASSERT(varNode.tryUnify(&otherVarNode).succeeded());
+    RC_ASSERT(varNode.tryUnify(&wordNode).succeeded());
+    RC_ASSERT(varNode.tryUnify(&symbolNode).succeeded());
+    RC_ASSERT(varNode.tryUnify(&textNode).succeeded());
+    RC_ASSERT(varNode.tryUnify(&intNode).succeeded());
 }
 
 TEST_CASE("Vars will unify with anything") {
@@ -140,27 +140,27 @@ void never_unify_simple_ids(const std::string word,
                             const std::string symbol,
                             const std::string text,
                             int i) {
-    auto wordNode = std::make_shared<enki::WordIdentifier>(word);
-    auto symbolNode = std::make_shared<enki::SymbolIdentifier>(symbol);
-    auto textNode = std::make_shared<enki::TextLiteral>(text);
-    auto intNode = std::make_shared<enki::IntegerLiteral>(i);
+    enki::WordIdentifier wordNode(word);
+    enki::SymbolIdentifier symbolNode(symbol);
+    enki::TextLiteral textNode(text);
+    enki::IntegerLiteral intNode(i);
 
     // TODO: There has to be a better way, right?
-    RC_ASSERT_FALSE(wordNode->tryUnify(symbolNode.get()).succeeded());
-    RC_ASSERT_FALSE(wordNode->tryUnify(textNode.get()).succeeded());
-    RC_ASSERT_FALSE(wordNode->tryUnify(intNode.get()).succeeded());
+    RC_ASSERT_FALSE(wordNode.tryUnify(&symbolNode).succeeded());
+    RC_ASSERT_FALSE(wordNode.tryUnify(&textNode).succeeded());
+    RC_ASSERT_FALSE(wordNode.tryUnify(&intNode).succeeded());
 
-    RC_ASSERT_FALSE(symbolNode->tryUnify(wordNode.get()).succeeded());
-    RC_ASSERT_FALSE(symbolNode->tryUnify(textNode.get()).succeeded());
-    RC_ASSERT_FALSE(symbolNode->tryUnify(intNode.get()).succeeded());
+    RC_ASSERT_FALSE(symbolNode.tryUnify(&wordNode).succeeded());
+    RC_ASSERT_FALSE(symbolNode.tryUnify(&textNode).succeeded());
+    RC_ASSERT_FALSE(symbolNode.tryUnify(&intNode).succeeded());
 
-    RC_ASSERT_FALSE(textNode->tryUnify(wordNode.get()).succeeded());
-    RC_ASSERT_FALSE(textNode->tryUnify(symbolNode.get()).succeeded());
-    RC_ASSERT_FALSE(textNode->tryUnify(intNode.get()).succeeded());
+    RC_ASSERT_FALSE(textNode.tryUnify(&wordNode).succeeded());
+    RC_ASSERT_FALSE(textNode.tryUnify(&symbolNode).succeeded());
+    RC_ASSERT_FALSE(textNode.tryUnify(&intNode).succeeded());
 
-    RC_ASSERT_FALSE(intNode->tryUnify(wordNode.get()).succeeded());
-    RC_ASSERT_FALSE(intNode->tryUnify(symbolNode.get()).succeeded());
-    RC_ASSERT_FALSE(intNode->tryUnify(textNode.get()).succeeded());
+    RC_ASSERT_FALSE(intNode.tryUnify(&wordNode).succeeded());
+    RC_ASSERT_FALSE(intNode.tryUnify(&symbolNode).succeeded());
+    RC_ASSERT_FALSE(intNode.tryUnify(&textNode).succeeded());
 }
 
 TEST_CASE("Different simple identifiers never unify") {
@@ -172,40 +172,55 @@ TEST_CASE("Different simple identifiers never unify") {
 void same_word_composite_id_match(const std::vector<std::string> &words) {
     RC_PRE(!words.empty());
 
-    std::vector<std::shared_ptr<enki::AbstractIdentifier>> ids;
-    std::transform(words.begin(), words.end(), std::back_inserter(ids),
-            [](auto word) { return std::make_shared<enki::WordIdentifier>(word); });
+    std::vector<const enki::AbstractIdentifier*> ids;
+//    std::transform(words.begin(), words.end(), std::back_inserter(ids),
+//            [](auto word) { return new enki::WordIdentifier(word); });
 
-    auto compositeIdA = std::make_shared<enki::CompositeIdentifier>(ids);
-    auto compositeIdB = std::make_shared<enki::CompositeIdentifier>(ids);
+    for (const auto word : words) {
+        ids.push_back(new enki::WordIdentifier(word));
+    }
 
-    RC_ASSERT(compositeIdA->tryUnify(compositeIdB.get()).succeeded());
+    enki::CompositeIdentifier compositeIdA(ids);
+    enki::CompositeIdentifier compositeIdB(ids);
+
+    RC_ASSERT(compositeIdA.tryUnify(&compositeIdB).succeeded());
+
+    for (const auto i : ids) {
+        delete i;
+    }
 }
 
 void match_with_vars(const std::vector<std::string> &words) {
     RC_PRE(!words.empty());
 
-    std::vector<std::shared_ptr<enki::AbstractIdentifier>> ids;
+    std::vector<const enki::AbstractIdentifier*> ids;
     std::transform(words.begin(), words.end(), std::back_inserter(ids),
-                   [](auto word) { return std::make_shared<enki::WordIdentifier>(word); });
+                   [](auto word) { return new enki::WordIdentifier(word); });
 
-    std::vector<std::shared_ptr<enki::AbstractIdentifier>> aIds;
+    std::vector<const enki::AbstractIdentifier*> aIds;
     std::transform(words.begin(), words.end(), std::back_inserter(aIds),
                    [](auto word) {
                        const auto isVar = *rc::gen::arbitrary<bool>();
 
                        if (isVar) {
                            const auto name = *rc::gen::arbitrary<std::string>();
-                           return std::static_pointer_cast<enki::AbstractIdentifier>(std::make_shared<enki::VarIdentifier>(name));
+                           return static_cast<const enki::AbstractIdentifier*>(new enki::VarIdentifier(name));
                        } else {
-                           return std::static_pointer_cast<enki::AbstractIdentifier>(std::make_shared<enki::WordIdentifier>(word));
+                           return static_cast<const enki::AbstractIdentifier*>(new enki::WordIdentifier(word));
                        }
                    });
 
-    auto compositeIdA = std::make_shared<enki::CompositeIdentifier>(ids);
-    auto compositeIdB = std::make_shared<enki::CompositeIdentifier>(ids);
+    enki::CompositeIdentifier compositeIdA(aIds);
+    enki::CompositeIdentifier compositeIdB(ids);
 
-    RC_ASSERT(compositeIdA->tryUnify(compositeIdB.get()).succeeded());
+    RC_ASSERT(compositeIdA.tryUnify(&compositeIdB).succeeded());
+
+    for (const auto i : aIds) {
+        delete i;
+    }
+    for (const auto i : ids) {
+        delete i;
+    }
 }
 
 TEST_CASE("Unify composite identifiers") {

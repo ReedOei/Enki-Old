@@ -15,6 +15,7 @@
 
 namespace enki {
     IntegerLiteral::IntegerLiteral(int val) : val(val) {}
+    IntegerLiteral::~IntegerLiteral() = default;
 
     const std::string IntegerLiteral::nodeName() const {
         return "IntegerLiteral";
@@ -32,12 +33,12 @@ namespace enki {
         return val;
     }
 
-    const std::vector<VarIdentifier*> IntegerLiteral::variables() const {
-        return std::vector<VarIdentifier*>();
+    const std::vector<const VarIdentifier*> IntegerLiteral::variables() const {
+        return std::vector<const VarIdentifier*>();
     }
 
     UnificationResult IntegerLiteral::unify(const CompositeIdentifier* other) const {
-        return other->tryUnify(this);
+        return CompositeIdentifier(std::vector<const AbstractIdentifier*>{this}).tryUnify(other);
     }
 
     UnificationResult IntegerLiteral::unify(const IntegerLiteral* other) const {

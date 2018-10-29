@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedExpr.h"
+
+enki::AbstractResolvedExpr::~AbstractResolvedExpr() {
+
+}

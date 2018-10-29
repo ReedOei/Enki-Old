@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractTypeConstructorDef : public AbstractTopLevel {
-
+    public:
+        virtual ~AbstractTypeConstructorDef();
     };
 }
 

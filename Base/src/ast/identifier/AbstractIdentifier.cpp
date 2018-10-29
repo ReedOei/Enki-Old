@@ -14,6 +14,7 @@
 
 namespace enki {
     AbstractIdentifier::AbstractIdentifier() = default;
+    AbstractIdentifier::~AbstractIdentifier() = default;
 
     UnificationResult AbstractIdentifier::tryUnify(const AbstractIdentifier* other) const {
         if (auto ci = dynamic_cast<const CompositeIdentifier*>(other)) {

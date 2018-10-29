@@ -5,12 +5,10 @@
 #include "ResolvedSumTypeConstructor.h"
 
 namespace enki {
-    ResolvedSumTypeConstructor::ResolvedSumTypeConstructor(
-            const std::shared_ptr<AbstractIdentifier> &identifier,
-            const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters,
-            const std::vector<std::shared_ptr<ResolvedTypeConstructor>> &constructors) : identifier(identifier),
-                                                                                         parameters(parameters),
-                                                                                         constructors(constructors) {}
+    ResolvedSumTypeConstructor::ResolvedSumTypeConstructor(const AbstractIdentifier* identifier,
+                                                           const std::vector<const ResolvedVarExpr*> &parameters,
+                                                           const std::vector<const ResolvedTypeConstructor*> &constructors)
+            : identifier(identifier), parameters(parameters), constructors(constructors) {}
 
     const std::string ResolvedSumTypeConstructor::nodeName() const {
         return "ResolvedSumTypeConstructor";
@@ -30,5 +28,21 @@ namespace enki {
         for (const auto &constructor : constructors) {
             constructor->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* ResolvedSumTypeConstructor::getIdentifier() const {
+        return identifier;
+    }
+
+    const std::vector<const ResolvedVarExpr*> &ResolvedSumTypeConstructor::getParameters() const {
+        return parameters;
+    }
+
+    const std::vector<const ResolvedTypeConstructor*> &ResolvedSumTypeConstructor::getConstructors() const {
+        return constructors;
+    }
+
+    ResolvedSumTypeConstructor::~ResolvedSumTypeConstructor() {
+
     }
 }

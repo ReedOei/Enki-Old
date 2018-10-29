@@ -7,28 +7,32 @@
 
 #include <memory>
 #include <map>
+
 #include "../ast/DefaultNodeVisitor.h"
 #include "AbstractResolvedNode.h"
 #include "expression/ResolvedIntLiteral.h"
 #include "expression/ResolvedTextLiteral.h"
 #include "definition/AbstractResolvedDefinition.h"
 #include "../ast/identifier/AbstractIdentifier.h"
+#include "../util/Error.h"
 
 namespace enki {
     class Resolver {
     public:
         Resolver();
 
-        const std::shared_ptr<ResolvedIntLiteral> resolve(const std::shared_ptr<IntegerLiteral> &literal);
-        const std::shared_ptr<ResolvedTextLiteral> resolve(const std::shared_ptr<TextLiteral> &literal);
-        const std::shared_ptr<ResolvedFunction> resolve(const std::shared_ptr<FuncDefinition> &func);
+        virtual ~Resolver();
 
-        const std::optional<std::shared_ptr<AbstractResolvedNode>> resolve(const std::shared_ptr<AbstractIdentifier> &id);
+        const ResolvedIntLiteral* resolve(const IntegerLiteral* literal);
+        const ResolvedTextLiteral* resolve(const TextLiteral* literal);
+        const ResolvedFunction* resolve(const FuncDefinition* func);
 
-        const std::optional<std::shared_ptr<AbstractResolvedVal>> resolveVal(const std::shared_ptr<AbstractIdentifier> &id);
+        const Error<AbstractResolvedNode> resolve(const AbstractIdentifier *id);
+
+        const Error<AbstractResolvedVal> resolveVal(const AbstractIdentifier *id);
 
     private:
-        std::map<std::shared_ptr<CompositeIdentifier>, std::shared_ptr<AbstractResolvedDefinition>> knownIdentifiers;
+        std::map<const CompositeIdentifier*, const AbstractResolvedDefinition*> knownIdentifiers;
     };
 }
 

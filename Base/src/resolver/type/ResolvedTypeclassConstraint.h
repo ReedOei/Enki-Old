@@ -12,20 +12,25 @@
 namespace enki {
     class ResolvedTypeclassConstraint : public AbstractResolvedType {
     public:
-        ResolvedTypeclassConstraint(const std::shared_ptr<ResolvedTypeclass> &typeclass,
-                                    const std::shared_ptr<ResolvedVarExpr> &typeVar,
-                                    const std::shared_ptr<AbstractResolvedType> &constrainedType);
+        ResolvedTypeclassConstraint(const ResolvedTypeclass* typeclass, const ResolvedVarExpr* typeVar,
+                                    const AbstractResolvedType* constrainedType);
+
+        virtual ~ResolvedTypeclassConstraint();
 
         const std::string nodeName() const override;
         const std::string typeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
-    private:
-        const std::shared_ptr<ResolvedTypeclass> typeclass;
-        const std::shared_ptr<ResolvedVarExpr> typeVar;
+        const ResolvedTypeclass* getTypeclass() const;
+        const ResolvedVarExpr* getTypeVar() const;
+        const AbstractResolvedType* getConstrainedType() const;
 
-        const std::shared_ptr<AbstractResolvedType> constrainedType;
+    private:
+        const ResolvedTypeclass* typeclass;
+        const ResolvedVarExpr* typeVar;
+
+        const AbstractResolvedType* constrainedType;
     };
 }
 

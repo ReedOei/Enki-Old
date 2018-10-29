@@ -12,15 +12,19 @@
 namespace enki {
     class Runnable : public AbstractTopLevel {
     public:
-        explicit Runnable(const std::shared_ptr<AbstractConstraint> &constraint);
+        explicit Runnable(const AbstractConstraint* constraint);
+
+        virtual ~Runnable();
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractConstraint* getConstraint() const;
+
     private:
-        const std::shared_ptr<AbstractConstraint> constraint;
+        const AbstractConstraint* constraint;
     };
 }
 

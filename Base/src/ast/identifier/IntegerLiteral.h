@@ -11,6 +11,7 @@ namespace enki {
     class IntegerLiteral : public AbstractLiteralIdentifier {
     public:
         explicit IntegerLiteral(int val);
+        ~IntegerLiteral() override;
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
@@ -19,7 +20,7 @@ namespace enki {
 
         const int value() const;
 
-        const std::vector<VarIdentifier*> variables() const override;
+        const std::vector<const VarIdentifier*> variables() const override;
 
     protected:
         UnificationResult unify(const CompositeIdentifier* other) const override;

@@ -19,6 +19,8 @@ namespace enki {
         UnificationResult(const AbstractIdentifier* a, const AbstractIdentifier* b);
         UnificationResult(const std::vector<std::pair<const AbstractIdentifier*, const AbstractIdentifier*>> &unified);
 
+        virtual ~UnificationResult();
+
         const std::vector<std::pair<const AbstractIdentifier*, const AbstractIdentifier*>> &getUnified() const;
 
         void appendAll(const UnificationResult &other);

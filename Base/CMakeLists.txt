@@ -26,7 +26,7 @@ set(MEMORYCHECK_COMMAND_OPTIONS "--xml=yes --xml-file=test.xml --leak-check=full
 include(CTest)
 
 add_executable(Base
-        src/main.cpp)
+        src/main.cpp src/util/Either.h src/util/Error.h)
 
 add_library(BaseLibrary
         src/ast/AbstractNode.cpp

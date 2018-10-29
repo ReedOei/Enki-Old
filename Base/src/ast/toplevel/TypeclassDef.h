@@ -14,21 +14,24 @@
 namespace enki {
     class TypeclassDef : public AbstractTopLevel {
     public:
-        TypeclassDef(const std::shared_ptr<AbstractIdentifier> &templateId,
-                     const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                     const std::vector<std::shared_ptr<Property>> &properties);
+        TypeclassDef(const AbstractIdentifier* templateId, const AbstractIdentifier* typeclassId, const std::vector<const Property*> &properties);
+
+        virtual ~TypeclassDef();
 
         const std::string nodeName() const override;
-
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-    private:
-        const std::shared_ptr<AbstractIdentifier> templateId;
-        const std::shared_ptr<AbstractIdentifier> typeclassId;
+        const AbstractIdentifier* getTemplateId() const;
+        const AbstractIdentifier* getTypeclassId() const;
+        const std::vector<const Property*> &getProperties() const;
 
-        const std::vector<std::shared_ptr<Property>> properties;
+    private:
+        const AbstractIdentifier* templateId;
+        const AbstractIdentifier* typeclassId;
+
+        const std::vector<const Property*> properties;
     };
 }
 

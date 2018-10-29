@@ -13,6 +13,8 @@ namespace enki {
     public:
         explicit ResolvedBuiltinType(const std::string &name);
 
+        virtual ~ResolvedBuiltinType();
+
         const std::string nodeName() const override;
         const std::string typeName() const override;
 

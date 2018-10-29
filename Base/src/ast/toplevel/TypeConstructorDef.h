@@ -14,18 +14,22 @@
 namespace enki {
     class TypeConstructorDef : public AbstractTypeConstructorDef {
     public:
-        TypeConstructorDef(const std::shared_ptr<AbstractIdentifier> &identifier,
-                           const std::vector<std::pair<std::shared_ptr<AbstractIdentifier>, std::shared_ptr<AbstractType>>> &members);
+        TypeConstructorDef(const AbstractIdentifier* identifier,
+                           const std::vector<std::pair<const AbstractIdentifier*, const AbstractType*>> &members);
+
+        virtual ~TypeConstructorDef();
 
         const std::string nodeName() const override;
-
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractIdentifier* getIdentifier() const;
+        const std::vector<std::pair<const AbstractIdentifier*, const AbstractType*>> &getMembers() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
-        const std::vector<std::pair<std::shared_ptr<AbstractIdentifier>, std::shared_ptr<AbstractType>>> members;
+        const AbstractIdentifier* identifier;
+        const std::vector<std::pair<const AbstractIdentifier*, const AbstractType*>> members;
     };
 }
 

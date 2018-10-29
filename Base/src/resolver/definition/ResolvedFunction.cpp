@@ -4,16 +4,10 @@
 
 #include "ResolvedFunction.h"
 
-namespace enki {
-    ResolvedFunction::ResolvedFunction(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                       const std::optional<std::shared_ptr<AbstractResolvedConstraint>> &constraints,
-                                       const std::shared_ptr<AbstractResolvedVal> &returnValue,
-                                       const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters)
-                                       : identifier(identifier),
-                                         constraints(constraints),
-                                         returnValue(returnValue),
-                                         parameters(parameters) {}
+#include "../Resolver.h"
+#include "../../ast/identifier/VarIdentifier.h"
 
+namespace enki {
     const std::string enki::ResolvedFunction::nodeName() const {
         return "ResolvedFunction";
     }
@@ -30,5 +24,38 @@ namespace enki {
         for (const auto &param : parameters) {
             param->accept(visitor);
         }
+    }
+
+    ResolvedFunction::ResolvedFunction(const AbstractIdentifier* identifier) : identifier(identifier) {}
+
+    const ResolvedFunction* createFunction(Resolver &resolver, const FuncDefinition* funcDef) {
+        auto func = new ResolvedFunction(funcDef->getFuncId());
+
+        auto vars = funcDef->getFuncId()->variables();
+        for (auto i = 0; i < vars.size(); i++) {
+//            func->parameters.push_back(new ResolvedVarExpr(vars[i], func, i));
+        }
+
+        return func;
+    }
+
+    const AbstractIdentifier* ResolvedFunction::getIdentifier() const {
+        return identifier;
+    }
+
+    const std::optional<const AbstractResolvedConstraint*> &ResolvedFunction::getConstraints() const {
+        return constraints;
+    }
+
+    AbstractResolvedVal* ResolvedFunction::getReturnValue() const {
+        return returnValue;
+    }
+
+    const std::vector<const ResolvedVarExpr*> &ResolvedFunction::getParameters() const {
+        return parameters;
+    }
+
+    ResolvedFunction::~ResolvedFunction() {
+
     }
 }

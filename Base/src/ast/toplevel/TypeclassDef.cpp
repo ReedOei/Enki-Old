@@ -7,11 +7,10 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    TypeclassDef::TypeclassDef(const std::shared_ptr<AbstractIdentifier> &templateId,
-                               const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                               const std::vector<std::shared_ptr<Property>> &properties) : templateId(templateId),
-                                                                                           typeclassId(typeclassId),
-                                                                                           properties(properties) {}
+    TypeclassDef::TypeclassDef(const AbstractIdentifier* templateId,
+                               const AbstractIdentifier* typeclassId,
+                               const std::vector<const Property*> &properties)
+                               : templateId(templateId), typeclassId(typeclassId), properties(properties) {}
 
     const std::string enki::TypeclassDef::nodeName() const {
         return "TypeclassDef";
@@ -36,5 +35,21 @@ namespace enki {
         for (const auto &prop : properties) {
             prop->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* TypeclassDef::getTemplateId() const {
+        return templateId;
+    }
+
+    const AbstractIdentifier* TypeclassDef::getTypeclassId() const {
+        return typeclassId;
+    }
+
+    const std::vector<const Property*> &TypeclassDef::getProperties() const {
+        return properties;
+    }
+
+    TypeclassDef::~TypeclassDef() {
+
     }
 }

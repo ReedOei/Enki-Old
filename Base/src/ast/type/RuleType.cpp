@@ -7,7 +7,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    RuleType::RuleType(const std::vector<std::pair<Mode, std::shared_ptr<AbstractType>>> &modes) : modes(modes) {}
+    RuleType::RuleType(const std::vector<std::pair<Mode, const AbstractType*>> &modes) : modes(modes) {}
 
     const std::string RuleType::nodeName() const {
         return "RuleType";
@@ -28,5 +28,13 @@ namespace enki {
         for (const auto &mode : modes) {
             mode.second->accept(visitor);
         }
+    }
+
+    const std::vector<std::pair<Mode, const AbstractType*>> &RuleType::getModes() const {
+        return modes;
+    }
+
+    RuleType::~RuleType() {
+
     }
 }

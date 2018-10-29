@@ -23,4 +23,8 @@ namespace enki {
     void Comment::accept(AbstractNodeVisitor &visitor) const {
         visitor.visit(*this);
     }
+
+    Comment::~Comment() {
+
+    }
 }

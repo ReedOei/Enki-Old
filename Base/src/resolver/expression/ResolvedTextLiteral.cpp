@@ -18,4 +18,8 @@ namespace enki {
     const std::string &ResolvedTextLiteral::value() const {
         return v;
     }
+
+    ResolvedTextLiteral::~ResolvedTextLiteral() {
+
+    }
 }

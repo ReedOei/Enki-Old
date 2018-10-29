@@ -12,6 +12,8 @@ namespace enki {
     public:
         explicit TextLiteral(const std::string &str);
 
+        virtual ~TextLiteral();
+
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
@@ -19,22 +21,15 @@ namespace enki {
 
         const std::string value() const;
 
-        const std::vector<VarIdentifier*> variables() const override;
+        const std::vector<const VarIdentifier*> variables() const override;
 
     protected:
         UnificationResult unify(const CompositeIdentifier* other) const override;
-
         UnificationResult unify(const IntegerLiteral* other) const override;
-
         UnificationResult unify(const SymbolIdentifier* other) const override;
-
         UnificationResult unify(const TextLiteral* other) const override;
-
         UnificationResult unify(const VarIdentifier* other) const override;
-
         UnificationResult unify(const WordIdentifier* other) const override;
-
-    protected:
 
     private:
         const std::string str;

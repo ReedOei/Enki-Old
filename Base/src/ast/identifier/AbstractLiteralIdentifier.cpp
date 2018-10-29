@@ -3,3 +3,7 @@
 //
 
 #include "AbstractLiteralIdentifier.h"
+
+namespace enki {
+    AbstractLiteralIdentifier::~AbstractLiteralIdentifier() = default;
+}

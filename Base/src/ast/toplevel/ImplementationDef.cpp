@@ -8,9 +8,9 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    ImplementationDef::ImplementationDef(const std::shared_ptr<AbstractIdentifier> &implementationId,
-                                         const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                                         const std::vector<std::shared_ptr<AbstractDefinition>> &definitions)
+    ImplementationDef::ImplementationDef(const AbstractIdentifier* implementationId,
+                                         const AbstractIdentifier* typeclassId,
+                                         const std::vector<const AbstractDefinition*> &definitions)
             : implementationId(implementationId), typeclassId(typeclassId), definitions(definitions) {}
 
     const std::string ImplementationDef::nodeName() const {
@@ -36,5 +36,21 @@ namespace enki {
         for (const auto &def : definitions) {
             def->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* ImplementationDef::getImplementationId() const {
+        return implementationId;
+    }
+
+    const AbstractIdentifier* ImplementationDef::getTypeclassId() const {
+        return typeclassId;
+    }
+
+    const std::vector<const AbstractDefinition*> &ImplementationDef::getDefinitions() const {
+        return definitions;
+    }
+
+    ImplementationDef::~ImplementationDef() {
+
     }
 }

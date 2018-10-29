@@ -6,8 +6,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    SingletonConstraint::SingletonConstraint(const std::shared_ptr<AbstractIdentifier> &identifier)
-            : identifier(identifier) {}
+    SingletonConstraint::SingletonConstraint(const AbstractIdentifier* &identifier) : identifier(identifier) {}
 
     const std::string SingletonConstraint::nodeName() const {
         return "SingletonConstraint";
@@ -22,4 +21,10 @@ namespace enki {
     const std::string SingletonConstraint::to_string() const {
         return identifier->to_string();
     }
+
+    const AbstractIdentifier* SingletonConstraint::getIdentifier() const {
+        return identifier;
+    }
+
+    SingletonConstraint::~SingletonConstraint() = default;
 }

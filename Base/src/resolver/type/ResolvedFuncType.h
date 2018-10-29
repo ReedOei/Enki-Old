@@ -12,17 +12,22 @@
 namespace enki {
     class ResolvedFuncType : public AbstractResolvedType {
     public:
-        ResolvedFuncType(const std::shared_ptr<AbstractResolvedType> &inType,
-                         const std::shared_ptr<AbstractResolvedType> &outType);
+        ResolvedFuncType(const AbstractResolvedType* inType, const AbstractResolvedType* outType);
+
+        virtual ~ResolvedFuncType();
 
         const std::string nodeName() const override;
         const std::string typeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const AbstractResolvedType* getInType() const;
+
+        const AbstractResolvedType* getOutType() const;
+
     private:
-        const std::shared_ptr<AbstractResolvedType> inType;
-        const std::shared_ptr<AbstractResolvedType> outType;
+        const AbstractResolvedType* inType;
+        const AbstractResolvedType* outType;
     };
 }
 

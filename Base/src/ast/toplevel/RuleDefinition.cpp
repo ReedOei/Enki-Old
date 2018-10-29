@@ -6,9 +6,8 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    RuleDefinition::RuleDefinition(const std::shared_ptr<AbstractIdentifier> &ruleId,
-                                   const std::shared_ptr<AbstractConstraint> &constraint) : ruleId(ruleId),
-                                                                                            constraint(constraint) {}
+    RuleDefinition::RuleDefinition(const AbstractIdentifier* ruleId, const AbstractConstraint* constraint)
+        : ruleId(ruleId), constraint(constraint) {}
 
     const std::string enki::RuleDefinition::nodeName() const {
         return "RuleDefinition";
@@ -23,5 +22,17 @@ namespace enki {
 
         ruleId->accept(visitor);
         constraint->accept(visitor);
+    }
+
+    const AbstractIdentifier* RuleDefinition::getRuleId() const {
+        return ruleId;
+    }
+
+    const AbstractConstraint* RuleDefinition::getConstraint() const {
+        return constraint;
+    }
+
+    RuleDefinition::~RuleDefinition() {
+
     }
 }

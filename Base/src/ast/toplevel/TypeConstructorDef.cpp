@@ -7,9 +7,8 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-
-    TypeConstructorDef::TypeConstructorDef(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                           const std::vector<std::pair<std::shared_ptr<AbstractIdentifier>, std::shared_ptr<AbstractType>>> &members)
+    TypeConstructorDef::TypeConstructorDef(const AbstractIdentifier* identifier,
+                                           const std::vector<std::pair<const AbstractIdentifier*, const AbstractType*>> &members)
             : identifier(identifier), members(members) {}
 
     const std::string TypeConstructorDef::nodeName() const {
@@ -35,5 +34,18 @@ namespace enki {
             member.first->accept(visitor);
             member.second->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* TypeConstructorDef::getIdentifier() const {
+        return identifier;
+    }
+
+    const std::vector<std::pair<const AbstractIdentifier*, const AbstractType*>> &
+    TypeConstructorDef::getMembers() const {
+        return members;
+    }
+
+    TypeConstructorDef::~TypeConstructorDef() {
+
     }
 }

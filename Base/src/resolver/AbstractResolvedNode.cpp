@@ -14,4 +14,8 @@ namespace enki {
     const std::string &AbstractResolvedNode::identifier() const {
         return id;
     }
+
+    AbstractResolvedNode::~AbstractResolvedNode() {
+
+    }
 }

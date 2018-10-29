@@ -24,9 +24,11 @@ namespace enki {
     public:
         AbstractIdentifier();
 
+        virtual ~AbstractIdentifier();
+
         UnificationResult tryUnify(const AbstractIdentifier* other) const;
 
-        virtual const std::vector<VarIdentifier*> variables() const = 0;
+        virtual const std::vector<const VarIdentifier*> variables() const = 0;
 
     protected:
         virtual UnificationResult unify(const CompositeIdentifier* other) const = 0;

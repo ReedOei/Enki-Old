@@ -114,4 +114,9 @@ namespace enki {
     const T &DefaultResolvedNodeVisitor<T>::visitorValue() const {
         return t;
     }
+
+    template<typename T>
+    DefaultResolvedNodeVisitor<T>::~DefaultResolvedNodeVisitor() {
+
+    }
 }

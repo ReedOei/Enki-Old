@@ -5,3 +5,7 @@
 #include "AbstractType.h"
 
 enki::AbstractType::AbstractType() {}
+
+enki::AbstractType::~AbstractType() {
+
+}

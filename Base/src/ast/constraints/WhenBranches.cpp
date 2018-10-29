@@ -7,9 +7,10 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    WhenBranches::WhenBranches(const std::vector<std::shared_ptr<WhenBranch>> &branches,
-                               const std::optional<std::shared_ptr<AbstractConstraint>> &otherwise) : branches(
-            branches), otherwise(otherwise) {}
+    WhenBranches::WhenBranches(const std::vector<const WhenBranch*> &branches,
+                               const std::optional<const AbstractConstraint*> &otherwise)
+                               : branches(branches), otherwise(otherwise) {}
+    WhenBranches::~WhenBranches() = default;
 
     const std::string WhenBranches::nodeName() const {
         return "WhenBranches";
@@ -40,5 +41,13 @@ namespace enki {
         } else {
             return temp + "\n";
         }
+    }
+
+    const std::vector<const WhenBranch*> &WhenBranches::getBranches() const {
+        return branches;
+    }
+
+    const std::optional<const AbstractConstraint*> &WhenBranches::getOtherwise() const {
+        return otherwise;
     }
 }

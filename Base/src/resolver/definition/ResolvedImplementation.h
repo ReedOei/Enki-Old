@@ -16,19 +16,27 @@
 namespace enki {
     class ResolvedImplementation : public AbstractResolvedDefinition {
     public:
-        ResolvedImplementation(const std::shared_ptr<AbstractResolvedType> &implementationType,
-                               const std::shared_ptr<ResolvedTypeclass> &typeclass,
-                               const std::vector<std::shared_ptr<AbstractResolvedDefinition>> &definitions);
+        ResolvedImplementation(const AbstractResolvedType* implementationType,
+                               const ResolvedTypeclass* typeclass,
+                               const std::vector<const AbstractResolvedDefinition*> &definitions);
+
+        virtual ~ResolvedImplementation();
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
         const std::string nodeName() const override;
 
-    private:
-        const std::shared_ptr<AbstractResolvedType> implementationType;
-        const std::shared_ptr<ResolvedTypeclass> typeclass;
+        const AbstractResolvedType* getImplementationType() const;
 
-        const std::vector<std::shared_ptr<AbstractResolvedDefinition>> definitions;
+        const ResolvedTypeclass* getTypeclass() const;
+
+        const std::vector<const AbstractResolvedDefinition*> &getDefinitions() const;
+
+    private:
+        const AbstractResolvedType* implementationType;
+        const ResolvedTypeclass* typeclass;
+
+        const std::vector<const AbstractResolvedDefinition*> definitions;
     };
 }
 

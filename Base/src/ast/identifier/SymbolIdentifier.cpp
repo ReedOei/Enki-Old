@@ -32,12 +32,12 @@ namespace enki {
         return symbol;
     }
 
-    const std::vector<VarIdentifier*> SymbolIdentifier::variables() const {
-        return std::vector<VarIdentifier*>();
+    const std::vector<const VarIdentifier*> SymbolIdentifier::variables() const {
+        return std::vector<const VarIdentifier*>();
     }
 
     UnificationResult SymbolIdentifier::unify(const CompositeIdentifier* other) const {
-        return other->tryUnify(this);
+        return CompositeIdentifier(std::vector<const AbstractIdentifier*>{this}).tryUnify(other);
     }
 
     UnificationResult SymbolIdentifier::unify(const IntegerLiteral* other) const {
@@ -58,5 +58,9 @@ namespace enki {
 
     UnificationResult SymbolIdentifier::unify(const WordIdentifier* other) const {
         return UnificationResult();
+    }
+
+    SymbolIdentifier::~SymbolIdentifier() {
+
     }
 }

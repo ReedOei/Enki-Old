@@ -32,12 +32,12 @@ namespace enki {
         return str;
     }
 
-    const std::vector<VarIdentifier*> TextLiteral::variables() const {
-        return std::vector<VarIdentifier*>();
+    const std::vector<const VarIdentifier*> TextLiteral::variables() const {
+        return std::vector<const VarIdentifier*>();
     }
 
     UnificationResult TextLiteral::unify(const CompositeIdentifier* other) const {
-        return UnificationResult();
+        return CompositeIdentifier(std::vector<const AbstractIdentifier*>{this}).tryUnify(other);
     }
 
     UnificationResult TextLiteral::unify(const IntegerLiteral* other) const {
@@ -58,5 +58,9 @@ namespace enki {
 
     UnificationResult TextLiteral::unify(const WordIdentifier* other) const {
         return UnificationResult();
+    }
+
+    TextLiteral::~TextLiteral() {
+
     }
 }

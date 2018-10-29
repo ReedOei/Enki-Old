@@ -6,9 +6,8 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    FuncDefinition::FuncDefinition(const std::shared_ptr<AbstractIdentifier> &funcId,
-                                   const std::shared_ptr<AbstractConstraint> &constraint) : funcId(funcId),
-                                                                                            constraint(constraint) {}
+    FuncDefinition::FuncDefinition(const AbstractIdentifier* funcId, const AbstractConstraint* constraint,
+                                   const AbstractIdentifier* val) : funcId(funcId), constraint(constraint), val(val) {}
 
     const std::string FuncDefinition::nodeName() const {
         return "FuncDefinition";
@@ -23,5 +22,21 @@ namespace enki {
 
         funcId->accept(visitor);
         constraint->accept(visitor);
+    }
+
+    const AbstractIdentifier* FuncDefinition::getFuncId() const {
+        return funcId;
+    }
+
+    const AbstractConstraint* FuncDefinition::getConstraint() const {
+        return constraint;
+    }
+
+    const AbstractIdentifier* FuncDefinition::getVal() const {
+        return val;
+    }
+
+    FuncDefinition::~FuncDefinition() {
+
     }
 }

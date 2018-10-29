@@ -27,4 +27,6 @@ namespace enki {
     bool UnificationResult::succeeded() {
         return !empty();
     }
+
+    UnificationResult::~UnificationResult() = default;
 }

@@ -11,16 +11,21 @@
 namespace enki {
     class FuncType : public AbstractType {
     public:
-        FuncType(const std::shared_ptr<AbstractType> &inType, const std::shared_ptr<AbstractType> &outType);
+        FuncType(const AbstractType* inType, const AbstractType* outType);
+
+        virtual ~FuncType();
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractType* getInType() const;
+        const AbstractType* getOutType() const;
+
     private:
-        const std::shared_ptr<AbstractType> inType;
-        const std::shared_ptr<AbstractType> outType;
+        const AbstractType* inType;
+        const AbstractType* outType;
     };
 }
 

@@ -14,18 +14,22 @@
 namespace enki {
     class ResolvedVarExpr : public AbstractResolvedVal {
     public:
-        ResolvedVarExpr(const std::string &varName, const std::shared_ptr<AbstractResolvedDefinition> &binder,
-                        int binderPosition);
+        ResolvedVarExpr(const std::string &varName, const AbstractResolvedDefinition* binder, int binderPosition);
+
+        virtual ~ResolvedVarExpr();
 
         const std::string nodeName() const override;
         const std::string &getVarName() const;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const AbstractResolvedDefinition* getBinder() const;
+        const int getBinderPosition() const;
+
     private:
         const std::string varName;
 
-        const std::shared_ptr<AbstractResolvedDefinition> binder;
+        const AbstractResolvedDefinition* binder;
         const int binderPosition;
     };
 }

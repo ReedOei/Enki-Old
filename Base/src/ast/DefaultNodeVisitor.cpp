@@ -122,4 +122,9 @@ namespace enki {
     void DefaultNodeVisitor<T>::visit(const Property &property) {
 
     }
+
+    template<typename T>
+    DefaultNodeVisitor<T>::~DefaultNodeVisitor() {
+
+    }
 }

@@ -12,16 +12,21 @@
 namespace enki {
     class ResolvedFuncExpr : public AbstractResolvedVal {
     public:
-        ResolvedFuncExpr(const std::shared_ptr<ResolvedFunction> &function,
-                         const std::vector<std::shared_ptr<AbstractResolvedVal>> &values);
+        ResolvedFuncExpr(const ResolvedFunction* function, const std::vector<const AbstractResolvedVal*> &values);
+
+        virtual ~ResolvedFuncExpr();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const ResolvedFunction* getFunction() const;
+
+        const std::vector<const AbstractResolvedVal*> &getValues() const;
+
     private:
-        const std::shared_ptr<ResolvedFunction> function;
-        const std::vector<std::shared_ptr<AbstractResolvedVal>> values;
+        const ResolvedFunction* function;
+        const std::vector<const AbstractResolvedVal*> values;
     };
 }
 

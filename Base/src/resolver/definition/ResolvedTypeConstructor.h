@@ -16,19 +16,25 @@
 namespace enki {
     class ResolvedTypeConstructor : public AbstractResolvedTypeConstructor {
     public:
-        ResolvedTypeConstructor(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters,
-                                const std::vector<std::shared_ptr<ResolvedProperty>> &fields);
+        ResolvedTypeConstructor(const AbstractIdentifier* identifier,
+                                const std::vector<const ResolvedVarExpr*> &parameters,
+                                const std::vector<const ResolvedProperty*> &fields);
 
-        void accept(AbstractResolvedNodeVisitor &visitor) const override;
+        virtual ~ResolvedTypeConstructor();
 
         const std::string nodeName() const override;
         const std::string constructorTypeName() const override;
 
+        void accept(AbstractResolvedNodeVisitor &visitor) const override;
+
+        const AbstractIdentifier* getIdentifier() const;
+        const std::vector<const ResolvedVarExpr*> &getParameters() const;
+        const std::vector<const ResolvedProperty*> &getFields() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
-        const std::vector<std::shared_ptr<ResolvedVarExpr>> parameters;
-        const std::vector<std::shared_ptr<ResolvedProperty>> fields;
+        const AbstractIdentifier* identifier;
+        const std::vector<const ResolvedVarExpr*> parameters;
+        const std::vector<const ResolvedProperty*> fields;
     };
 }
 

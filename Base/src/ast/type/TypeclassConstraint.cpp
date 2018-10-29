@@ -6,11 +6,10 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    TypeclassConstraint::TypeclassConstraint(const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                                             const std::shared_ptr<AbstractIdentifier> &typevarId,
-                                             const std::shared_ptr<AbstractType> &type) : typeclassId(typeclassId),
-                                                                                          typevarId(typevarId),
-                                                                                          type(type) {}
+    TypeclassConstraint::TypeclassConstraint(const AbstractIdentifier* typeclassId,
+                                             const AbstractIdentifier* typevarId,
+                                             const AbstractType *type)
+                                             : typeclassId(typeclassId), typevarId(typevarId), type(type) {}
 
     const std::string TypeclassConstraint::nodeName() const {
         return "TypeclassConstraint";
@@ -26,5 +25,21 @@ namespace enki {
         typeclassId->accept(visitor);
         typevarId->accept(visitor);
         type->accept(visitor);
+    }
+
+    const AbstractIdentifier* TypeclassConstraint::getTypeclassId() const {
+        return typeclassId;
+    }
+
+    const AbstractIdentifier* TypeclassConstraint::getTypevarId() const {
+        return typevarId;
+    }
+
+    const AbstractType* TypeclassConstraint::getType() const {
+        return type;
+    }
+
+    TypeclassConstraint::~TypeclassConstraint() {
+
     }
 }

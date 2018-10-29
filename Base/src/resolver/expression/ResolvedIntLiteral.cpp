@@ -18,4 +18,8 @@ namespace enki {
     const int ResolvedIntLiteral::value() const {
         return v;
     }
+
+    ResolvedIntLiteral::~ResolvedIntLiteral() {
+
+    }
 }

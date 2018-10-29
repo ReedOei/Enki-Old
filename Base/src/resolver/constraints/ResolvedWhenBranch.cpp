@@ -5,8 +5,8 @@
 #include "ResolvedWhenBranch.h"
 
 namespace enki {
-    ResolvedWhenBranch::ResolvedWhenBranch(const std::shared_ptr<AbstractResolvedConstraint> &matcher,
-                                           const std::shared_ptr<AbstractResolvedConstraint> &constraint)
+    ResolvedWhenBranch::ResolvedWhenBranch(const AbstractResolvedConstraint* matcher,
+                                           const AbstractResolvedConstraint* constraint)
             : matcher(matcher), constraint(constraint) {}
 
     const std::string ResolvedWhenBranch::nodeName() const {
@@ -18,5 +18,17 @@ namespace enki {
 
         matcher->accept(visitor);
         constraint->accept(visitor);
+    }
+
+    const AbstractResolvedConstraint* ResolvedWhenBranch::getMatcher() const {
+        return matcher;
+    }
+
+    const AbstractResolvedConstraint* ResolvedWhenBranch::getConstraint() const {
+        return constraint;
+    }
+
+    ResolvedWhenBranch::~ResolvedWhenBranch() {
+
     }
 }

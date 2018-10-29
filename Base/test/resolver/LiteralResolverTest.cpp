@@ -44,7 +44,7 @@ public:
 };
 
 void test_basic_resolve_int(int i) {
-    auto lit = std::make_shared<enki::IntegerLiteral>(i);
+    auto lit = new enki::IntegerLiteral(i);
 
     enki::Resolver resolver;
 
@@ -54,10 +54,13 @@ void test_basic_resolve_int(int i) {
     resolvedLit->accept(visitor);
 
     RC_ASSERT(visitor.visitedNodes == 1);
+
+    delete resolvedLit;
+    delete lit;
 }
 
 void test_basic_resolve_text(const std::string &str) {
-    auto lit = std::make_shared<enki::TextLiteral>(str);
+    auto lit = new enki::TextLiteral(str);
 
     enki::Resolver resolver;
 
@@ -67,6 +70,9 @@ void test_basic_resolve_text(const std::string &str) {
     resolvedLit->accept(visitor);
 
     RC_ASSERT(visitor.visitedNodes == 1);
+
+    delete resolvedLit;
+    delete lit;
 }
 
 TEST_CASE("can resolve integer literals") {

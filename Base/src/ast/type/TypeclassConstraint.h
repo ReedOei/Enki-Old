@@ -13,19 +13,27 @@
 namespace enki {
     class TypeclassConstraint : public AbstractType {
     public:
-        TypeclassConstraint(const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                            const std::shared_ptr<AbstractIdentifier> &typevarId,
-                            const std::shared_ptr<AbstractType> &type);
+        TypeclassConstraint(const AbstractIdentifier* typeclassId,
+                            const AbstractIdentifier* typevarId,
+                            const AbstractType* type);
+
+        virtual ~TypeclassConstraint();
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractIdentifier* getTypeclassId() const;
+
+        const AbstractIdentifier* getTypevarId() const;
+
+        const AbstractType* getType() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> typeclassId;
-        const std::shared_ptr<AbstractIdentifier> typevarId;
-        const std::shared_ptr<AbstractType> type;
+        const AbstractIdentifier* typeclassId;
+        const AbstractIdentifier* typevarId;
+        const AbstractType* type;
     };
 }
 

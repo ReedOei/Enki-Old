@@ -13,6 +13,8 @@ namespace enki {
     public:
         explicit ResolvedIntLiteral(int v);
 
+        virtual ~ResolvedIntLiteral();
+
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;

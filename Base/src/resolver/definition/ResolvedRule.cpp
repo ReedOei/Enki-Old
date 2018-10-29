@@ -5,10 +5,10 @@
 #include "ResolvedRule.h"
 
 namespace enki {
-    ResolvedRule::ResolvedRule(const std::shared_ptr<AbstractIdentifier> &identifier,
-                               const std::shared_ptr<AbstractResolvedConstraint> &constraints,
-                               const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters)
-                               : identifier(identifier), constraints(constraints), parameters(parameters) {}
+    ResolvedRule::ResolvedRule(const AbstractIdentifier* identifier, const AbstractResolvedConstraint* constraints,
+                               const std::vector<const ResolvedVarExpr*> &parameters) : identifier(identifier),
+                                                                                        constraints(constraints),
+                                                                                        parameters(parameters) {}
 
     const std::string ResolvedRule::nodeName() const {
         return "ResolvedRule";
@@ -22,5 +22,21 @@ namespace enki {
         for (const auto &param : parameters) {
             param->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* ResolvedRule::getIdentifier() const {
+        return identifier;
+    }
+
+    const AbstractResolvedConstraint* ResolvedRule::getConstraints() const {
+        return constraints;
+    }
+
+    const std::vector<const ResolvedVarExpr*> &ResolvedRule::getParameters() const {
+        return parameters;
+    }
+
+    ResolvedRule::~ResolvedRule() {
+
     }
 }

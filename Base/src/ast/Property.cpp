@@ -6,8 +6,7 @@
 #include "AbstractNodeVisitor.h"
 
 namespace enki {
-    Property::Property(const std::shared_ptr<AbstractIdentifier> &name,
-                       const std::shared_ptr<AbstractType> &type) : name(name), type(type) {}
+    Property::Property(const AbstractIdentifier* name, const AbstractType* type) : name(name), type(type) {}
 
     const std::string Property::nodeName() const {
         return "Property";
@@ -22,5 +21,17 @@ namespace enki {
 
         name->accept(visitor);
         type->accept(visitor);
+    }
+
+    const AbstractIdentifier* Property::getName() const {
+        return name;
+    }
+
+    const AbstractType* Property::getType() const {
+        return type;
+    }
+
+    Property::~Property() {
+
     }
 }

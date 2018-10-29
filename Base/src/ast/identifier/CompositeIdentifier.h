@@ -12,14 +12,17 @@
 namespace enki {
     class CompositeIdentifier : public AbstractIdentifier {
     public:
-        explicit CompositeIdentifier(const std::vector<std::shared_ptr<AbstractIdentifier>> &identifiers);
+        explicit CompositeIdentifier(const std::vector<const AbstractIdentifier*> &identifiers);
+        ~CompositeIdentifier() override;
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-        const std::vector<std::shared_ptr<AbstractIdentifier>> &ids() const;
+        const std::vector<const AbstractIdentifier*> &getIdentifiers() const;
+
+        const std::vector<const VarIdentifier*> variables() const override;
 
     protected:
         UnificationResult unify(const CompositeIdentifier* other) const override;
@@ -29,11 +32,8 @@ namespace enki {
         UnificationResult unify(const VarIdentifier* other) const override;
         UnificationResult unify(const WordIdentifier* other) const override;
 
-    public:
-        const std::vector<VarIdentifier*> variables() const override;
-
     private:
-        const std::vector<std::shared_ptr<AbstractIdentifier>> identifiers;
+        const std::vector<const AbstractIdentifier*> identifiers;
     };
 }
 

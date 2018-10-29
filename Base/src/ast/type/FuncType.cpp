@@ -6,7 +6,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    FuncType::FuncType(const std::shared_ptr<AbstractType> &inType, const std::shared_ptr<AbstractType> &outType)
+    FuncType::FuncType(const AbstractType* inType, const AbstractType* outType)
             : inType(inType), outType(outType) {}
 
     const std::string FuncType::nodeName() const {
@@ -22,5 +22,17 @@ namespace enki {
 
         inType->accept(visitor);
         outType->accept(visitor);
+    }
+
+    const AbstractType* FuncType::getInType() const {
+        return inType;
+    }
+
+    const AbstractType* FuncType::getOutType() const {
+        return outType;
+    }
+
+    FuncType::~FuncType() {
+
     }
 }

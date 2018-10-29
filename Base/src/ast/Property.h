@@ -13,16 +13,22 @@
 namespace enki {
     class Property : AbstractNode {
     public:
-        Property(const std::shared_ptr<AbstractIdentifier> &name, const std::shared_ptr<AbstractType> &type);
+        Property(const AbstractIdentifier* name, const AbstractType* type);
+
+        virtual ~Property();
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractIdentifier* getName() const;
+
+        const AbstractType* getType() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> name;
-        const std::shared_ptr<AbstractType> type;
+        const AbstractIdentifier* name;
+        const AbstractType* type;
     };
 }
 

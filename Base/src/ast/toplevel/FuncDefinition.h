@@ -13,18 +13,24 @@
 namespace enki {
     class FuncDefinition : public AbstractDefinition {
     public:
-        FuncDefinition(const std::shared_ptr<AbstractIdentifier> &funcId,
-                       const std::shared_ptr<AbstractConstraint> &constraint);
+        FuncDefinition(const AbstractIdentifier* funcId, const AbstractConstraint* constraint,
+                       const AbstractIdentifier* val);
+
+        virtual ~FuncDefinition();
 
         const std::string to_string() const override;
+        const std::string nodeName() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-        const std::string nodeName() const override;
+        const AbstractIdentifier* getFuncId() const;
+        const AbstractConstraint* getConstraint() const;
+        const AbstractIdentifier* getVal() const;
 
     private:
-        const std::shared_ptr<AbstractIdentifier> funcId;
-        const std::shared_ptr<AbstractConstraint> constraint;
+        const AbstractIdentifier* funcId;
+        const AbstractConstraint* constraint;
+        const AbstractIdentifier* val;
     };
 }
 

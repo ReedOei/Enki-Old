@@ -33,12 +33,8 @@ namespace enki {
         return varName;
     }
 
-    const std::vector<VarIdentifier*> VarIdentifier::variables() const {
-        std::vector<VarIdentifier*> v;
-
-        v.push_back(std::make_shared<VarIdentifier>(varName).get());
-
-        return v;
+    const std::vector<const VarIdentifier*> VarIdentifier::variables() const {
+        return std::vector<const VarIdentifier*> {this};
     }
 
     UnificationResult VarIdentifier::unify(const CompositeIdentifier* other) const {
@@ -63,5 +59,9 @@ namespace enki {
 
     UnificationResult VarIdentifier::unify(const WordIdentifier* other) const {
         return UnificationResult(this, other);
+    }
+
+    VarIdentifier::~VarIdentifier() {
+
     }
 }

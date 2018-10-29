@@ -10,6 +10,8 @@
 namespace enki {
     class AbstractResolvedTypeConstructor : public AbstractResolvedDefinition {
     public:
+        virtual ~AbstractResolvedTypeConstructor();
+
         virtual const std::string constructorTypeName() const = 0;
     };
 }

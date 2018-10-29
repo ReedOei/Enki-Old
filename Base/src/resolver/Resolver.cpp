@@ -6,43 +6,77 @@
 #include "expression/ResolvedIntLiteral.h"
 #include "../ast/identifier/IntegerLiteral.h"
 #include "../ast/identifier/TextLiteral.h"
+#include "../ast/identifier/WordIdentifier.h"
+#include "../ast/identifier/VarIdentifier.h"
+#include "../ast/identifier/SymbolIdentifier.h"
+#include "../ast/toplevel/FuncDefinition.h"
 #include "definition/ResolvedFunction.h"
 #include "expression/ResolvedFuncExpr.h"
 
 namespace enki {
     Resolver::Resolver() = default;
 
-    const std::shared_ptr<ResolvedIntLiteral> Resolver::resolve(const std::shared_ptr<IntegerLiteral> &literal) {
-        return std::make_shared<ResolvedIntLiteral>(literal->value());
+    const ResolvedIntLiteral* Resolver::resolve(const IntegerLiteral* literal) {
+        return new ResolvedIntLiteral(literal->value());
     }
 
-    const std::shared_ptr<ResolvedTextLiteral> Resolver::resolve(const std::shared_ptr<TextLiteral> &literal) {
-        return std::make_shared<ResolvedTextLiteral>(literal->value());
+    const ResolvedTextLiteral* Resolver::resolve(const TextLiteral* literal) {
+        return new ResolvedTextLiteral(literal->value());
     }
 
-    const std::optional<std::shared_ptr<AbstractResolvedNode>> Resolver::resolve(const std::shared_ptr<AbstractIdentifier> &id) {
+    const Error<AbstractResolvedNode> Resolver::resolve(const AbstractIdentifier* id) {
         for (const auto &identifier : knownIdentifiers) {
-            if (id->tryUnify(reinterpret_cast<const AbstractIdentifier*>(identifier.first.get())).succeeded()) {
-                return identifier.second;
+            if (id->tryUnify(reinterpret_cast<const AbstractIdentifier*>(identifier.first)).succeeded()) {
+                return Error<AbstractResolvedNode>(identifier.second);
             }
         }
 
-        return std::optional<std::shared_ptr<AbstractResolvedExpr>>();
+        return Error<AbstractResolvedNode>("Unknown identifier: " + id->to_string());
     }
 
-    const std::shared_ptr<ResolvedFunction> Resolver::resolve(const std::shared_ptr<FuncDefinition> &func) {
-        return std::shared_ptr<ResolvedFunction>();
+    const ResolvedFunction* Resolver::resolve(const FuncDefinition* func) {
+        return createFunction(*this, func);
     }
 
-    const std::optional<std::shared_ptr<AbstractResolvedVal>> Resolver::resolveVal(const std::shared_ptr<AbstractIdentifier> &id) {
+    const Error<AbstractResolvedVal> Resolver::resolveVal(const AbstractIdentifier* id) {
         auto definition = resolve(id);
 
-        if (definition.has_value()) {
-            if (auto func = std::dynamic_pointer_cast<ResolvedFunction>(definition.value())) {
-//                return std::optional(std::make_shared<ResolvedFuncExpr>(func));
+        // Check if this is a function call
+        if (definition.succeeded()) {
+            if (auto func = dynamic_cast<const ResolvedFunction*>(definition.getRight())) {
+                auto unificationResult = id->tryUnify(func->getIdentifier());
+
+                std::vector<const AbstractResolvedVal*> values;
+
+                // Go through each unification pair, and make sure we can resolve every value.
+                // If there's one we can't resolve, then we have to exit
+                for (const auto matchPair : unificationResult.getUnified()) {
+                    auto resolvedOpt = resolveVal(matchPair.first);
+
+                    if (resolvedOpt.succeeded()) {
+                        values.push_back(resolvedOpt.ok());
+                    } else {
+                        // TODO: Replace this with an error message
+
+                        return Error<AbstractResolvedVal>("Could not resolve parameter: " + matchPair.first->to_string());
+                    }
+                }
+
+                return Error<AbstractResolvedVal>(new ResolvedFuncExpr(func, values));
             }
         }
 
-        return std::optional<std::shared_ptr<AbstractResolvedVal>>();
+        // Check if it's some literal value
+        if (auto tl = dynamic_cast<const TextLiteral*>(id)) {
+            return Error<AbstractResolvedVal>(resolve(tl));
+        } else if (auto il = dynamic_cast<const IntegerLiteral*>(id)) {
+            return Error<AbstractResolvedVal>(resolve(il));
+        }
+
+        return Error<AbstractResolvedVal>("Could not resolve identifier: " + id->to_string());
+    }
+
+    Resolver::~Resolver() {
+
     }
 }

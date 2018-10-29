@@ -6,9 +6,9 @@
 
 namespace enki {
     ResolvedImplementation::ResolvedImplementation(
-            const std::shared_ptr<AbstractResolvedType> &implementationType,
-            const std::shared_ptr<ResolvedTypeclass> &typeclass,
-            const std::vector<std::shared_ptr<AbstractResolvedDefinition>> &definitions) : implementationType(
+            const AbstractResolvedType* implementationType,
+            const ResolvedTypeclass* typeclass,
+            const std::vector<const AbstractResolvedDefinition*> &definitions) : implementationType(
             implementationType), typeclass(typeclass), definitions(definitions) {}
 
     const std::string ResolvedImplementation::nodeName() const {
@@ -24,5 +24,21 @@ namespace enki {
         for (const auto &def : definitions) {
             def->accept(visitor);
         }
+    }
+
+    const AbstractResolvedType* ResolvedImplementation::getImplementationType() const {
+        return implementationType;
+    }
+
+    const ResolvedTypeclass* ResolvedImplementation::getTypeclass() const {
+        return typeclass;
+    }
+
+    const std::vector<const AbstractResolvedDefinition*> &ResolvedImplementation::getDefinitions() const {
+        return definitions;
+    }
+
+    ResolvedImplementation::~ResolvedImplementation() {
+
     }
 }

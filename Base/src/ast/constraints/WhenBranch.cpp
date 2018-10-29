@@ -6,8 +6,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    WhenBranch::WhenBranch(const std::shared_ptr<AbstractConstraint> &matcher,
-                           const std::shared_ptr<AbstractConstraint> &constraint)
+    WhenBranch::WhenBranch(const AbstractConstraint* matcher, const AbstractConstraint* constraint)
                            : matcher(matcher), constraint(constraint) {}
 
     const std::string WhenBranch::nodeName() const {
@@ -24,4 +23,14 @@ namespace enki {
     const std::string WhenBranch::to_string() const {
         return "when " + matcher->to_string() + " then: " + constraint->to_string();
     }
+
+    const AbstractConstraint* WhenBranch::getMatcher() const {
+        return matcher;
+    }
+
+    const AbstractConstraint* WhenBranch::getConstraint() const {
+        return constraint;
+    }
+
+    WhenBranch::~WhenBranch() = default;
 }

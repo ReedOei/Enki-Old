@@ -12,16 +12,19 @@
 namespace enki {
     class SingletonConstraint : public AbstractConstraint {
     public:
-        explicit SingletonConstraint(const std::shared_ptr<AbstractIdentifier> &identifier);
+        explicit SingletonConstraint(const AbstractIdentifier* &identifier);
+
+        virtual ~SingletonConstraint();
 
         const std::string nodeName() const override;
-
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const AbstractIdentifier* getIdentifier() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
+        const AbstractIdentifier* identifier;
     };
 }
 

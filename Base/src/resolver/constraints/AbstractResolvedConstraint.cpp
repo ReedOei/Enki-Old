@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedConstraint.h"
+
+enki::AbstractResolvedConstraint::~AbstractResolvedConstraint() {
+
+}

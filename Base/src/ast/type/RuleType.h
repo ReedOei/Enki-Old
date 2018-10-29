@@ -13,15 +13,19 @@
 namespace enki {
     class RuleType : public AbstractType {
     public:
-        explicit RuleType(const std::vector<std::pair<Mode, std::shared_ptr<AbstractType>>> &modes);
+        explicit RuleType(const std::vector<std::pair<Mode, const AbstractType*>> &modes);
+
+        virtual ~RuleType();
 
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
+        const std::vector<std::pair<Mode, const AbstractType*>> &getModes() const;
+
     private:
-        const std::vector<std::pair<Mode, std::shared_ptr<AbstractType>>> modes;
+        const std::vector<std::pair<Mode, const AbstractType*>> modes;
     };
 }
 

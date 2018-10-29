@@ -9,8 +9,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    ConjConstraint::ConjConstraint(const std::vector<std::shared_ptr<AbstractConstraint>> &constraints)
-            : constraints(constraints) {}
+    ConjConstraint::ConjConstraint(const std::vector<const AbstractConstraint*> &constraints) : constraints(constraints) {}
 
     const std::string ConjConstraint::nodeName() const {
         return "ConjConstraint";
@@ -33,4 +32,10 @@ namespace enki {
 
         return boost::algorithm::join(strings, ", and") + ".";
     }
+
+    const std::vector<const AbstractConstraint*> &ConjConstraint::getConstraints() const {
+        return constraints;
+    }
+
+    ConjConstraint::~ConjConstraint() = default;
 }

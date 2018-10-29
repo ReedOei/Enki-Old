@@ -16,18 +16,23 @@
 namespace enki {
     class ResolvedRule : public AbstractResolvedDefinition {
     public:
-        ResolvedRule(const std::shared_ptr<AbstractIdentifier> &identifier,
-                     const std::shared_ptr<AbstractResolvedConstraint> &constraints,
-                     const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters);
+        ResolvedRule(const AbstractIdentifier* identifier, const AbstractResolvedConstraint* constraints,
+                     const std::vector<const ResolvedVarExpr*> &parameters);
+
+        virtual ~ResolvedRule();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const AbstractIdentifier* getIdentifier() const;
+        const AbstractResolvedConstraint* getConstraints() const;
+        const std::vector<const ResolvedVarExpr*> &getParameters() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
-        const std::shared_ptr<AbstractResolvedConstraint> constraints;
-        const std::vector<std::shared_ptr<ResolvedVarExpr>> parameters;
+        const AbstractIdentifier* identifier;
+        const AbstractResolvedConstraint* constraints;
+        const std::vector<const ResolvedVarExpr*> parameters;
     };
 }
 

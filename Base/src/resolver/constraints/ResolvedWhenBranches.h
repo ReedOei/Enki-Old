@@ -15,16 +15,21 @@
 namespace enki {
     class ResolvedWhenBranches : public AbstractResolvedConstraint {
     public:
-        ResolvedWhenBranches(const std::vector<std::shared_ptr<ResolvedWhenBranch>> &branches,
-                             const std::optional<std::shared_ptr<AbstractResolvedConstraint>> &otherwise);
+        ResolvedWhenBranches(const std::vector<const ResolvedWhenBranch*> &branches,
+                             const std::optional<const AbstractResolvedConstraint*> &otherwise);
+
+        virtual ~ResolvedWhenBranches();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const std::vector<const ResolvedWhenBranch*> &getBranches() const;
+        const std::optional<const AbstractResolvedConstraint*> &getOtherwise() const;
+
     private:
-        const std::vector<std::shared_ptr<ResolvedWhenBranch>> branches;
-        const std::optional<std::shared_ptr<AbstractResolvedConstraint>> otherwise;
+        const std::vector<const ResolvedWhenBranch*> branches;
+        const std::optional<const AbstractResolvedConstraint*> otherwise;
     };
 }
 

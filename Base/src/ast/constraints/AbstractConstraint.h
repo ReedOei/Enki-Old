@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractConstraint : public AbstractNode {
-
+    public:
+        virtual ~AbstractConstraint();
     };
 }
 

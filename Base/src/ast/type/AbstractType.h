@@ -28,6 +28,8 @@ namespace enki {
 
     class AbstractType : public AbstractNode {
     public:
+        virtual ~AbstractType();
+
         AbstractType();
     };
 }

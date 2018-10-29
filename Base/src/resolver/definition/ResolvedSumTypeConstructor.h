@@ -17,20 +17,26 @@
 namespace enki {
     class ResolvedSumTypeConstructor : public AbstractResolvedTypeConstructor {
     public:
-        ResolvedSumTypeConstructor(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                   const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters,
-                                   const std::vector<std::shared_ptr<ResolvedTypeConstructor>> &constructors);
+        ResolvedSumTypeConstructor(const AbstractIdentifier* identifier,
+                                   const std::vector<const ResolvedVarExpr*> &parameters,
+                                   const std::vector<const ResolvedTypeConstructor*> &constructors);
+
+        virtual ~ResolvedSumTypeConstructor();
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
         const std::string nodeName() const override;
         const std::string constructorTypeName() const override;
 
-    private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
-        const std::vector<std::shared_ptr<ResolvedVarExpr>> parameters;
+        const AbstractIdentifier* getIdentifier() const;
+        const std::vector<const ResolvedVarExpr*> &getParameters() const;
+        const std::vector<const ResolvedTypeConstructor*> &getConstructors() const;
 
-        const std::vector<std::shared_ptr<ResolvedTypeConstructor>> constructors;
+    private:
+        const AbstractIdentifier* identifier;
+        const std::vector<const ResolvedVarExpr*> parameters;
+
+        const std::vector<const ResolvedTypeConstructor*> constructors;
     };
 }
 

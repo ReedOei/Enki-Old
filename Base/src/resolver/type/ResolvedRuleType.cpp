@@ -6,8 +6,7 @@
 
 namespace enki {
     ResolvedRuleType::ResolvedRuleType(
-            const std::vector<std::shared_ptr<std::pair<std::optional<Mode>, std::shared_ptr<AbstractResolvedType>>>> &types)
-            : types(types) {}
+            const std::vector<std::pair<std::optional<Mode>, const AbstractResolvedType*>> &types) : types(types) {}
 
     const std::string ResolvedRuleType::nodeName() const {
         return "ResolvedRuleType";
@@ -19,8 +18,8 @@ namespace enki {
         s += "(";
 
         for (const auto &t : types) {
-            if (t->first.has_value()) {
-                switch (t->first.value()) {
+            if (t.first.has_value()) {
+                switch (t.first.value()) {
                     case IN:
                         s += "+";
                         break;
@@ -35,7 +34,7 @@ namespace enki {
                 s += "???";
             }
 
-            s += t->second->typeName();
+            s += t.second->typeName();
 
             s += ", ";
         }
@@ -49,7 +48,15 @@ namespace enki {
         visitor.visit(*this);
 
         for (const auto &type : types) {
-            type->second->accept(visitor);
+            type.second->accept(visitor);
         }
+    }
+
+    const std::vector<std::pair<std::optional<Mode>, const AbstractResolvedType*>> &ResolvedRuleType::getTypes() const {
+        return types;
+    }
+
+    ResolvedRuleType::~ResolvedRuleType() {
+
     }
 }

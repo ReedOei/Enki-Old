@@ -14,21 +14,28 @@
 namespace enki {
     class ImplementationDef : public AbstractTopLevel {
     public:
-        ImplementationDef(const std::shared_ptr<AbstractIdentifier> &implementationId,
-                          const std::shared_ptr<AbstractIdentifier> &typeclassId,
-                          const std::vector<std::shared_ptr<AbstractDefinition>> &definitions);
+        ImplementationDef(const AbstractIdentifier* implementationId,
+                          const AbstractIdentifier* typeclassId,
+                          const std::vector<const AbstractDefinition*> &definitions);
+
+        virtual ~ImplementationDef();
 
         const std::string nodeName() const override;
-
         const std::string to_string() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-    private:
-        const std::shared_ptr<AbstractIdentifier> implementationId;
-        const std::shared_ptr<AbstractIdentifier> typeclassId;
+        const AbstractIdentifier* getImplementationId() const;
 
-        const std::vector<std::shared_ptr<AbstractDefinition>> definitions;
+        const AbstractIdentifier* getTypeclassId() const;
+
+        const std::vector<const AbstractDefinition*> &getDefinitions() const;
+
+    private:
+        const AbstractIdentifier* implementationId;
+        const AbstractIdentifier* typeclassId;
+
+        const std::vector<const AbstractDefinition*> definitions;
     };
 }
 

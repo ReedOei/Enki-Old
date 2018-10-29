@@ -15,16 +15,19 @@
 namespace enki {
     class ResolvedRuleType : public AbstractResolvedType {
     public:
-        explicit ResolvedRuleType(
-                const std::vector<std::shared_ptr<std::pair<std::optional<Mode>, std::shared_ptr<AbstractResolvedType>>>> &types);
+        explicit ResolvedRuleType(const std::vector<std::pair<std::optional<Mode>, const AbstractResolvedType*>> &types);
+
+        virtual ~ResolvedRuleType();
 
         const std::string nodeName() const override;
         const std::string typeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const std::vector<std::pair<std::optional<Mode>, const AbstractResolvedType*>> &getTypes() const;
+
     private:
-        const std::vector<std::shared_ptr<std::pair<std::optional<Mode>, std::shared_ptr<AbstractResolvedType>>>> types;
+        const std::vector<std::pair<std::optional<Mode>, const AbstractResolvedType*>> types;
     };
 }
 

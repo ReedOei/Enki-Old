@@ -13,18 +13,21 @@
 namespace enki {
     class RuleDefinition : public AbstractDefinition {
     public:
-        RuleDefinition(const std::shared_ptr<AbstractIdentifier> &ruleId,
-                       const std::shared_ptr<AbstractConstraint> &constraint);
+        RuleDefinition(const AbstractIdentifier* ruleId, const AbstractConstraint* constraint);
+
+        virtual ~RuleDefinition();
 
         const std::string to_string() const override;
+        const std::string nodeName() const override;
 
         void accept(AbstractNodeVisitor &visitor) const override;
 
-        const std::string nodeName() const override;
+        const AbstractIdentifier* getRuleId() const;
+        const AbstractConstraint* getConstraint() const;
 
     private:
-        const std::shared_ptr<AbstractIdentifier> ruleId;
-        const std::shared_ptr<AbstractConstraint> constraint;
+        const AbstractIdentifier* ruleId;
+        const AbstractConstraint* constraint;
     };
 }
 

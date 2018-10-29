@@ -6,7 +6,7 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    Runnable::Runnable(const std::shared_ptr<AbstractConstraint> &constraint) : constraint(constraint) {}
+    Runnable::Runnable(const AbstractConstraint* constraint) : constraint(constraint) {}
 
     const std::string Runnable::nodeName() const {
         return "Runnable";
@@ -19,5 +19,13 @@ namespace enki {
     void Runnable::accept(AbstractNodeVisitor &visitor) const {
         visitor.visit(*this);
         constraint->accept(visitor);
+    }
+
+    const AbstractConstraint* Runnable::getConstraint() const {
+        return constraint;
+    }
+
+    Runnable::~Runnable() {
+
     }
 }

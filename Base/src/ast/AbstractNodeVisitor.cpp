@@ -3,3 +3,7 @@
 //
 
 #include "AbstractNodeVisitor.h"
+
+enki::AbstractNodeVisitor::~AbstractNodeVisitor() {
+
+}

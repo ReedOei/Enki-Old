@@ -13,6 +13,8 @@ namespace enki {
     public:
         explicit DefaultNodeVisitor(T t);
 
+        virtual ~DefaultNodeVisitor();
+
         void visit(const ConjConstraint &constraint) override;
         void visit(const SingletonConstraint &constraint) override;
         void visit(const WhenBranch &branch) override;

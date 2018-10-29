@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by roei on 18/10/18.
 //
@@ -7,9 +9,9 @@
 #include "../AbstractNodeVisitor.h"
 
 namespace enki {
-    SumTypeConstructorDef::SumTypeConstructorDef(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                                 const std::vector<std::shared_ptr<AbstractTypeConstructorDef>> &variants)
-            : identifier(identifier), variants(variants) {}
+    SumTypeConstructorDef::SumTypeConstructorDef(const AbstractIdentifier* identifier,
+                                                 std::vector<const AbstractTypeConstructorDef*> variants)
+            : identifier(identifier), variants(std::move(variants)) {}
 
     const std::string enki::SumTypeConstructorDef::nodeName() const {
         return "SumTypeConstructorDef";
@@ -33,5 +35,17 @@ namespace enki {
         for (const auto &variant : variants) {
             variant->accept(visitor);
         }
+    }
+
+    const AbstractIdentifier* SumTypeConstructorDef::getIdentifier() const {
+        return identifier;
+    }
+
+    const std::vector<const AbstractTypeConstructorDef*> &SumTypeConstructorDef::getVariants() const {
+        return variants;
+    }
+
+    SumTypeConstructorDef::~SumTypeConstructorDef() {
+
     }
 }

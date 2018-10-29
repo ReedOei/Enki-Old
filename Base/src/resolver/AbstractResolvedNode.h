@@ -14,7 +14,9 @@ namespace enki {
     public:
         AbstractResolvedNode();
         explicit AbstractResolvedNode(const std::string &id);
-        
+
+        virtual ~AbstractResolvedNode();
+
         virtual void accept(AbstractResolvedNodeVisitor &visitor) const = 0;
 
         virtual const std::string nodeName() const = 0;

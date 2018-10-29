@@ -12,6 +12,8 @@ namespace enki {
     public:
         explicit SymbolIdentifier(const std::string &symbol);
 
+        virtual ~SymbolIdentifier();
+
         const std::string nodeName() const override;
         const std::string to_string() const override;
 
@@ -19,7 +21,7 @@ namespace enki {
 
         const std::string &value() const;
 
-        const std::vector<VarIdentifier*> variables() const override;
+        const std::vector<const VarIdentifier*> variables() const override;
 
     protected:
         UnificationResult unify(const CompositeIdentifier* other) const override;

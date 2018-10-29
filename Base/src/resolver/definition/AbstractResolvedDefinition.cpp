@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedDefinition.h"
+
+enki::AbstractResolvedDefinition::~AbstractResolvedDefinition() {
+
+}
