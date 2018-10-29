@@ -5,6 +5,7 @@
 #ifndef BASE_RULEDEFINITION_H
 #define BASE_RULEDEFINITION_H
 
+#include <memory>
 #include "AbstractDefinition.h"
 #include "../identifier/AbstractIdentifier.h"
 #include "../constraints/AbstractConstraint.h"
@@ -14,7 +15,15 @@ namespace enki {
     public:
         RuleDefinition(const AbstractIdentifier* ruleId, const AbstractConstraint* constraint);
 
+        virtual ~RuleDefinition();
+
+        const std::string to_string() const override;
         const std::string nodeName() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
+
+        const AbstractIdentifier* getRuleId() const;
+        const AbstractConstraint* getConstraint() const;
 
     private:
         const AbstractIdentifier* ruleId;

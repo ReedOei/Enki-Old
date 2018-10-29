@@ -5,8 +5,8 @@
 #include "ResolvedWhenBranches.h"
 
 namespace enki {
-    ResolvedWhenBranches::ResolvedWhenBranches(const std::vector<std::shared_ptr<ResolvedWhenBranch>> &branches,
-                                               const std::optional<std::shared_ptr<AbstractResolvedConstraint>> &otherwise)
+    ResolvedWhenBranches::ResolvedWhenBranches(const std::vector<const ResolvedWhenBranch*> &branches,
+                                               const std::optional<const AbstractResolvedConstraint*> &otherwise)
             : branches(branches), otherwise(otherwise) {}
 
     const std::string ResolvedWhenBranches::nodeName() const {
@@ -23,5 +23,17 @@ namespace enki {
         if (otherwise.has_value()) {
             otherwise.value()->accept(visitor);
         }
+    }
+
+    const std::vector<const ResolvedWhenBranch*> &ResolvedWhenBranches::getBranches() const {
+        return branches;
+    }
+
+    const std::optional<const AbstractResolvedConstraint*> &ResolvedWhenBranches::getOtherwise() const {
+        return otherwise;
+    }
+
+    ResolvedWhenBranches::~ResolvedWhenBranches() {
+
     }
 }

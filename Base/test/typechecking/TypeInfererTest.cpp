@@ -31,6 +31,6 @@ void test_basic_infer_int(int i) {
     RC_ASSERT(typed->getType().value()->typeName() == "Int");
 }
 
-TEST_CASE("test_basic_infer_int") {
-    rc::prop("test basic type inferrence for integers", test_basic_infer_int);
-}
+//TEST_CASE("test_basic_infer_int") {
+//    rc::prop("test basic type inferrence for integers", test_basic_infer_int);
+//}

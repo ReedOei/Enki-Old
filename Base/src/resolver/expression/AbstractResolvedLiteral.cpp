@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedLiteral.h"
+
+enki::AbstractResolvedLiteral::~AbstractResolvedLiteral() {
+
+}

@@ -18,4 +18,8 @@ namespace enki {
     void ResolvedBuiltinType::accept(AbstractResolvedNodeVisitor &visitor) const {
         visitor.visit(*this);
     }
+
+    ResolvedBuiltinType::~ResolvedBuiltinType() {
+
+    }
 }

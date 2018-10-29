@@ -5,10 +5,10 @@
 #include "ResolvedProperty.h"
 
 namespace enki {
-    ResolvedProperty::ResolvedProperty(const std::shared_ptr<AbstractIdentifier> &identifier,
-                                       const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters,
-                                       const std::shared_ptr<AbstractResolvedType> &type) : identifier(
-            identifier), parameters(parameters), type(type) {}
+    ResolvedProperty::ResolvedProperty(const AbstractIdentifier* identifier,
+                                       const std::vector<const ResolvedVarExpr*> &parameters,
+                                       const AbstractResolvedType* type) : identifier(identifier),
+                                                                           parameters(parameters), type(type) {}
 
     const std::string ResolvedProperty::nodeName() const {
         return "ResolvedPropery";
@@ -22,5 +22,21 @@ namespace enki {
         }
 
         type->accept(visitor);
+    }
+
+    const AbstractIdentifier* ResolvedProperty::getIdentifier() const {
+        return identifier;
+    }
+
+    const std::vector<const ResolvedVarExpr*> &ResolvedProperty::getParameters() const {
+        return parameters;
+    }
+
+    const AbstractResolvedType* ResolvedProperty::getType() const {
+        return type;
+    }
+
+    ResolvedProperty::~ResolvedProperty() {
+
     }
 }

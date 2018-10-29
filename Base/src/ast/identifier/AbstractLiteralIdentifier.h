@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractLiteralIdentifier : public AbstractIdentifier {
-
+    public:
+        ~AbstractLiteralIdentifier() override;
     };
 }
 

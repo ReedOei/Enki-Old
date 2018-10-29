@@ -33,6 +33,8 @@ namespace enki {
 
     class AbstractResolvedNodeVisitor {
     public:
+        virtual ~AbstractResolvedNodeVisitor();
+
         // Constraints
         virtual void visit(const ResolvedConjConstraint &constraint) = 0;
         virtual void visit(const ResolvedSingletonConstraint &constraint) = 0;

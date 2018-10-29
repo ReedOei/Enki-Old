@@ -10,6 +10,8 @@
 namespace enki {
     class AbstractResolvedType : public AbstractResolvedNode {
     public:
+        virtual ~AbstractResolvedType();
+
         virtual const std::string typeName() const = 0;
     };
 }

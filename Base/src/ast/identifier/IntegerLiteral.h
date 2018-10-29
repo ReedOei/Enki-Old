@@ -11,12 +11,24 @@ namespace enki {
     class IntegerLiteral : public AbstractLiteralIdentifier {
     public:
         explicit IntegerLiteral(int val);
-        IntegerLiteral(const IntegerLiteral& literal);
-        ~IntegerLiteral();
+        ~IntegerLiteral() override;
 
         const std::string nodeName() const override;
+        const std::string to_string() const override;
 
-        const int getVal() const;
+        void accept(AbstractNodeVisitor &visitor) const override;
+
+        const int value() const;
+
+        const std::vector<const VarIdentifier*> variables() const override;
+
+    protected:
+        UnificationResult unify(const CompositeIdentifier* other) const override;
+        UnificationResult unify(const IntegerLiteral* other) const override;
+        UnificationResult unify(const SymbolIdentifier* other) const override;
+        UnificationResult unify(const TextLiteral* other) const override;
+        UnificationResult unify(const VarIdentifier* other) const override;
+        UnificationResult unify(const WordIdentifier* other) const override;
 
     private:
         const int val;

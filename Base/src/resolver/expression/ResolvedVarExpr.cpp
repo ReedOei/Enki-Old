@@ -5,8 +5,7 @@
 #include "ResolvedVarExpr.h"
 
 namespace enki {
-    ResolvedVarExpr::ResolvedVarExpr(const std::string &varName,
-                                     const std::shared_ptr<AbstractResolvedDefinition> &binder,
+    ResolvedVarExpr::ResolvedVarExpr(const std::string &varName, const AbstractResolvedDefinition* binder,
                                      const int binderPosition) : varName(varName), binder(binder),
                                                                  binderPosition(binderPosition) {}
 
@@ -22,5 +21,17 @@ namespace enki {
         visitor.visit(*this);
 
         binder->accept(visitor);
+    }
+
+    const AbstractResolvedDefinition* ResolvedVarExpr::getBinder() const {
+        return binder;
+    }
+
+    const int ResolvedVarExpr::getBinderPosition() const {
+        return binderPosition;
+    }
+
+    ResolvedVarExpr::~ResolvedVarExpr() {
+
     }
 }

@@ -13,14 +13,18 @@
 namespace enki {
     class ResolvedConjConstraint : public AbstractResolvedConstraint {
     public:
-        explicit ResolvedConjConstraint(const std::vector<std::shared_ptr<AbstractResolvedConstraint>> &constraints);
+        explicit ResolvedConjConstraint(const std::vector<const AbstractResolvedConstraint*> &constraints);
+
+        virtual ~ResolvedConjConstraint();
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
         const std::string nodeName() const override;
 
+        const std::vector<const AbstractResolvedConstraint*> &getConstraints() const;
+
     private:
-        const std::vector<std::shared_ptr<AbstractResolvedConstraint>> constraints;
+        const std::vector<const AbstractResolvedConstraint*> constraints;
     };
 }
 

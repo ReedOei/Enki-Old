@@ -6,18 +6,33 @@
 #define BASE_TYPECLASSCONSTRAINT_H
 
 
+#include <memory>
 #include "AbstractType.h"
 #include "../identifier/AbstractIdentifier.h"
 
 namespace enki {
     class TypeclassConstraint : public AbstractType {
     public:
-        TypeclassConstraint(const AbstractIdentifier* identifier, const AbstractType* type);
+        TypeclassConstraint(const AbstractIdentifier* typeclassId,
+                            const AbstractIdentifier* typevarId,
+                            const AbstractType* type);
+
+        virtual ~TypeclassConstraint();
 
         const std::string nodeName() const override;
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
+
+        const AbstractIdentifier* getTypeclassId() const;
+
+        const AbstractIdentifier* getTypevarId() const;
+
+        const AbstractType* getType() const;
 
     private:
-        const AbstractIdentifier* identifier;
+        const AbstractIdentifier* typeclassId;
+        const AbstractIdentifier* typevarId;
         const AbstractType* type;
     };
 }

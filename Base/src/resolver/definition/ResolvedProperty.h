@@ -16,19 +16,26 @@
 namespace enki {
     class ResolvedProperty : public AbstractResolvedNode {
     public:
-        ResolvedProperty(const std::shared_ptr<AbstractIdentifier> &identifier,
-                         const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters,
-                         const std::shared_ptr<AbstractResolvedType> &type);
+        ResolvedProperty(const AbstractIdentifier* identifier, const std::vector<const ResolvedVarExpr*> &parameters,
+                         const AbstractResolvedType* type);
+
+        virtual ~ResolvedProperty();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
-    private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
+        const AbstractIdentifier* getIdentifier() const;
 
-        const std::vector<std::shared_ptr<ResolvedVarExpr>> parameters;
-        const std::shared_ptr<AbstractResolvedType> type;
+        const std::vector<const ResolvedVarExpr*> &getParameters() const;
+
+        const AbstractResolvedType* getType() const;
+
+    private:
+        const AbstractIdentifier* identifier;
+
+        const std::vector<const ResolvedVarExpr*> parameters;
+        const AbstractResolvedType* type;
     };
 }
 

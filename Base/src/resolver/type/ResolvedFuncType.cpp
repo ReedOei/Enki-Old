@@ -5,9 +5,8 @@
 #include "ResolvedFuncType.h"
 
 namespace enki {
-    ResolvedFuncType::ResolvedFuncType(const std::shared_ptr<AbstractResolvedType> &inType,
-                                        const std::shared_ptr<AbstractResolvedType> &outType) : inType(inType),
-                                                                                                outType(outType) {}
+    ResolvedFuncType::ResolvedFuncType(const AbstractResolvedType* inType, const AbstractResolvedType* outType)
+        : inType(inType), outType(outType) {}
 
     const std::string ResolvedFuncType::nodeName() const {
         return "ResolvedFuncType";
@@ -22,5 +21,17 @@ namespace enki {
 
         inType->accept(visitor);
         outType->accept(visitor);
+    }
+
+    const AbstractResolvedType* ResolvedFuncType::getInType() const {
+        return inType;
+    }
+
+    const AbstractResolvedType* ResolvedFuncType::getOutType() const {
+        return outType;
+    }
+
+    ResolvedFuncType::~ResolvedFuncType() {
+
     }
 }

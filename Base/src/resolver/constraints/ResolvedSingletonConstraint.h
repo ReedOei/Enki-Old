@@ -14,14 +14,18 @@
 namespace enki {
     class ResolvedSingletonConstraint : public AbstractResolvedConstraint {
     public:
-        explicit ResolvedSingletonConstraint(const std::shared_ptr<ResolvedRuleExpr> &rule);
+        explicit ResolvedSingletonConstraint(const ResolvedRuleExpr* rule);
+
+        virtual ~ResolvedSingletonConstraint();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const ResolvedRuleExpr* getRule() const;
+
     private:
-        const std::shared_ptr<ResolvedRuleExpr> rule;
+        const ResolvedRuleExpr* rule;
     };
 }
 

@@ -5,8 +5,7 @@
 #include "ResolvedSingletonConstraint.h"
 
 namespace enki {
-    ResolvedSingletonConstraint::ResolvedSingletonConstraint(const std::shared_ptr<ResolvedRuleExpr> &rule) : rule(
-            rule) {}
+    ResolvedSingletonConstraint::ResolvedSingletonConstraint(const ResolvedRuleExpr* rule) : rule(rule) {}
 
     const std::string ResolvedSingletonConstraint::nodeName() const {
         return "ResolvedSingletonConstraint";
@@ -16,5 +15,13 @@ namespace enki {
         visitor.visit(*this);
 
         rule->accept(visitor);
+    }
+
+    const ResolvedRuleExpr* ResolvedSingletonConstraint::getRule() const {
+        return rule;
+    }
+
+    ResolvedSingletonConstraint::~ResolvedSingletonConstraint() {
+
     }
 }

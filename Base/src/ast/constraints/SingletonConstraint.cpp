@@ -3,10 +3,28 @@
 //
 
 #include "SingletonConstraint.h"
+#include "../AbstractNodeVisitor.h"
 
-enki::SingletonConstraint::SingletonConstraint(const std::shared_ptr<enki::AbstractIdentifier> &identifier)
-        : identifier(identifier) {}
+namespace enki {
+    SingletonConstraint::SingletonConstraint(const AbstractIdentifier* &identifier) : identifier(identifier) {}
 
-const std::string enki::SingletonConstraint::nodeName() const {
-    return "SingletonConstraint";
+    const std::string SingletonConstraint::nodeName() const {
+        return "SingletonConstraint";
+    }
+
+    void SingletonConstraint::accept(AbstractNodeVisitor &visitor) const {
+        visitor.visit(*this);
+
+        identifier->accept(visitor);
+    }
+
+    const std::string SingletonConstraint::to_string() const {
+        return identifier->to_string();
+    }
+
+    const AbstractIdentifier* SingletonConstraint::getIdentifier() const {
+        return identifier;
+    }
+
+    SingletonConstraint::~SingletonConstraint() = default;
 }

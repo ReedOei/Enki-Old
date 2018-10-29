@@ -14,4 +14,12 @@ namespace enki {
     void ResolvedIntLiteral::accept(AbstractResolvedNodeVisitor &visitor) const {
         visitor.visit(*this);
     }
+
+    const int ResolvedIntLiteral::value() const {
+        return v;
+    }
+
+    ResolvedIntLiteral::~ResolvedIntLiteral() {
+
+    }
 }

@@ -14,26 +14,37 @@
 #include "../constraints/AbstractResolvedConstraint.h"
 #include "../expression/ResolvedVarExpr.h"
 #include "../AbstractResolvedNodeVisitor.h"
+#include "../../ast/toplevel/FuncDefinition.h"
 
 namespace enki {
+    class Resolver;
+
+    const ResolvedFunction* createFunction(Resolver &resolver, const FuncDefinition* funcDef);
+
     class ResolvedFunction : public AbstractResolvedDefinition {
     public:
-        ResolvedFunction(const std::shared_ptr<AbstractIdentifier> &identifier,
-                         const std::optional<std::shared_ptr<AbstractResolvedConstraint>> &constraints,
-                         const std::shared_ptr<AbstractResolvedVal> &returnValue,
-                         const std::vector<std::shared_ptr<ResolvedVarExpr>> &parameters);
+        virtual ~ResolvedFunction();
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        friend const ResolvedFunction* createFunction(Resolver &resolver, const FuncDefinition* funcDef);
+
+        const AbstractIdentifier* getIdentifier() const;
+        const std::optional<const AbstractResolvedConstraint*> &getConstraints() const;
+        AbstractResolvedVal* getReturnValue() const;
+        const std::vector<const ResolvedVarExpr*> &getParameters() const;
+
     private:
-        const std::shared_ptr<AbstractIdentifier> identifier;
+        explicit ResolvedFunction(const AbstractIdentifier* identifier);
 
-        const std::optional<std::shared_ptr<AbstractResolvedConstraint>> constraints;
-        const std::shared_ptr<AbstractResolvedVal> returnValue;
+        const AbstractIdentifier* identifier;
 
-        const std::vector<std::shared_ptr<ResolvedVarExpr>> parameters;
+        std::optional<const AbstractResolvedConstraint*> constraints;
+        AbstractResolvedVal* returnValue;
+
+        std::vector<const ResolvedVarExpr*> parameters;
     };
 }
 

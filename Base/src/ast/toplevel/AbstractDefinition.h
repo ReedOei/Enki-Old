@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractDefinition : public AbstractTopLevel {
-
+    public:
+        virtual ~AbstractDefinition();
     };
 }
 

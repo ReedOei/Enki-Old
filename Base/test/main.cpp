@@ -6,4 +6,3 @@
 
 #include <catch.hpp>
 #include "typechecking/TypeInfererTest.h"
-

@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractResolvedDefinition : public AbstractResolvedNode {
-
+    public:
+        virtual ~AbstractResolvedDefinition();
     };
 }
 

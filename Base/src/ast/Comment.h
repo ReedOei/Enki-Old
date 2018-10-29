@@ -12,7 +12,12 @@ namespace enki {
     public:
         explicit Comment(const std::string &str);
 
+        virtual ~Comment();
+
         const std::string nodeName() const override;
+        const std::string to_string() const override;
+
+        void accept(AbstractNodeVisitor &visitor) const override;
 
         const std::string &string() const;
 

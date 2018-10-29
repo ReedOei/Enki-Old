@@ -10,6 +10,7 @@
 namespace enki {
     class AbstractResolvedVal : public AbstractResolvedExpr {
     public:
+        virtual ~AbstractResolvedVal();
 
     };
 }

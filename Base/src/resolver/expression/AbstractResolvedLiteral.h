@@ -9,7 +9,8 @@
 
 namespace enki {
     class AbstractResolvedLiteral : public AbstractResolvedVal {
-
+    public:
+        virtual ~AbstractResolvedLiteral();
     };
 }
 

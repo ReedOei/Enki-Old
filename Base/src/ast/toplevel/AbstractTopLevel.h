@@ -9,6 +9,8 @@
 
 namespace enki {
     class AbstractTopLevel : public AbstractNode {
+    public:
+        virtual ~AbstractTopLevel();
     };
 }
 

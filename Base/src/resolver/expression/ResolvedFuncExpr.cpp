@@ -5,9 +5,9 @@
 #include "ResolvedFuncExpr.h"
 
 namespace enki {
-    ResolvedFuncExpr::ResolvedFuncExpr(const std::shared_ptr<ResolvedFunction> &function,
-                                       const std::vector<std::shared_ptr<AbstractResolvedVal>> &values)
-            : function(function), values(values) {}
+    ResolvedFuncExpr::ResolvedFuncExpr(const ResolvedFunction* function,
+                                       const std::vector<const AbstractResolvedVal*> &values) : function(function),
+                                                                                                values(values) {}
 
     const std::string ResolvedFuncExpr::nodeName() const {
         return "ResolvedFuncExpr";
@@ -21,5 +21,17 @@ namespace enki {
         for (const auto &val : values) {
             val->accept(visitor);
         }
+    }
+
+    const ResolvedFunction* ResolvedFuncExpr::getFunction() const {
+        return function;
+    }
+
+    const std::vector<const AbstractResolvedVal*> &ResolvedFuncExpr::getValues() const {
+        return values;
+    }
+
+    ResolvedFuncExpr::~ResolvedFuncExpr() {
+
     }
 }

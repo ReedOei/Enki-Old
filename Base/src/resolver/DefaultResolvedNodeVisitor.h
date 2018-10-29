@@ -7,11 +7,18 @@
 
 #include "AbstractResolvedNodeVisitor.h"
 
+#include "constraints/ResolvedConjConstraint.h"
+#include "constraints/ResolvedWhenBranches.h"
+#include "constraints/ResolvedSingletonConstraint.h"
+#include "constraints/ResolvedWhenBranch.h"
+
 namespace enki {
     template <typename T>
     class DefaultResolvedNodeVisitor : public AbstractResolvedNodeVisitor {
     public:
         explicit DefaultResolvedNodeVisitor(T t) : t(t) {}
+
+        virtual ~DefaultResolvedNodeVisitor();
 
         void visit(const ResolvedConjConstraint &constraint) override;
         void visit(const ResolvedSingletonConstraint &constraint) override;
@@ -34,6 +41,8 @@ namespace enki {
         void visit(const ResolvedFuncType &funcType) override;
         void visit(const ResolvedRuleType &ruleType) override;
         void visit(const ResolvedTypeclassConstraint &typeclassConstraint) override;
+
+        const T &visitorValue() const;
 
     private:
         T t;

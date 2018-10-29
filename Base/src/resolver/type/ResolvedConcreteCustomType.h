@@ -14,17 +14,22 @@
 namespace enki {
     class ResolvedConcreteCustomType : public AbstractResolvedType {
     public:
-        ResolvedConcreteCustomType(const std::shared_ptr<AbstractResolvedTypeConstructor> &constructor,
-                                   const std::vector<std::shared_ptr<AbstractResolvedType>> &typeParameters);
+        ResolvedConcreteCustomType(const AbstractResolvedTypeConstructor* constructor,
+                                   const std::vector<const AbstractResolvedType*> &typeParameters);
+
+        virtual ~ResolvedConcreteCustomType();
 
         const std::string nodeName() const override;
         const std::string typeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
+        const AbstractResolvedTypeConstructor* getConstructor() const;
+        const std::vector<const AbstractResolvedType*> &getTypeParameters() const;
+
     private:
-        const std::shared_ptr<AbstractResolvedTypeConstructor> constructor;
-        const std::vector<std::shared_ptr<AbstractResolvedType>> typeParameters;
+        const AbstractResolvedTypeConstructor* constructor;
+        const std::vector<const AbstractResolvedType*> typeParameters;
     };
 }
 

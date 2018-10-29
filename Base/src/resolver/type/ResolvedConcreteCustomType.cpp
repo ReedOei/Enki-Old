@@ -5,10 +5,9 @@
 #include "ResolvedConcreteCustomType.h"
 
 namespace enki {
-    ResolvedConcreteCustomType::ResolvedConcreteCustomType(
-            const std::shared_ptr<AbstractResolvedTypeConstructor> &constructor,
-            const std::vector<std::shared_ptr<AbstractResolvedType>> &typeParameters) : constructor(constructor),
-                                                                                        typeParameters(typeParameters) {}
+    ResolvedConcreteCustomType::ResolvedConcreteCustomType(const AbstractResolvedTypeConstructor* constructor,
+                                                           const std::vector<const AbstractResolvedType*> &typeParameters)
+            : constructor(constructor), typeParameters(typeParameters) {}
 
     const std::string ResolvedConcreteCustomType::nodeName() const {
         return "ResolvedConcreteCustomType";
@@ -26,5 +25,17 @@ namespace enki {
         for (const auto &typeParam : typeParameters) {
             typeParam->accept(visitor);
         }
+    }
+
+    const AbstractResolvedTypeConstructor* ResolvedConcreteCustomType::getConstructor() const {
+        return constructor;
+    }
+
+    const std::vector<const AbstractResolvedType*> &ResolvedConcreteCustomType::getTypeParameters() const {
+        return typeParameters;
+    }
+
+    ResolvedConcreteCustomType::~ResolvedConcreteCustomType() {
+
     }
 }

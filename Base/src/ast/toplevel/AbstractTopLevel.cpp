@@ -3,3 +3,7 @@
 //
 
 #include "AbstractTopLevel.h"
+
+enki::AbstractTopLevel::~AbstractTopLevel() {
+
+}

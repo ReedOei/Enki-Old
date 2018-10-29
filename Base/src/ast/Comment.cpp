@@ -3,13 +3,28 @@
 //
 
 #include "Comment.h"
+#include "AbstractNodeVisitor.h"
 
-const std::string & enki::Comment::string() const {
-    return str;
-}
+namespace enki {
+    Comment::Comment(const std::string &str) : str(str) {}
 
-enki::Comment::Comment(const std::string &str) : str(str) {}
+    const std::string &Comment::string() const {
+        return str;
+    }
 
-const std::string enki::Comment::nodeName() const {
-    return "Comment";
+    const std::string Comment::nodeName() const {
+        return "Comment";
+    }
+
+    const std::string Comment::to_string() const {
+        return "-- " + string();
+    }
+
+    void Comment::accept(AbstractNodeVisitor &visitor) const {
+        visitor.visit(*this);
+    }
+
+    Comment::~Comment() {
+
+    }
 }

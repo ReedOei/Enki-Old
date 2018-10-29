@@ -3,3 +3,7 @@
 //
 
 #include "AbstractResolvedVal.h"
+
+enki::AbstractResolvedVal::~AbstractResolvedVal() {
+
+}

@@ -3,3 +3,7 @@
 //
 
 #include "AbstractTypeConstructorDef.h"
+
+enki::AbstractTypeConstructorDef::~AbstractTypeConstructorDef() {
+
+}
