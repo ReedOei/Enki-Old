@@ -13,10 +13,10 @@
 namespace enki {
     class FuncDefinition : public AbstractDefinition {
     public:
-        FuncDefinition(const AbstractIdentifier* funcId, const AbstractConstraint* constraint,
+        FuncDefinition(const AbstractIdentifier* funcId, const std::optional<const AbstractConstraint*> &constraint,
                        const AbstractIdentifier* val);
 
-        virtual ~FuncDefinition();
+        ~FuncDefinition() override;
 
         const std::string to_string() const override;
         const std::string nodeName() const override;
@@ -24,12 +24,12 @@ namespace enki {
         void accept(AbstractNodeVisitor &visitor) const override;
 
         const AbstractIdentifier* getFuncId() const;
-        const AbstractConstraint* getConstraint() const;
+        const std::optional<const AbstractConstraint*> getConstraint() const;
         const AbstractIdentifier* getVal() const;
 
     private:
         const AbstractIdentifier* funcId;
-        const AbstractConstraint* constraint;
+        const std::optional<const AbstractConstraint*> constraint;
         const AbstractIdentifier* val;
     };
 }

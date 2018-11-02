@@ -43,6 +43,19 @@ namespace enki {
             }
         }
 
+        template <typename U>
+        const Error<U> bind(const std::function<Error<U>(const T*)> &f) const {
+            if (succeeded()) {
+                return f(this->getRight());
+            } else {
+                return Error<U>(msg);
+            }
+        }
+
+        const std::string &getMsg() const {
+            return msg;
+        }
+
     private:
         std::string msg;
     };

@@ -8,6 +8,7 @@ namespace enki {
     ResolvedFuncExpr::ResolvedFuncExpr(const ResolvedFunction* function,
                                        const std::vector<const AbstractResolvedVal*> &values) : function(function),
                                                                                                 values(values) {}
+    ResolvedFuncExpr::~ResolvedFuncExpr() = default;
 
     const std::string ResolvedFuncExpr::nodeName() const {
         return "ResolvedFuncExpr";
@@ -29,9 +30,5 @@ namespace enki {
 
     const std::vector<const AbstractResolvedVal*> &ResolvedFuncExpr::getValues() const {
         return values;
-    }
-
-    ResolvedFuncExpr::~ResolvedFuncExpr() {
-
     }
 }

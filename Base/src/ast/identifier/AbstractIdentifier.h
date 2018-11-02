@@ -23,8 +23,7 @@ namespace enki {
     class AbstractIdentifier : public AbstractNode {
     public:
         AbstractIdentifier();
-
-        virtual ~AbstractIdentifier();
+        ~AbstractIdentifier() override;
 
         UnificationResult tryUnify(const AbstractIdentifier* other) const;
 

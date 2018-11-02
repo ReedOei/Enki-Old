@@ -15,25 +15,26 @@
 #include "../expression/ResolvedVarExpr.h"
 #include "../AbstractResolvedNodeVisitor.h"
 #include "../../ast/toplevel/FuncDefinition.h"
+#include "../../util/Error.h"
 
 namespace enki {
     class Resolver;
 
-    const ResolvedFunction* createFunction(Resolver &resolver, const FuncDefinition* funcDef);
+    const Error<ResolvedFunction> createFunction(Resolver &resolver, const FuncDefinition* funcDef);
 
     class ResolvedFunction : public AbstractResolvedDefinition {
     public:
-        virtual ~ResolvedFunction();
+        ~ResolvedFunction() override;
 
         const std::string nodeName() const override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 
-        friend const ResolvedFunction* createFunction(Resolver &resolver, const FuncDefinition* funcDef);
+        friend const Error<ResolvedFunction> createFunction(Resolver &resolver, const FuncDefinition* funcDef);
 
         const AbstractIdentifier* getIdentifier() const;
         const std::optional<const AbstractResolvedConstraint*> &getConstraints() const;
-        AbstractResolvedVal* getReturnValue() const;
+        const AbstractResolvedVal* getReturnValue() const;
         const std::vector<const ResolvedVarExpr*> &getParameters() const;
 
     private:
@@ -42,7 +43,7 @@ namespace enki {
         const AbstractIdentifier* identifier;
 
         std::optional<const AbstractResolvedConstraint*> constraints;
-        AbstractResolvedVal* returnValue;
+        const AbstractResolvedVal* returnValue;
 
         std::vector<const ResolvedVarExpr*> parameters;
     };
