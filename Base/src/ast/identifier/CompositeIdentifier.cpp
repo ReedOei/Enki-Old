@@ -101,7 +101,8 @@ namespace enki {
         std::vector<const VarIdentifier*> variables;
 
         for (const auto &identifier : identifiers) {
-            variables.insert(variables.end(), identifier->variables().begin(), identifier->variables().end());
+            auto vars = identifier->variables();
+            variables.insert(variables.end(), vars.begin(), vars.end());
         }
 
         return variables;

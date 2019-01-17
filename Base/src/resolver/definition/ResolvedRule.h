@@ -18,8 +18,7 @@ namespace enki {
     public:
         ResolvedRule(const AbstractIdentifier* identifier, const AbstractResolvedConstraint* constraints,
                      const std::vector<const ResolvedVarExpr*> &parameters);
-
-        virtual ~ResolvedRule();
+        ~ResolvedRule() override;
 
         const std::string nodeName() const override;
 

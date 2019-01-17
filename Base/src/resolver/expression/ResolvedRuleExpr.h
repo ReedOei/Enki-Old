@@ -12,9 +12,8 @@
 namespace enki {
     class ResolvedRuleExpr : public AbstractResolvedExpr {
     public:
-        virtual ~ResolvedRuleExpr();
-
         ResolvedRuleExpr(const ResolvedRule* rule, std::vector<const AbstractResolvedVal*> values);
+        ~ResolvedRuleExpr() override;
 
         const std::string nodeName() const override;
 

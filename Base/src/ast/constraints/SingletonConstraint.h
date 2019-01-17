@@ -13,8 +13,7 @@ namespace enki {
     class SingletonConstraint : public AbstractConstraint {
     public:
         explicit SingletonConstraint(const AbstractIdentifier* &identifier);
-
-        virtual ~SingletonConstraint();
+        ~SingletonConstraint() override;
 
         const std::string nodeName() const override;
         const std::string to_string() const override;

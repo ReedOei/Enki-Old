@@ -13,8 +13,7 @@ namespace enki {
     class ResolvedFuncExpr : public AbstractResolvedVal {
     public:
         ResolvedFuncExpr(const ResolvedFunction* function, const std::vector<const AbstractResolvedVal*> &values);
-
-        virtual ~ResolvedFuncExpr();
+        ~ResolvedFuncExpr() override;
 
         const std::string nodeName() const override;
 
