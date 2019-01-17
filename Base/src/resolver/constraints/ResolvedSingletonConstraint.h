@@ -15,8 +15,7 @@ namespace enki {
     class ResolvedSingletonConstraint : public AbstractResolvedConstraint {
     public:
         explicit ResolvedSingletonConstraint(const ResolvedRuleExpr* rule);
-
-        virtual ~ResolvedSingletonConstraint();
+        ~ResolvedSingletonConstraint() override;
 
         const std::string nodeName() const override;
 

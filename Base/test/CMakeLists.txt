@@ -3,7 +3,7 @@ project(Test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Test main.cpp typechecking/TypeInfererTest.cpp typechecking/TypeInfererTest.h resolver/ResolverTest.cpp resolver/DefaultResolvedNodeVisitor.cpp resolver/DefaultResolvedNodeVisitor.h resolver/LiteralResolverTest.cpp resolver/IdentifierUnifierTest.cpp)
+add_executable(Test main.cpp typechecking/TypeInfererTest.cpp typechecking/TypeInfererTest.h resolver/ResolverTest.cpp resolver/DefaultResolvedNodeVisitor.cpp resolver/DefaultResolvedNodeVisitor.h resolver/LiteralResolverTest.cpp resolver/IdentifierUnifierTest.cpp resolver/FunctionResolverTest.cpp)
 include_directories(../src)
 include_directories(${CMAKE_BINARY_DIR}/catch/src)
 include_directories(../lib/rapidcheck/extras/catch/include/rapidcheck)

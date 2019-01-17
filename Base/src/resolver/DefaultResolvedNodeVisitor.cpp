@@ -110,13 +110,19 @@ namespace enki {
 
     }
 
+    template <typename T>
+    void DefaultResolvedNodeVisitor<T>::visit(const BuiltinFunction &builtinFunction) {
+    }
+
+    template <typename T>
+    void DefaultResolvedNodeVisitor<T>::visit(const BuiltinRule &builtinRule) {
+    }
+
     template<typename T>
     const T &DefaultResolvedNodeVisitor<T>::visitorValue() const {
         return t;
     }
 
     template<typename T>
-    DefaultResolvedNodeVisitor<T>::~DefaultResolvedNodeVisitor() {
-
-    }
+    DefaultResolvedNodeVisitor<T>::~DefaultResolvedNodeVisitor() = default;
 }
