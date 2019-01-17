@@ -4,8 +4,10 @@
 
 #include "TypeInferer.h"
 
-enki::TypeInferer::TypeInferer() = default;
+namespace enki {
+    TypeInferer::TypeInferer() = default;
 
-const std::optional<enki::TypedNode> enki::TypeInferer::infer(const std::shared_ptr<enki::AbstractNode> node) {
-    return std::optional<enki::TypedNode>();
+    const Error<TypedNode> TypeInferer::infer(const AbstractNode* node) {
+        return Error<TypedNode>("placeholder");
+    }
 }

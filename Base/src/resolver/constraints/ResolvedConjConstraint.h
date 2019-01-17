@@ -14,8 +14,7 @@ namespace enki {
     class ResolvedConjConstraint : public AbstractResolvedConstraint {
     public:
         explicit ResolvedConjConstraint(const std::vector<const AbstractResolvedConstraint*> &constraints);
-
-        virtual ~ResolvedConjConstraint();
+        ~ResolvedConjConstraint() override;
 
         void accept(AbstractResolvedNodeVisitor &visitor) const override;
 

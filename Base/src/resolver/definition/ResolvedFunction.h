@@ -38,13 +38,13 @@ namespace enki {
         const std::vector<const ResolvedVarExpr*> &getParameters() const;
 
     private:
-
         const AbstractIdentifier* identifier;
 
         std::optional<const AbstractResolvedConstraint*> constraints;
         const AbstractResolvedVal* returnValue;
 
         std::vector<const ResolvedVarExpr*> parameters;
+
     protected:
         explicit ResolvedFunction(const AbstractIdentifier* identifier);
     };

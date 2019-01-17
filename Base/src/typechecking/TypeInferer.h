@@ -7,15 +7,17 @@
 
 #include <optional>
 #include <memory>
+
 #include "../ast/AbstractNode.h"
 #include "TypedNode.h"
+#include "../util/Error.h"
 
 namespace enki {
     class TypeInferer {
     public:
         TypeInferer();
 
-        const std::optional<TypedNode> infer(std::shared_ptr<AbstractNode> node);
+        const Error<TypedNode> infer(const AbstractNode* node);
     };
 }
 
