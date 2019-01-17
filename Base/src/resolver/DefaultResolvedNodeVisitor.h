@@ -42,6 +42,10 @@ namespace enki {
         void visit(const ResolvedRuleType &ruleType) override;
         void visit(const ResolvedTypeclassConstraint &typeclassConstraint) override;
 
+        void visit(const BuiltinFunction &builtinFunction) override;
+
+        void visit(const BuiltinRule &builtinRule) override;
+
         const T &visitorValue() const;
 
     private:

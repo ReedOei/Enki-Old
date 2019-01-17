@@ -39,7 +39,7 @@ namespace enki {
                 const AbstractIdentifier* called);
 
     private:
-        std::map<const CompositeIdentifier*, const AbstractResolvedDefinition*> knownIdentifiers;
+        std::map<const AbstractIdentifier*, const AbstractResolvedDefinition*> knownIdentifiers;
     };
 }
 

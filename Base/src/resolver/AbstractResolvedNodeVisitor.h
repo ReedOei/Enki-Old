@@ -31,6 +31,9 @@ namespace enki {
     class ResolvedRuleType;
     class ResolvedTypeclassConstraint;
 
+    class BuiltinFunction;
+    class BuiltinRule;
+
     class AbstractResolvedNodeVisitor {
     public:
         virtual ~AbstractResolvedNodeVisitor();
@@ -63,6 +66,10 @@ namespace enki {
         virtual void visit(const ResolvedFuncType &funcType) = 0;
         virtual void visit(const ResolvedRuleType &ruleType) = 0;
         virtual void visit(const ResolvedTypeclassConstraint& typeclassConstraint) = 0;
+
+        // Builtins
+        virtual void visit(const BuiltinFunction &builtinFunction) = 0;
+        virtual void visit(const BuiltinRule &builtinRule) = 0;
     };
 }
 

@@ -15,6 +15,7 @@
 #include <ast/identifier/unification/UnificationResult.h>
 #include <resolver/definition/ResolvedFunction.h>
 #include <resolver/Resolver.h>
+#include <resolver/ResolverFactory.h>
 
 void resolve_constant_function(const std::vector<std::string> &funcId, int c) {
     RC_PRE(!funcId.empty());
@@ -39,9 +40,11 @@ void resolve_constant_function(const std::vector<std::string> &funcId, int c) {
     enki::IntegerLiteral literal(c);
     enki::FuncDefinition definition(&id, std::optional<const enki::AbstractConstraint*>(), &literal);
 
-    enki::Resolver resolver;
+    enki::ResolverFactory resolverFactory;
 
-    auto resolved = resolver.resolve(&definition);
+    auto newResolver = resolverFactory.create().ok();
+    auto resolver = new enki::Resolver(*newResolver);
+    auto resolved = resolver->resolve(&definition);
 
     RC_ASSERT(resolved.succeeded());
 
@@ -70,6 +73,7 @@ void resolve_constant_function(const std::vector<std::string> &funcId, int c) {
     }
 
     delete resolved.ok();
+    delete resolver;
 }
 
 TEST_CASE("resolve_constant_function") {

@@ -15,7 +15,6 @@ namespace enki {
     public:
         FuncDefinition(const AbstractIdentifier* funcId, const std::optional<const AbstractConstraint*> &constraint,
                        const AbstractIdentifier* val);
-
         ~FuncDefinition() override;
 
         const std::string to_string() const override;

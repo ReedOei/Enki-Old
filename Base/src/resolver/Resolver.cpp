@@ -4,6 +4,7 @@
 
 #include "Resolver.h"
 #include "expression/ResolvedIntLiteral.h"
+#include "../ast/identifier/CompositeIdentifier.h"
 #include "constraints/ResolvedSingletonConstraint.h"
 #include "../ast/constraints/SingletonConstraint.h"
 #include "../ast/constraints/ConjConstraint.h"
@@ -17,6 +18,8 @@
 #include "../ast/toplevel/FuncDefinition.h"
 #include "definition/ResolvedFunction.h"
 #include "expression/ResolvedFuncExpr.h"
+#include "definition/BuiltinFunction.h"
+#include "definition/BuiltinRule.h"
 
 namespace enki {
     Resolver::Resolver() = default;
@@ -32,8 +35,23 @@ namespace enki {
 
     const Error<AbstractResolvedNode> Resolver::resolve(const AbstractIdentifier* id) {
         for (const auto &identifier : knownIdentifiers) {
-            if (id->tryUnify(reinterpret_cast<const AbstractIdentifier*>(identifier.first)).succeeded()) {
+            if (id->tryUnify(identifier.first).succeeded()) {
                 return Error<AbstractResolvedNode>(identifier.second);
+            }
+        }
+
+        if (auto composite = dynamic_cast<const CompositeIdentifier*>(id)) {
+            const auto &ids = composite->getIdentifiers();
+
+            if (!ids.empty()) {
+                if (ids[0]->to_string() == "__builtin_function") {
+                    return Error<AbstractResolvedNode>(new BuiltinFunction(id));
+                }
+
+                // TODO: Handle built-in rules
+//                else if (ids[0]->to_string() == "__builtin_rule") {
+//                    return Error<AbstractResolvedNode>(new BuiltinRule(id));
+//                }
             }
         }
 
@@ -41,7 +59,11 @@ namespace enki {
     }
 
     const Error<ResolvedFunction> Resolver::resolve(const FuncDefinition* func) {
-        return createFunction(*this, func);
+        return createFunction(*this, func).bind<ResolvedFunction>([=](auto resolved) {
+            knownIdentifiers[resolved->getIdentifier()] = resolved;
+
+            return Error<ResolvedFunction>(resolved);
+        });
     }
 
     const Error<AbstractResolvedConstraint> Resolver::resolve(const std::map<std::string, const ResolvedVarExpr*> &vars, const AbstractConstraint* constraint) {
@@ -73,6 +95,11 @@ namespace enki {
                     return Error<AbstractResolvedVal>(new ResolvedFuncExpr(func, *params));
                 });
             }
+//            else if (auto builtinFunc = dynamic_cast<const BuiltinFunction*>(definition.getRight())) {
+//                return resolveParameters(vars, id, builtinFunc->getIdentifier()).bind<AbstractResolvedVal>([=](auto params) {
+//                    return Error<AbstractResolvedVal>(new ResolvedFuncExpr(builtinFunc, params));
+//                });
+//            }
         }
 
         // Check if it's some literal value
@@ -99,15 +126,17 @@ namespace enki {
 
         auto values = new std::vector<const AbstractResolvedVal*>();
 
-        // Go through each unification pair, and make sure we can resolve every value.
+        // Go through each unification pair, and make sure we can resolve every value corresponding to a variable
         // If there's one we can't resolve, then we have to exit
         for (const auto matchPair : unificationResult.getUnified()) {
-            auto resolvedOpt = resolveVal(vars, matchPair.first);
+            if (auto varId = dynamic_cast<const VarIdentifier*>(matchPair.first)) {
+                auto resolvedOpt = resolveVal(vars, varId);
 
-            if (resolvedOpt.succeeded()) {
-                values->push_back(resolvedOpt.ok());
-            } else {
-                return Error<std::vector<const AbstractResolvedVal*>>("Could not resolve parameter: " + matchPair.first->to_string());
+                if (resolvedOpt.succeeded()) {
+                    values->push_back(resolvedOpt.ok());
+                } else {
+                    return Error<std::vector<const AbstractResolvedVal*>>("Could not resolve parameter: " + matchPair.first->to_string());
+                }
             }
         }
 
